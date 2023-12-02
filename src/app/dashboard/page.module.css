@@ -1,0 +1,13 @@
+.wrapper {
+  min-height: 100vh;
+}
+
+.menu-side {
+  width: 300px;
+  background: #fff;
+  border-left: 1px solid #0000003b;
+}
+
+.main-side {
+  max-width: calc(100vw - 300px);
+}
