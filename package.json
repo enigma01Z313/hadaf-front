@@ -7,7 +7,7 @@
     "build": "next build",
     "cp": "cpx out/**/* ../",
     "build2": "next build && cpx out/**/* ../",
-    "start": "next start -p 30002",
+    "start": "next start -p 50002",
     "lint": "next lint"
   },
   "dependencies": {
