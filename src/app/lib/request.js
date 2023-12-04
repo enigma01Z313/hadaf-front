@@ -67,15 +67,29 @@ const post = async (path, body, authed = true) => {
 };
 
 const put = async (path, body, authed = true) => {
-  const data = await request({ path, body, method: "PUT", authed });
+  try {
+    const data = await request({ path, body, method: "PUT", authed });
 
-  return data;
+    return data;
+  } catch (err) {
+    // console.log('err', err);
+    toast.error(err.text);
+
+    return { error: true, ...err };
+  }
 };
 
 const patch = async (path, body, authed = true) => {
-  const data = await request({ path, body, method: "PATCH", authed });
+  try {
+    const data = await request({ path, body, method: "PATCH", authed });
 
-  return data;
+    return data;
+  } catch (err) {
+    // console.log('err', err);
+    toast.error(err.text);
+
+    return { error: true, ...err };
+  }
 };
 
 const remove = async (path, authed = true) => {

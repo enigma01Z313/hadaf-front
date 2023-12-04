@@ -723,6 +723,15 @@ a {
 .w-100 {
   width: 100%;
 }
+.w-50 {
+  width: calc((100% - 20px) / 2);
+}
+.w-33 {
+  width: calc((100% - 40px) / 3);
+}
+.w-25 {
+  width: calc((100% - 60px) / 4);
+}
 .h-100 {
   height: 100%;
 }
@@ -757,4 +766,16 @@ h4, .h4{
   border-radius: 10px;
   box-shadow: 0px 3px 5px -1px #00000033, 0px 5px 8px 0px #00000024,
     0px 1px 14px 0px #0000001f;
+}
+
+
+
+
+
+
+/***********************************/
+.css-pqjvzy-MuiSvgIcon-root-MuiSelect-icon,
+.css-1mf6u8l-MuiSvgIcon-root-MuiSelect-icon{
+  left: 0 !important;
+  right: auto !important;
 }

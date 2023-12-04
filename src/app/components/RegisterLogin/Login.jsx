@@ -5,7 +5,7 @@ import { FormControl, InputLabel, Input } from "@mui/material";
 import saveLoginData from "../Auth/utils/saveLoginData";
 import ContainedPrimary from "@/app/components/Button/ContainedPrimary";
 import TexedPrimary from "@/app/components/Button/TexedPrimary";
-import Error from "./Error";
+import Error from "../Shared/Error";
 
 import loginForm from "@/app/lib/Auth/loginForm";
 
@@ -86,6 +86,7 @@ export default function Login({ setFormStatus }) {
             aria-describedby="my-helper-text"
             inputRef={passwordRef}
             onFocus={() => setPasswordError(undefined)}
+            type="password"
           />
           {passwordError && <Error>{passwordError}</Error>}
         </FormControl>

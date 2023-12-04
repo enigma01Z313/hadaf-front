@@ -5,7 +5,7 @@ import { FormControl, InputLabel, Input, Grid, Switch } from "@mui/material";
 import saveLoginData from "../Auth/utils/saveLoginData";
 import ContainedPrimary from "@/app/components/Button/ContainedPrimary";
 import TexedPrimary from "../Button/TexedPrimary";
-import Error from "./Error";
+import Error from "../Shared/Error";
 
 import registerForm from "@/app/lib/Auth/registerForm";
 
@@ -144,6 +144,7 @@ export default function Register({ setFormStatus }) {
             aria-describedby="my-helper-text"
             inputRef={passwordRef}
             onFocus={() => setPasswordError(undefined)}
+            type="password"
           />
           {passwordError && <Error>{passwordError}</Error>}
         </FormControl>
@@ -154,6 +155,7 @@ export default function Register({ setFormStatus }) {
             aria-describedby="my-helper-text"
             inputRef={passwordReRef}
             onFocus={() => setPasswordReError(undefined)}
+            type="password"
           />
           {passwordReError && <Error>{passwordReError}</Error>}
         </FormControl>
