@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
+import DoupleActiveSwitch from "@/app/components/DoupleActiveSwitch";
 import Error from "@/app/components/Shared/Error";
 import ContainedPrimary from "@/app/components/Button/ContainedPrimary";
 
@@ -56,7 +57,7 @@ export default function User({ params }) {
       setFullName(userData.fullName);
       setPhone(userData.phone);
       setEmail(userData.email);
-      setLoading(false)
+      setLoading(false);
     })();
   }, []);
 
@@ -218,12 +219,12 @@ export default function User({ params }) {
             شخصی
           </Grid>
           <Grid item>
-            {/* <DoupleActiveSwitch /> */}
-            <Switch
-              color="default"
-              checked={usage} // relevant state for your case
-              onChange={() => setUsage((state) => (state === 0 ? 1 : 0))} // relevant method to handle your change
-              value="checked" // some value you need
+            <DoupleActiveSwitch
+              onChange={(val) => {
+                console.log("111111111", val);
+              }}
+              value={1}
+              style="two-active"
             />
           </Grid>
           <Grid item className="text-h6 weight-500">

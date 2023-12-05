@@ -4,6 +4,7 @@ import { FormControl, InputLabel, Input, Grid, Switch } from "@mui/material";
 
 import saveLoginData from "../Auth/utils/saveLoginData";
 import ContainedPrimary from "@/app/components/Button/ContainedPrimary";
+import DoupleActiveSwitch from "@/app/components/DoupleActiveSwitch";
 import TexedPrimary from "../Button/TexedPrimary";
 import Error from "../Shared/Error";
 
@@ -167,12 +168,12 @@ export default function Register({ setFormStatus }) {
               شخصی
             </Grid>
             <Grid item>
-              {/* <DoupleActiveSwitch /> */}
-              <Switch
-                color="default"
-                checked={usage} // relevant state for your case
-                onChange={() => setUsage((state) => (state === 0 ? 1 : 0))} // relevant method to handle your change
-                value="checked" // some value you need
+              <DoupleActiveSwitch
+                onChange={(val) => {
+                  console.log("111111111", val);
+                }}
+                value={1}
+                style="two-active"
               />
             </Grid>
             <Grid item className="text-h6 weight-500">
@@ -184,6 +185,8 @@ export default function Register({ setFormStatus }) {
           <span
             htmlFor="password-re"
             onClick={() => setReferalCode((state) => !state)}
+            className="color-primary"
+            style={{ cursor: "pointer" }}
           >
             کد معرف دارید؟
           </span>

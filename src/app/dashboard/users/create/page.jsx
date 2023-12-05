@@ -4,6 +4,7 @@ import React, { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FormControl, InputLabel, Input, Grid, Switch } from "@mui/material";
 
+import DoupleActiveSwitch from "@/app/components/DoupleActiveSwitch";
 import Error from "@/app/components/Shared/Error";
 import ContainedPrimary from "@/app/components/Button/ContainedPrimary";
 
@@ -80,7 +81,7 @@ export default function UserCreate() {
 
     if (!hasError) {
       setLoading(true);
-      const {user} = await registerForm(
+      const { user } = await registerForm(
         fullNameRef.current.value,
         phoneRef.current.value,
         emailRef.current.value,
@@ -163,12 +164,12 @@ export default function UserCreate() {
             شخصی
           </Grid>
           <Grid item>
-            {/* <DoupleActiveSwitch /> */}
-            <Switch
-              color="default"
-              checked={usage} // relevant state for your case
-              onChange={() => setUsage((state) => (state === 0 ? 1 : 0))} // relevant method to handle your change
-              value="checked" // some value you need
+            <DoupleActiveSwitch
+              onChange={(val) => {
+                console.log("111111111", val);
+              }}
+              value={1}
+              style="two-active"
             />
           </Grid>
           <Grid item className="text-h6 weight-500">

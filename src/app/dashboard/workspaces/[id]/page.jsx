@@ -13,6 +13,7 @@ import {
 import Error from "@/app/components/Shared/Error";
 import ContainedPrimary from "@/app/components/Button/ContainedPrimary";
 
+import DoupleActiveSwitch from "@/app/components/DoupleActiveSwitch";
 import getWorkspace from "@/app/lib/workspaces/get";
 import updateWorkspace from "@/app/lib/workspaces/update";
 
@@ -116,11 +117,12 @@ export default function User({ params }) {
             شخصی
           </Grid>
           <Grid item>
-            <Switch
-              color="default"
-              checked={usage} // relevant state for your case
-              onChange={() => setUsage((state) => (state === 0 ? 1 : 0))} // relevant method to handle your change
-              value="checked" // some value you need
+            <DoupleActiveSwitch
+              onChange={(val) => {
+                console.log("111111111", val);
+              }}
+              value={1}
+              style="two-active"
             />
           </Grid>
           <Grid item className="text-h6 weight-500">

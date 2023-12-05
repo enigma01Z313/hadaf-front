@@ -162,6 +162,12 @@ a {
 }
 
 
+/****************************************/
+.color-primary{
+  color: #1976d2;
+}
+/****************************************/
+
 .p-relative {
   position: relative;
 }
@@ -779,3 +785,4 @@ h4, .h4{
   left: 0 !important;
   right: auto !important;
 }
+

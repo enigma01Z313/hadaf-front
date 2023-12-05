@@ -12,7 +12,7 @@ export default function Home() {
   const [formStatus, setFormStatus] = useState("register");
 
   return (
-    <main className={`${styles.main} justify-center`}>
+    <main className={`${styles.main} justify-between`}>
       <div className={`w-50 d-flex justify-center align-center
         ${styles['logo-side']}`}>
           <Image

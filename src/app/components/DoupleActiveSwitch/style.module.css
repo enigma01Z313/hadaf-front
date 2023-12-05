@@ -1,0 +1,45 @@
+.switch-wrapper {
+  --transition-setting: all 0.2s;
+  --def-bg: #bbb;
+  --active-1: #1976d2;
+  --active-2: #68a3dd;
+
+  width: 50px;
+  height: 20px;
+  background: var(--def-bg);
+  border-radius: 20px;
+  margin: 0 10px;
+  position: relative;
+  cursor: pointer;
+  transition: var(--transition-setting);
+}
+.switch-wrapper .cursor {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #fff;
+  position: absolute;
+  left: -3px;
+  top: -3px;
+  box-shadow: 0 0 10px #666;
+  transition: var(--transition-setting);
+  opacity: 0.9;
+}
+
+.switch-wrapper.state-0 .cursor {
+  left: -3px;
+}
+.switch-wrapper.state-1 .cursor {
+  left: 27px;
+}
+
+.switch-wrapper.style-default.state-1 {
+  background: var(--active-1);
+}
+
+.switch-wrapper.style-two-active.state-0 {
+  background: var(--active-1);
+}
+.switch-wrapper.style-two-active.state-1 {
+  background: var(--active-2);
+}
