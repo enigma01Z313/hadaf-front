@@ -756,7 +756,11 @@ h4, .h4{
   right: 0;
   transform-origin: right !important;
   font-family: "IranSans" !important;
+  transform: translate(0, 16px) scale(1) !important;
   /* transform: translateX(0) !important */
+}
+.rtl-input.MuiFormControl-root label[data-shrink="true"]{
+  transform: translate(0, -6px) scale(0.75) !important;
 }
 .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root{
   transform: translate(0, 16px) scale(1) !important;
