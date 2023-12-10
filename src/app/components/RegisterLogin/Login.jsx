@@ -101,8 +101,14 @@ export default function Login({ setFormStatus }) {
       </div>
       <div className="mt-2">
         حساب کاربری ندارید
-        <TexedPrimary onClick={() => setFormStatus("register")}>
+        <TexedPrimary className="mr-1" onClick={() => setFormStatus("register")}>
           ثبت نام
+        </TexedPrimary>
+      </div>
+      <div className="mt-2">
+        رمز عبور خود را فراموش کردین؟
+        <TexedPrimary className="mr-1" onClick={() => setFormStatus("forgetPassword")}>
+          بازیابی
         </TexedPrimary>
       </div>
     </>

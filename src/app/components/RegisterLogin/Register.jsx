@@ -105,8 +105,7 @@ export default function Register({ setFormStatus }) {
       <div
         className={`d-flex direction-column
           ${loading ? "loading" : ""}`}
-        style={{ width: 400 }}
-      >
+        style={{ width: 400 }}>
         <FormControl className="mt-3 rtl-input p-relative">
           <InputLabel htmlFor="full-name">نام و نام خانوادگی</InputLabel>
           <Input
@@ -186,8 +185,7 @@ export default function Register({ setFormStatus }) {
             htmlFor="password-re"
             onClick={() => setReferalCode((state) => !state)}
             className="color-primary"
-            style={{ cursor: "pointer" }}
-          >
+            style={{ cursor: "pointer" }}>
             کد معرف دارید؟
           </span>
 
@@ -204,14 +202,15 @@ export default function Register({ setFormStatus }) {
         <ContainedPrimary
           onClick={submitRegisterForm}
           className="mt-3 justify-center"
-          size="large"
-        >
+          size="large">
           ثبت نام
         </ContainedPrimary>
       </div>
       <div className="mt-2">
         حساب کاربری دارید؟
-        <TexedPrimary onClick={() => setFormStatus("login")}>ورود</TexedPrimary>
+        <TexedPrimary className="mr-1" onClick={() => setFormStatus("login")}>
+          ورود
+        </TexedPrimary>
       </div>
     </>
   );

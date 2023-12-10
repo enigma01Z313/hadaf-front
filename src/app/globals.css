@@ -759,10 +759,10 @@ h4, .h4{
   /* transform: translateX(0) !important */
 }
 .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root{
-  transform: translate(-14px, 16px) scale(1) !important;
+  transform: translate(0, 16px) scale(1) !important;
 }
 .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root{
-  transform: translate(-14px, -6px) scale(0.75) !important;
+  transform: translate(0, -6px) scale(0.75) !important;
 }
 
 .wrapper-box {
