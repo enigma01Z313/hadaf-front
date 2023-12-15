@@ -1,18 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
+import Countdown from "react-countdown";
 
 import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/router";
-
 import { toast } from "react-toastify";
 import { FormControl, InputLabel, Input } from "@mui/material";
 
 import ContainedPrimary from "@/app/components/Button/ContainedPrimary";
 import TexedPrimary from "@/app/components/Button/TexedPrimary";
+import Timer from "./Timer";
 import Error from "../Shared/Error";
 
 import activateAccount from "@/app/lib/Auth/activateAccount";
 
 import resendActivationCode from "@/app/lib/Auth/resendActivationCode";
+import Link from "next/link";
+
+const resendInterval = 120 * 1000;
 
 export default function ActivateAccount({ setFormStatus }) {
   const searchParams = useSearchParams();
@@ -22,6 +25,7 @@ export default function ActivateAccount({ setFormStatus }) {
   const [usernameError, setUsernameError] = useState();
   const [loading, setLoading] = useState(true);
   const [resend, setResend] = useState(false);
+  const [resendTimer, setResendTimer] = useState(0);
 
   const formValidate = () => {
     let hasError = false;
@@ -41,31 +45,57 @@ export default function ActivateAccount({ setFormStatus }) {
     return hasError;
   };
 
-  const submitRegisterForm = async () => {
+  const submitResendActivateCodeForm = async () => {
     const hasError = formValidate();
 
     if (!hasError) {
       setLoading(true);
-      const user = await resendActivationCode(usernameRef.current.value);
-      setLoading(false);
+      const { data } = await resendActivationCode(usernameRef.current.value);
+      localStorage.setItem("sendActivateCode", new Date().getTime());
 
-      toast.success("کد فعالسازی ارسال شد.");
+      setLoading(false);
+      toast.success(data);
+      setResendTimer(resendInterval);
     }
   };
 
   useEffect(() => {
     (async function () {
-      const userId = searchParams.get("userId");
-      const activationCode = searchParams.get("activationCode");
+      const nowTime = new Date().getTime();
+      const lastSnetTime = localStorage.getItem("sendActivateCode");
 
-      const user = await activateAccount(userId, activationCode);
+      if (lastSnetTime && nowTime - lastSnetTime < resendInterval) {
+        setResendTimer(resendInterval - (nowTime - lastSnetTime));
+        setResend(true);
+      } else {
+        const userId = searchParams.get("userId");
+        const activationCode = searchParams.get("activationCode");
+
+        const user = await activateAccount(userId, activationCode);
+
+        localStorage.setItem("sendActivateCode", new Date().getTime());
+        setResendTimer(resendInterval);
+        if (user.error) setResend(true);
+      }
+
       setLoading(false);
-
-      if (user.error) setResend(true);
-      console.log("1");
-      console.log(user);
     })();
   }, []);
+
+  const countdownRenderer = ({ minutes, seconds, completed }) => {
+    if (completed) {
+      setTimeout(function () {
+        setResendTimer(0);
+      }, 100);
+      return "";
+    } else {
+      return (
+        <span>
+          {minutes}:{seconds}
+        </span>
+      );
+    }
+  };
 
   return (
     <>
@@ -73,33 +103,47 @@ export default function ActivateAccount({ setFormStatus }) {
       {resend && (
         <>
           <h4 className="weight-500">ارسال مجدد کد فعالسازی</h4>
-          <div
-            className={`d-flex direction-column
+          {(resendTimer === 0 && (
+            <div
+              className={`d-flex direction-column
                 ${loading ? "loading" : ""}`}
-            style={{ width: 400 }}>
-            <FormControl className="mt-3 rtl-input p-relative">
-              <InputLabel htmlFor="full-name">ایمیل</InputLabel>
-              <Input
-                id="full-name"
-                aria-describedby="my-helper-text"
-                inputRef={usernameRef}
-                onFocus={() => setUsernameError(undefined)}
-              />
-              {usernameError && <Error>{usernameError}</Error>}
-            </FormControl>
+              style={{ width: 400 }}>
+              <FormControl className="mt-3 rtl-input p-relative">
+                <InputLabel htmlFor="full-name">ایمیل</InputLabel>
+                <Input
+                  id="full-name"
+                  aria-describedby="my-helper-text"
+                  inputRef={usernameRef}
+                  onFocus={() => setUsernameError(undefined)}
+                />
+                {usernameError && <Error>{usernameError}</Error>}
+              </FormControl>
 
-            <ContainedPrimary
-              onClick={submitRegisterForm}
-              className="mt-3 justify-center"
-              size="large">
-              فعال سازی
-            </ContainedPrimary>
-          </div>
+              <ContainedPrimary
+                onClick={submitResendActivateCodeForm}
+                className="mt-3 justify-center"
+                size="large">
+                فعال سازی
+              </ContainedPrimary>
+            </div>
+          )) || (
+            <span className="mt-2">
+              <Countdown
+                date={Date.now() + resendTimer}
+                renderer={countdownRenderer}
+              />
+            </span>
+          )}
           <div className="mt-2">
             حساب کاربری ندارید
-            <TexedPrimary className="mr-1" onClick={() => setFormStatus("register")}>
-              ثبت نام
-            </TexedPrimary>
+            <Link href={"/"}>
+              <TexedPrimary
+                className="mr-1"
+                onClick={() => setFormStatus("register")}
+              >
+                ثبت نام
+              </TexedPrimary>
+            </Link>
           </div>
         </>
       )}

@@ -1,0 +1,10 @@
+.digits-wrapper{
+    padding-bottom: 5px;
+    display: flex;
+    justify-content: space-around;
+    direction: ltr;
+}
+
+.digits-wrapper .digits{
+    
+}
