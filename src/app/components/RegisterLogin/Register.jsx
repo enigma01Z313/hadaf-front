@@ -91,6 +91,7 @@ export default function Register({ setFormStatus }) {
         usageType
       );
 
+      console.log('1-------------------------');
       setLoading(false);
       if (!user.error) {
         saveLoginData(user);
