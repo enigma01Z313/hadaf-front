@@ -12,11 +12,13 @@ export default function ListTable() {
   const columns = listColumns();
 
   const [workspaces, setWorkspaces] = useState([]);
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     (async function () {
       const workspacesList = await getWorkspacesList();
 
+      setLoading(false)
       setWorkspaces(workspacesList);
     })();
   }, []);
@@ -24,7 +26,8 @@ export default function ListTable() {
   console.log(workspaces);
 
   return (
-    <div className="p-2 wrapper-box">
+    <div className={`p-2 wrapper-box
+      ${loading ? 'loading' : ''}`}>
       <div className="d-flex justify-between align-center mb-2">
         <h3 className="">لیست فضاهای کاری</h3>
         <Link href="/dashboard/workspaces/create">

@@ -50,6 +50,7 @@ export default function UserCreate() {
   const createWorkspaceForm = async () => {
     const hasError = formValidate();
     const usageType = usage === 0 ? 1 : 0;
+    const theUser = JSON.parse(localStorage.getItem('user'))
 
     if (!hasError) {
       setLoading(true);
@@ -57,7 +58,8 @@ export default function UserCreate() {
         name.current.value,
         +membersNumber.current.value,
         usageType,
-        description?.current?.value ?? ""
+        description?.current?.value ?? "",
+        theUser.id
       );
 
       setLoading(false);
