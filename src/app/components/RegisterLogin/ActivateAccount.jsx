@@ -76,6 +76,7 @@ export default function ActivateAccount({ setFormStatus }) {
         localStorage.setItem("sendActivateCode", new Date().getTime());
         setResendTimer(resendInterval);
         if (user.error) setResend(true);
+        else router.push('/dashboard')
       }
 
       setLoading(false);
