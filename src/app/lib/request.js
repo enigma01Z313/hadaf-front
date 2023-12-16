@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 
 const request = (payload) =>
   new Promise(async (resolve, reject) => {
-    const BASE_HOST = "http://67.43.234.92:50000";
+    const BASE_HOST = "https://hadafsanjapi.farzinahmadi.com";
     const BASE_URL = `${BASE_HOST}/api`;
     const USER_TOKEN = "f8b874cf9ad70805465c6d93ab1231b";
 
