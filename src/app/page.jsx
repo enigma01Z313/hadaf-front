@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { useRouter } from "next/router";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 
@@ -15,7 +14,7 @@ import ForgetPassword from "./components/RegisterLogin/ForgetPassword";
 export default function Home() {
   const searchParams = useSearchParams();
 
-  const defStatus = searchParams.get("action") ?? "register";
+  const defStatus = searchParams.get("action") ?? "login";
   const [formStatus, setFormStatus] = useState(defStatus);
 
   return (

@@ -1,4 +1,7 @@
+'use client'
+
 import React, { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import Countdown from "react-countdown";
 
 import { useSearchParams } from "next/navigation";
@@ -18,6 +21,7 @@ import Link from "next/link";
 const resendInterval = 120 * 1000;
 
 export default function ActivateAccount({ setFormStatus }) {
+  const router = useRouter()
   const searchParams = useSearchParams();
 
   const usernameRef = useRef();
