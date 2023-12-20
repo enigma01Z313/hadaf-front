@@ -5,6 +5,7 @@ import Image from "next/image";
 
 import styles from "./page.module.css";
 import MainMenu from "./components/MainMenu";
+import Header from "../components/Header";
 import { CreateModeProvider } from "./CreateModeContext";
 
 export default function DashboardLayout({ children }) {
@@ -22,7 +23,10 @@ export default function DashboardLayout({ children }) {
           <MainMenu />
         </aside>
         {/* <main className={`grow-1 p-3 ${styles['main-side']}`}><children></children></main> */}
-        <main className={`grow-1 p-3 ${styles["main-side"]}`}>{children}</main>
+        <aside className={`grow-1 ${styles['main-side']}`}>
+          <Header />
+          <main className={`p-3 ${styles["main-side"]}`}>{children}</main>
+        </aside>
       </CreateModeProvider>
     </article>
   );

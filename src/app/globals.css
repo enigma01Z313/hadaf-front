@@ -1,9 +1,9 @@
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
-  --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
-    'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
-    'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
+    "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
+    "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
 
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -73,7 +73,6 @@
   }
 }
 
-
 @font-face {
   font-family: "IranSans";
   font-style: normal;
@@ -87,7 +86,6 @@
   font-weight: bold;
   src: url("../../public/fonts/IRANSansWeb_Bold.ttf") format("truetype");
 }
-
 
 * {
   box-sizing: border-box;
@@ -125,8 +123,6 @@ a {
   }
 }
 
-
-
 .loading {
   overflow: hidden;
   position: relative;
@@ -161,9 +157,8 @@ a {
   }
 }
 
-
 /****************************************/
-.color-primary{
+.color-primary {
   color: #1976d2;
 }
 /****************************************/
@@ -295,7 +290,6 @@ a {
 .pos-static {
   position: static !important;
 }
-
 
 /* spacing ***************************************/
 .p-0 {
@@ -729,6 +723,18 @@ a {
 .w-100 {
   width: 100%;
 }
+.w-90 {
+  width: 90%;
+}
+.w-80 {
+  width: 80%;
+}
+.w-70 {
+  width: 70%;
+}
+.w-60 {
+  width: 60%;
+}
 .w-50 {
   width: calc((100% - 20px) / 2);
 }
@@ -742,14 +748,11 @@ a {
   height: 100%;
 }
 
-
-h4, .h4{
+h4,
+.h4 {
   font-size: 34px !important;
   line-height: 42px !important;
 }
-
-
-
 
 .rtl-input.MuiFormControl-root label {
   left: auto !important;
@@ -759,13 +762,13 @@ h4, .h4{
   transform: translate(0, 16px) scale(1) !important;
   /* transform: translateX(0) !important */
 }
-.rtl-input.MuiFormControl-root label[data-shrink="true"]{
+.rtl-input.MuiFormControl-root label[data-shrink="true"] {
   transform: translate(0, -6px) scale(0.75) !important;
 }
-.css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root{
+.css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
   transform: translate(0, 16px) scale(1) !important;
 }
-.css-1jy569b-MuiFormLabel-root-MuiInputLabel-root{
+.css-1jy569b-MuiFormLabel-root-MuiInputLabel-root {
   transform: translate(0, -6px) scale(0.75) !important;
 }
 
@@ -773,20 +776,23 @@ h4, .h4{
   padding: 8px;
   background: #fff;
   padding: 24px;
-  border-radius: 10px;
+  border-radius: 4px;
   box-shadow: 0px 3px 5px -1px #00000033, 0px 5px 8px 0px #00000024,
     0px 1px 14px 0px #0000001f;
 }
 
-
-
-
-
-
 /***********************************/
 .css-pqjvzy-MuiSvgIcon-root-MuiSelect-icon,
-.css-1mf6u8l-MuiSvgIcon-root-MuiSelect-icon{
+.css-1mf6u8l-MuiSvgIcon-root-MuiSelect-icon {
   left: 0 !important;
   right: auto !important;
 }
 
+.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-regular.MuiTablePagination-toolbar {
+  flex-direction: row-reverse;
+}
+
+.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-regular.MuiTablePagination-toolbar
+  .MuiTablePagination-actions {
+  flex-direction: row-reverse;
+}

@@ -21,19 +21,19 @@ const listColumns = () => {
         <Link href={`/dashboard/users/${data.row.id}`}>{data.row.fullName}</Link>
       ),
     },
-    { field: "phone", headerName: "شماره تماس", width: 130,
+    { field: "phone", headerName: "شماره تماس", width: 120,
     renderCell: (data) => (
-      <Link href={`/dashboard/users/${data.row.id}`}>{data.row.phone}.</Link>
+      <Link href={`/dashboard/users/${data.row.id}`}>{data.row.phone}</Link>
     ), },
-    { field: "email", headerName: "ایمیل", width: 130,
+    { field: "email", headerName: "ایمیل", width: 220,
     renderCell: (data) => (
-      <Link href={`/dashboard/users/${data.row.id}`}>{data.row.email}.</Link>
+      <Link href={`/dashboard/users/${data.row.id}`}>{data.row.email}</Link>
     ), },
-    {
-      field: "userCode",
-      headerName: "کد کاربری",
-      width: 130,
-    },
+    // {
+    //   field: "userCode",
+    //   headerName: "کد کاربری",
+    //   width: 130,
+    // },
     {
       field: "status",
       headerName: "وضعیت",
