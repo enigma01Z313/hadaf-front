@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import Link from "next/link";
 
 import ContainedPrimary from "@/app/components/Button/ContainedPrimary";
-import getUsersList from "@/app/lib/users/list";
 import getWorkspacesList from "@/app/lib/workspaces/list";
 
 import listColumns from "./listColumns";
 
-export default function ListTable() {
+export default function ListTable({ setMode, reloadList }) {
   const columns = listColumns();
 
   const [workspaces, setWorkspaces] = useState([]);
@@ -21,20 +19,16 @@ export default function ListTable() {
       setLoading(false)
       setWorkspaces(workspacesList);
     })();
-  }, []);
-
-  console.log(workspaces);
+  }, [reloadList]);
 
   return (
     <div className={`p-2 wrapper-box
       ${loading ? 'loading' : ''}`}>
       <div className="d-flex justify-between align-center mb-2">
         <h3 className="">لیست فضاهای کاری</h3>
-        <Link href="/dashboard/workspaces/create">
-        <ContainedPrimary>
-          افزودن فضای کاری جدید
+        <ContainedPrimary onClick={() => setMode("create")}>
+          افزودن کاربر جدید
         </ContainedPrimary>
-        </Link>
       </div>
       <DataGrid
         rows={workspaces}

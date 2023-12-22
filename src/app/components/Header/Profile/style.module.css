@@ -8,6 +8,7 @@
   left: 0;
   opacity: 0;
   visibility: hidden;
+  z-index: 10;
   transition: all 0.3s;
 }
 .profile-wrapper:hover > div {

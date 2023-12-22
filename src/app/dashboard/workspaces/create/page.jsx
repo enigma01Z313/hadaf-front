@@ -2,23 +2,27 @@
 
 import React, { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  FormControl,
-  InputLabel,
-  Input,
-  Grid,
-  Switch,
-  TextField,
-} from "@mui/material";
+import { FormControl, InputLabel, Input, Grid, TextField } from "@mui/material";
+
+import { toast } from "react-toastify";
 
 import DoupleActiveSwitch from "@/app/components/DoupleActiveSwitch";
 import Error from "@/app/components/Shared/Error";
 import ContainedPrimary from "@/app/components/Button/ContainedPrimary";
+import TexedError from "@/app/components/Button/TextedError";
+import TexedPrimary from "@/app/components/Button/TexedPrimary";
 
 import createWorkspace from "@/app/lib/workspaces/create";
 
-export default function UserCreate() {
+export default function WorkspaceCreate({
+  modal,
+  modalClose,
+  modalLoading,
+  setRealoadList,
+}) {
   const router = useRouter();
+
+  const isModal = modal ?? false;
 
   const name = useRef();
   const membersNumber = useRef();
@@ -50,10 +54,12 @@ export default function UserCreate() {
   const createWorkspaceForm = async () => {
     const hasError = formValidate();
     const usageType = usage === 0 ? 1 : 0;
-    const theUser = JSON.parse(localStorage.getItem('user'))
+    const theUser = JSON.parse(localStorage.getItem("user"));
 
     if (!hasError) {
-      setLoading(true);
+      if (modal) modalLoading(true);
+      else setLoading(true);
+
       const workspace = await createWorkspace(
         name.current.value,
         +membersNumber.current.value,
@@ -62,9 +68,15 @@ export default function UserCreate() {
         theUser.id
       );
 
-      setLoading(false);
-      if (!workspace.error) {
-        router.push(`/dashboard/workspaces/${workspace.id}`);
+      if (modal) modalLoading(false);
+      else setLoading(false);
+
+      if (!workspace.error && workspace.id) {
+        if (modal) {
+          toast.success("فضای کاری جدید با موفقیت افزوده شد");
+          modalClose();
+          setRealoadList((state) => !state);
+        } else router.push(`/dashboard/workspaces/${workspace.id}`);
       }
     }
   };
@@ -72,9 +84,9 @@ export default function UserCreate() {
   return (
     <div
       className={`
-      d-flex justify-between w-100 py-3 px-2 wrapper-box align-center
-      ${loading ? "loading" : ""}`}
-    >
+      d-flex justify-between w-100 align-center 
+      ${!isModal ? "py-3 px-2 wrapper-box " : ""}
+      ${loading ? "loading" : ""}`}>
       <FormControl className="rtl-input p-relative w-50">
         <InputLabel htmlFor="full-name">نام فضای کاری</InputLabel>
         <Input
@@ -128,13 +140,21 @@ export default function UserCreate() {
         />
       </FormControl>
 
-      <ContainedPrimary
-        onClick={createWorkspaceForm}
-        className="mt-3 justify-center"
-        size="large"
-      >
-        ثبت فضای کاری جدید
-      </ContainedPrimary>
+      {(!isModal && (
+        <ContainedPrimary
+          onClick={createWorkspaceForm}
+          className="mt-3 justify-center"
+          size="large">
+          ثبت فضای کاری جدید
+        </ContainedPrimary>
+      )) || (
+        <div className="w-100 d-flex mt-3 justify-end">
+          <TexedError onClick={() => modalClose?.()} className="ml-1">
+            منصرف شدن
+          </TexedError>
+          <TexedPrimary onClick={createWorkspaceForm}>ثبت</TexedPrimary>
+        </div>
+      )}
     </div>
   );
 }

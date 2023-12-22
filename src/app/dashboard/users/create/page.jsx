@@ -2,16 +2,27 @@
 
 import React, { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { FormControl, InputLabel, Input, Grid, Switch } from "@mui/material";
+import { FormControl, InputLabel, Input, Grid } from "@mui/material";
+
+import { toast } from "react-toastify";
 
 import DoupleActiveSwitch from "@/app/components/DoupleActiveSwitch";
 import Error from "@/app/components/Shared/Error";
 import ContainedPrimary from "@/app/components/Button/ContainedPrimary";
+import TexedError from "@/app/components/Button/TextedError";
+import TexedPrimary from "@/app/components/Button/TexedPrimary";
 
 import registerForm from "@/app/lib/Auth/registerForm";
 
-export default function UserCreate() {
+export default function UserCreate({
+  modal,
+  modalClose,
+  modalLoading,
+  setRealoadList,
+}) {
   const router = useRouter();
+
+  const isModal = modal ?? false;
 
   const fullNameRef = useRef();
   const phoneRef = useRef();
@@ -80,7 +91,9 @@ export default function UserCreate() {
     const usageType = usage === 0 ? 1 : 0;
 
     if (!hasError) {
-      setLoading(true);
+      if (modal) modalLoading(true);
+      else setLoading(true);
+
       const { user } = await registerForm(
         fullNameRef.current.value,
         phoneRef.current.value,
@@ -90,9 +103,15 @@ export default function UserCreate() {
         usageType
       );
 
-      setLoading(false);
-      if (!user.error) {
-        router.push(`/dashboard/users/${user.id}`);
+      if (modal) modalLoading(false);
+      else setLoading(false);
+
+      if (!user.error && user.id) {
+        if (modal) {
+          toast.success("کاربر جدید با موفقیت افزوده شد");
+          modalClose();
+          setRealoadList((state) => !state);
+        } else router.push(`/dashboard/users/${user.id}`);
       }
     }
   };
@@ -100,9 +119,9 @@ export default function UserCreate() {
   return (
     <div
       className={`
-      d-flex justify-between w-100 py-3 px-2 wrapper-box align-center
-      ${loading ? "loading" : ""}`}
-    >
+      d-flex justify-between w-100 align-center 
+      ${!isModal ? "py-3 px-2 wrapper-box " : ""}
+      ${loading ? "loading " : ""}`}>
       <FormControl className="rtl-input p-relative w-50">
         <InputLabel htmlFor="full-name">نام و نام خانوادگی</InputLabel>
         <Input
@@ -186,13 +205,21 @@ export default function UserCreate() {
         />
       </FormControl>
 
-      <ContainedPrimary
-        onClick={submitRegisterForm}
-        className="mt-3 justify-center"
-        size="large"
-      >
-        ثبت نام
-      </ContainedPrimary>
+      {(!isModal && (
+        <ContainedPrimary
+          onClick={submitRegisterForm}
+          className="mt-3 justify-center"
+          size="large">
+          ثبت نام
+        </ContainedPrimary>
+      )) || (
+        <div className="w-100 d-flex mt-3 justify-end">
+          <TexedError onClick={() => modalClose?.()} className="ml-1">
+            منصرف شدن
+          </TexedError>
+          <TexedPrimary onClick={submitRegisterForm}>ثبت</TexedPrimary>
+        </div>
+      )}
     </div>
   );
 }
