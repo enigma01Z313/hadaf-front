@@ -3,6 +3,15 @@
   transition: all .35s;
 }
 
+.main-menu li:hover  a{
+  background: rgb(232, 235, 236);
+}
+
 .main-menu li.active {
   background: rgb(214, 219, 220);
+}
+
+.main-menu li > span{
+  opacity: .3;
+  cursor: not-allowed;
 }

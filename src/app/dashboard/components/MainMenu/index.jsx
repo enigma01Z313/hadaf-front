@@ -5,7 +5,7 @@ import MenuItem from "./MenuItem";
 import CreateModeContext from "../../CreateModeContext";
 import styles from "./style.module.css";
 
-export default function MainMenu({...rest }) {
+export default function MainMenu({ ...rest }) {
   // const { setCreateMode } = useContext(CreateModeContext);
   const [activeMenu, setActiveMenu] = useState("dashboard");
 
@@ -17,14 +17,18 @@ export default function MainMenu({...rest }) {
   return (
     <nav className={styles["main-menu"]} {...rest}>
       <ul>
-        {menuItems.map((item) => (
+        {menuItems.map((item) => { 
+          const isDisabled = item?.disabled ?? false
+
+          return (
           <MenuItem
-            className={activeMenu === item.slug ? styles.active : ""}
+            className={`${activeMenu === item.slug ? styles.active : ""}`}
             key={item.id}
             item={item}
-            onClick={() => menuItemClicked(item.slug)}
+            onClick={() => !isDisabled && menuItemClicked(item.slug)}
+            disabled={isDisabled}
           />
-        ))}
+        )})}
       </ul>
     </nav>
   );
