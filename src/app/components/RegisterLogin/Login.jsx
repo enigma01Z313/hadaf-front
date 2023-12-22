@@ -47,14 +47,14 @@ export default function Login({ setFormStatus }) {
     const hasError = formValidate();
 
     if (!hasError) {
-      setLoading(true)
+      setLoading(true);
       const user = await loginForm(
         usernameRef.current.value,
         passwordRef.current.value
       );
 
-      setLoading(false)
-      if (!user.error) {
+      if (user.error) setLoading(false);
+      else {
         saveLoginData(user);
         router.push(`/dashboard`);
       }
@@ -67,8 +67,7 @@ export default function Login({ setFormStatus }) {
       <div
         className={`d-flex direction-column
           ${loading ? "loading" : ""}`}
-        style={{ width: 400 }}
-      >
+        style={{ width: 400 }}>
         <FormControl className="mt-3 rtl-input p-relative">
           <InputLabel htmlFor="full-name">ایمیل یا شماره تماس</InputLabel>
           <Input
@@ -94,20 +93,23 @@ export default function Login({ setFormStatus }) {
         <ContainedPrimary
           onClick={submitRegisterForm}
           className="mt-3 justify-center"
-          size="large"
-        >
+          size="large">
           ورود
         </ContainedPrimary>
       </div>
       <div className="mt-2">
         حساب کاربری ندارید
-        <TexedPrimary className="mr-1" onClick={() => setFormStatus("register")}>
+        <TexedPrimary
+          className="mr-1"
+          onClick={() => setFormStatus("register")}>
           ثبت نام
         </TexedPrimary>
       </div>
       <div className="mt-2">
         رمز عبور خود را فراموش کردین؟
-        <TexedPrimary className="mr-1" onClick={() => setFormStatus("forgetPassword")}>
+        <TexedPrimary
+          className="mr-1"
+          onClick={() => setFormStatus("forgetPassword")}>
           بازیابی
         </TexedPrimary>
       </div>

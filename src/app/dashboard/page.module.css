@@ -1,5 +1,11 @@
 .wrapper {
   min-height: 100vh;
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
 }
 
 .menu-side {
@@ -9,5 +15,5 @@
 }
 
 .main-side {
-  max-width: calc(100vw - 300px);
+  max-width: calc(100vw - 305px);
 }
