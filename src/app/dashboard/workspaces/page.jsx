@@ -18,7 +18,7 @@ export default function Workspaces() {
           setMode={setMode}
           setRealoadList={setRealoadList}
         />
-      )}
+      )} 
     </NoSSR>
   );
 }
