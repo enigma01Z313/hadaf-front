@@ -18,17 +18,31 @@ const listColumns = () => {
       headerName: "نام کامل",
       width: 170,
       renderCell: (data) => (
-        <Link href={`/dashboard/users/${data.row.id}`} prefetch={false}>{data.row.fullName}</Link>
+        <Link href={`/dashboard/users/${data.row.id}`} prefetch={false}>
+          {data.row.fullName}
+        </Link>
       ),
     },
-    { field: "phone", headerName: "شماره تماس", width: 120,
-    renderCell: (data) => (
-      <Link href={`/dashboard/users/${data.row.id}`} prefetch={false}>{data.row.phone}</Link>
-    ), },
-    { field: "email", headerName: "ایمیل", width: 220,
-    renderCell: (data) => (
-      <Link href={`/dashboard/users/${data.row.id}`} prefetch={false}>{data.row.email}</Link>
-    ), },
+    {
+      field: "phone",
+      headerName: "شماره تماس",
+      width: 120,
+      renderCell: (data) => (
+        <Link href={`/dashboard/users/${data.row.id}`} prefetch={false}>
+          {data.row.phone}
+        </Link>
+      ),
+    },
+    {
+      field: "email",
+      headerName: "ایمیل",
+      width: 220,
+      renderCell: (data) => (
+        <Link href={`/dashboard/users/${data.row.id}`} prefetch={false}>
+          {data.row.email}
+        </Link>
+      ),
+    },
     // {
     //   field: "userCode",
     //   headerName: "کد کاربری",

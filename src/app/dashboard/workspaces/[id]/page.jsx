@@ -43,7 +43,7 @@ export default function User({ params }) {
       );
       setLoading(false);
     })();
-  }, []);
+  }, [params.id]);
 
   const formValidate = () => {
     let hasError = false;

@@ -59,7 +59,7 @@ export default function User({ params }) {
       setEmail(userData.email);
       setLoading(false);
     })();
-  }, []);
+  }, [params.id]);
 
   const formValidate = () => {
     let hasError = false;
@@ -130,9 +130,6 @@ export default function User({ params }) {
 
     const imageId = await uploadImage(formData);
   };
-
-  // console.log("1111111111111111111111111111");
-  // console.log(uploadLoading);
 
   return (
     <div

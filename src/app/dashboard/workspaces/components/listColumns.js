@@ -18,10 +18,12 @@ const listColumns = () => {
       headerName: "نام",
       width: 170,
       renderCell: (data) => (
-        <Link href={`/dashboard/workspaces/${data.row.id}`}>{data.row.name}</Link>
+        <Link href={`/dashboard/workspaces/${data.row.id}`} prefetch={false}>
+          {data.row.name}
+        </Link>
       ),
     },
-    { field: "membersNumber", headerName: "تعداد اعضا", width: 130, },
+    { field: "membersNumber", headerName: "تعداد اعضا", width: 130 },
     {
       field: "usage",
       headerName: "نوع استفاده",
