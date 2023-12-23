@@ -796,3 +796,8 @@ h4,
   .MuiTablePagination-actions {
   flex-direction: row-reverse;
 }
+
+#select-workspace{
+  padding-left: 24px;
+  padding-right: 4px;
+}

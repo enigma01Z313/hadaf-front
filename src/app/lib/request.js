@@ -1,5 +1,4 @@
 import { toast } from "react-toastify";
-import axios from "axios";
 
 const request = (payload) =>
   new Promise(async (resolve, reject) => {
@@ -34,6 +33,14 @@ const request = (payload) =>
     const res = await fetch(path, options);
     const data = await res.json();
 
+    if (res.status === 401) {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("user");
+      localStorage.removeItem("meta");
+      localStorage.removeItem("refresToken");
+
+      return;
+    }
     if (!res.ok) return reject(data.error);
 
     return resolve(data);
@@ -45,8 +52,12 @@ const get = async (path, authed = true) => {
 
     return data;
   } catch (err) {
-    // console.log('err', err);
-    throw new Error(err.message);
+    console.log("c----------------------------------------");
+    console.log(err);
+
+    toast.error(err.text);
+
+    return { error: true, ...err };
   }
 };
 

@@ -2,9 +2,6 @@ import React from "react";
 import Link from "next/link";
 
 export default function MenuItem({ item, disabled, ...rest }) {
-  console.log("1-------------------------");
-  console.log(disabled, item.id);
-
   return (
     <li {...rest}>
       {(disabled && (

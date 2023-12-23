@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 
 import Loading from "./Loading";
 import checkUser from "./checkUser";
-import getGuestToken from "@/app/lib/auth/getGuestToken";
 
 export default function AuthedPath(params) {
   const children = params.children;
@@ -12,33 +11,31 @@ export default function AuthedPath(params) {
   const role = params.role ?? "client";
 
   const isValidUser = useRef();
-  const [checking, setChecking] = useState(true);
+  const [checking, setChecking] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     (async function () {
-      let c;
+      if( !localStorage.getItem('accessToken') ){}
+      // {
+      //   console.log('abc------------------------------');
+      // }
+      // let c;
 
-      if (role === "client") c = await checkUser();
-      else if (role === "audience") c = await getGuestToken();
+      // if (role === "client") c = await checkUser();
+      // else if (role === "audience") c = await getGuestToken();
 
-      isValidUser.current = c;
+      // isValidUser.current = c;
 
-      if (cb) cb();
+      // if (cb) cb();
       setChecking(false);
     })();
   }, []);
 
   if (!checking) {
-    const api_key = localStorage.getItem("api_key");
+    const accessToken = localStorage.getItem("accessToken");
 
-    // console.log('*************************************');
-    // console.log(api_key);
-    // console.log(isValidUser.current);
-    // console.log(api_key && isValidUser.current);
-    // console.log('*************************************');
-
-    if (api_key && isValidUser.current) {
+    if (accessToken) {
       return <>{children}</>;
     } else router.push(`/`);
   } else return <Loading checking={checking} />;
