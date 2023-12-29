@@ -152,11 +152,3 @@ export default function User({ params }) {
     </div>
   );
 }
-
-// export async function generateStaticParams() {
-//   const users = await getUsersList();
-
-//   return users.map((item) => ({
-//     id: item.id,
-//   }));
-// }

@@ -1,17 +1,17 @@
 import requests from "../request";
 import permissionChec from "@/app/utils/permissionCheck";
 
-const getUsersList = async () => {
-  const hasPermission = permissionChec("SUPER_USER");
-
-  console.log("2------------------------------------");
-  console.log(hasPermission);
+const getUsersList = async (workspaceId) => {
+  const isSuperAdmin = permissionChec("SUPER_USER");
+  const isStandard = permissionChec("STANDARD");
 
   const usersGetUrl =
-    (permissionChec("SUPER_USER") && "users")
-    // || (permissionChec("STANDARD") && `users/${workspace.id}`);
+    (isSuperAdmin && "users") ||
+    (isStandard && `workspaces/${workspaceId}/users`);
 
-  const users = await requests.get("users");
+  if (isStandard && !workspaceId) return [];
+
+  const users = await requests.get(usersGetUrl);
 
   return users;
 };
