@@ -369,6 +369,10 @@ a {
   padding-top: 8px !important;
   padding-bottom: 8px !important;
 }
+.py-1-5{
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+}
 .py-2 {
   padding-top: 16px !important;
   padding-bottom: 16px !important;
@@ -800,4 +804,8 @@ h4,
 #select-workspace{
   padding-left: 24px;
   padding-right: 4px;
+}
+
+html, body{
+  height: 100vh;
 }

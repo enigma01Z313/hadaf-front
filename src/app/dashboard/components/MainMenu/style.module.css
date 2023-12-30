@@ -15,3 +15,6 @@
   opacity: .3;
   cursor: not-allowed;
 }
+.main-menu li svg{
+  font-size: 30px;
+}

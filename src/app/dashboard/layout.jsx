@@ -1,35 +1,37 @@
 "use client";
 
-import React from "react";
-import Image from "next/image";
+import React, { useState } from "react";
 
+import "react-perfect-scrollbar/dist/css/styles.css";
 import styles from "./page.module.css";
-import MainMenu from "./components/MainMenu";
+import MenuSide from "./components/MenuSide";
 import Header from "../components/Header";
 import { CreateModeProvider } from "./CreateModeContext";
 import AuthedPath from "../components/Auth/AuthedPath";
 import { WorkspaceContextProvider } from "@/app/context/workspaceContext";
+import PerfectScrollbar from "react-perfect-scrollbar";
 
 export default function DashboardLayout({ children }) {
+  const [smallMode, setSmallMode] = useState(true);
+
   return (
     <AuthedPath>
       <WorkspaceContextProvider>
-        <article className={`p-relative d-flex ${styles.wrapper}`}>
+        <article
+          className={`p-relative d-flex 
+          ${styles.wrapper}
+          ${smallMode ? styles["small-menu-mode"] : ""}`}>
           <CreateModeProvider>
-            <aside className={`py-2 ${styles["menu-side"]}`}>
-              <Image
-                className="mb-2 mx-2"
-                src="/logo.svg"
-                alt="خانه"
-                width={268}
-                height={40}
-              />
-              <MainMenu />
+            <aside
+              className={`py-2 d-flex direction-column
+                ${styles["menu-side"]}`}>
+              <MenuSide smallMode={smallMode} setSmallMode={setSmallMode} />
             </aside>
-            {/* <main className={`grow-1 p-3 ${styles['main-side']}`}><children></children></main> */}
             <aside className={`grow-1 ${styles["main-side"]}`}>
               <Header />
-              <main className={`p-3 ${styles["main-side"]}`}>{children}</main>
+              <main className={`p-3`}>
+                <PerfectScrollbar>{children}</PerfectScrollbar>
+              </main>
             </aside>
           </CreateModeProvider>
         </article>

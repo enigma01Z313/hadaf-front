@@ -1,0 +1,20 @@
+.task-gp-wrapper {
+}
+
+.task-gp {
+}
+
+/**************************/
+.task-gp-wrapper.static-cols-count {
+  display: flex;
+  justify-content: space-between;
+}
+.task-gp-wrapper.static-cols-count .task-gp {
+  flex-grow: 1;
+  max-width: calc((100% - (3 * 16px)) / 4);
+}
+
+.task{
+    background: #eee;
+    border-radius: 8px;
+}

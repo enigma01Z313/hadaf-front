@@ -1,4 +1,7 @@
 .wrapper {
+  --menu-width: 300px;
+
+  height: 100vh;
   min-height: 100vh;
   background: linear-gradient(
       to bottom,
@@ -9,11 +12,31 @@
 }
 
 .menu-side {
-  width: 300px;
-  background: #fff;
+  width: var(--menu-width);
+  background: #fff; 
   border-left: 1px solid #0000003b;
+  max-width: calc(100% - var(--menu-width));
+  overflow: hidden;
 }
 
-.main-side {
-  max-width: calc(100vw - 305px);
+.main-side main{
+  max-height: calc(100vh - 75px);
+  overflow: scroll;
+}
+
+.wrapper.small-menu-mode{
+  --menu-width: 70px
+}
+
+.wrapper.small-menu-mode .menu-side li a span,
+.wrapper.small-menu-mode .menu-side li span span{
+  display: none;
+}
+.wrapper.small-menu-mode .menu-side li a,
+.wrapper.small-menu-mode .menu-side li span{
+  justify-content: center;
+}
+  .wrapper.small-menu-mode .menu-side li a svg,
+  .wrapper.small-menu-mode .menu-side li span svg{
+  margin: 0 !important;
 }
