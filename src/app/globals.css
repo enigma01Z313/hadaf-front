@@ -790,7 +790,8 @@ h4,
 
 /***********************************/
 .css-pqjvzy-MuiSvgIcon-root-MuiSelect-icon,
-.css-1mf6u8l-MuiSvgIcon-root-MuiSelect-icon {
+.css-1mf6u8l-MuiSvgIcon-root-MuiSelect-icon,
+#select-workspace ~ svg {
   left: 0 !important;
   right: auto !important;
 }
