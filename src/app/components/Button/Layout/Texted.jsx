@@ -9,7 +9,7 @@ export default function TexedBase({
   ...rest
 }) {
   const sizeClass =
-    size && ["small", "normal", "large", "over-large"].includes(size)
+    size && ["extra-small", "small", "normal", "large", "over-large"].includes(size)
       ? styles[`btn-${size}`]
       : styles["btn-normal"];
 

@@ -173,6 +173,9 @@ a {
   display: flex;
   flex-wrap: wrap;
 }
+.no-wrap{
+  flex-wrap: nowrap;
+}
 .direction-column {
   flex-direction: column !important;
 }

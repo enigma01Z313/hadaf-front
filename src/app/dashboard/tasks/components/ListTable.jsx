@@ -7,12 +7,17 @@ import workspaceContext from "@/app/context/workspaceContext";
 import Devider from "@/app/components/Devider";
 import styles from "./style.module.css";
 import { TextField } from "@mui/material";
+import TextedInfo from "@/app/components/Button/TextedInfo";
+import TexedError from "@/app/components/Button/TextedError";
+import ClearIcon from "@mui/icons-material/Clear";
+import CheckIcon from "@mui/icons-material/Check";
+import createTask from "@/app/lib/tasks/create";
 
 export default function ListTable({ setMode, reloadList }) {
   const [tasks, setTasks] = useState({});
   const [loading, setLoading] = useState(true);
 
-  const [createMode, setCreateMode] = useState(false);
+  const [createMode, setCreateMode] = useState("");
   const [newTaskTitle, setNewTaskTitle] = useState("");
 
   const { theWorkspace } = useContext(workspaceContext);
@@ -27,6 +32,20 @@ export default function ListTable({ setMode, reloadList }) {
   }, []);
   // }, [reloadList, theWorkspace]);
 
+  const createTask = async () => {
+    console.log(newTaskTitle);
+    console.log(createMode);
+
+    const newTask = await createTask({ newTaskTitle, createMode });
+
+    console.log();
+  };
+
+  const cancelAdd = () => {
+    setCreateMode("");
+    setNewTaskTitle("");
+  };
+
   return (
     <div
       className={`
@@ -35,8 +54,6 @@ export default function ListTable({ setMode, reloadList }) {
         ${loading ? "loading" : ""}`}>
       {Object.keys(tasks).map((tasksGpId) => {
         const taskGp = tasks[tasksGpId];
-
-        console.log(taskGp);
 
         return (
           <article
@@ -53,22 +70,40 @@ export default function ListTable({ setMode, reloadList }) {
             </section>
             <Devider line={true} spacing={0} />
             <div className="p-1">
-              {/* {(!createMode && (
+              {((createMode === "" || tasksGpId !== createMode) && (
                 <ContainedPrimary
                   size="small"
                   onClick={() => {
-                    setCreateMode(true);
+                    setNewTaskTitle("");
+                    setCreateMode(tasksGpId);
                   }}>
                   <AddIcon className="ml-0-5" style={{ fontSize: "16px" }} />
                   افزودن
                 </ContainedPrimary>
-              )) || <TextField placeholder="افزودن وظیفه جدید" />} */}
-              <ContainedPrimary
-                  size="small"
-                  disabled={true}>
-                  <AddIcon className="ml-0-5" style={{ fontSize: "16px" }} />
-                  افزودن
-                </ContainedPrimary>
+              )) || (
+                <div className="d-flex no-wrap align-center">
+                  <TextField
+                    value={newTaskTitle}
+                    onChange={(e) => {
+                      setNewTaskTitle(e.target.value);
+                    }}
+                    className={styles["add-task-field"]}
+                    placeholder="افزودن وظیفه جدید"
+                  />
+                  <TexedError
+                    size="extra-small"
+                    style={{ width: "40px", height: "40px", padding: "0 8px" }}
+                    onClick={cancelAdd}>
+                    <ClearIcon />
+                  </TexedError>
+                  <TextedInfo
+                    size="extra-small"
+                    style={{ width: "40px", height: "40px", padding: "0 8px" }}
+                    onClick={createTask}>
+                    <CheckIcon />
+                  </TextedInfo>
+                </div>
+              )}
             </div>
           </article>
         );

@@ -14,7 +14,13 @@
   max-width: calc((100% - (3 * 16px)) / 4);
 }
 
-.task{
-    background: #eee;
-    border-radius: 8px;
+.task {
+  background: #eee;
+  border-radius: 8px;
+}
+
+.add-task-field input {
+  --padding: 8px;
+  padding-top: var(--padding) !important;
+  padding-bottom: var(--padding) !important;
 }
