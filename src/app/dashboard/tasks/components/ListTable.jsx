@@ -32,13 +32,11 @@ export default function ListTable({ setMode, reloadList }) {
   }, []);
   // }, [reloadList, theWorkspace]);
 
-  const createTask = async () => {
-    console.log(newTaskTitle);
-    console.log(createMode);
-
+  const addNewTask = async () => {
     const newTask = await createTask({ newTaskTitle, createMode });
 
-    console.log();
+    console.log('1-------------------------------------');
+    console.log(newTask);
   };
 
   const cancelAdd = () => {
@@ -93,13 +91,13 @@ export default function ListTable({ setMode, reloadList }) {
                   <TexedError
                     size="extra-small"
                     style={{ width: "40px", height: "40px", padding: "0 8px" }}
-                    onClick={cancelAdd}>
+                    onClick={() => cancelAdd()}>
                     <ClearIcon />
                   </TexedError>
                   <TextedInfo
                     size="extra-small"
                     style={{ width: "40px", height: "40px", padding: "0 8px" }}
-                    onClick={createTask}>
+                    onClick={() => addNewTask()}>
                     <CheckIcon />
                   </TextedInfo>
                 </div>

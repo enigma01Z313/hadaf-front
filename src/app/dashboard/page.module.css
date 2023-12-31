@@ -15,11 +15,15 @@
   width: var(--menu-width);
   background: #fff; 
   border-left: 1px solid #0000003b;
-  max-width: calc(100% - var(--menu-width));
   overflow: hidden;
 }
 
+.main-side{
+  width: calc(100% - var(--menu-width));
+}
+
 .main-side main{
+  width: 100%;
   /* max-height: calc(100vh - 75px);
   min-height: calc(100vh - 75px); */
 }

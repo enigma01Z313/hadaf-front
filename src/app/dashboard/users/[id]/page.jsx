@@ -134,7 +134,7 @@ export default function User({ params }) {
   return (
     <div
       className={`
-    d-flex justify-between w-100 py-3 px-2 wrapper-box align-center
+    d-flex justify-between py-3 px-2 wrapper-box align-center
     ${loading ? "loading" : ""}`}
     >
       <div className="w-50">

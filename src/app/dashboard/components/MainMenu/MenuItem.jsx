@@ -7,7 +7,7 @@ export default function MenuItem({ item, disabled, ...rest }) {
       {(disabled && (
         <span className="px-2 py-1-5 d-flex grow-1">
           {item.icon && (
-            <item.icon className="ml-1" style={{ marginRight: "5px" }} />
+            <item.icon className="ml-1" style={{ marginRight: "7px" }} />
           )}
           <span>{item.title}</span>
         </span>
@@ -17,7 +17,7 @@ export default function MenuItem({ item, disabled, ...rest }) {
           href={item.link}
           alt={item.slug}>
           {item.icon && (
-            <item.icon className="ml-1" style={{ marginRight: "5px" }} />
+            <item.icon className="ml-1" style={{ marginRight: "7px" }} />
           )}
           <span>{item.title}</span>
         </Link>
