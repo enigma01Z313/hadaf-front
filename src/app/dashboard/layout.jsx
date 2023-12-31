@@ -20,18 +20,20 @@ export default function DashboardLayout({ children }) {
         <article
           className={`p-relative d-flex 
           ${styles.wrapper}
-          ${smallMode ? styles["small-menu-mode"] : ""}`}>
+          ${smallMode ? styles["small-menu-mode"] : ""}`}
+        >
           <CreateModeProvider>
             <aside
               className={`py-2 d-flex direction-column
-                ${styles["menu-side"]}`}>
+                ${styles["menu-side"]}`}
+            >
               <MenuSide smallMode={smallMode} setSmallMode={setSmallMode} />
             </aside>
             <aside className={`grow-1 ${styles["main-side"]}`}>
               <Header />
-              <main className={`p-3`}>
-                <PerfectScrollbar>{children}</PerfectScrollbar>
-              </main>
+              <PerfectScrollbar style={{maxHeight: "calc(100vh - 75px)"}}>
+                <main className={`p-3`}>{children}</main>
+              </PerfectScrollbar>
             </aside>
           </CreateModeProvider>
         </article>

@@ -20,8 +20,8 @@
 }
 
 .main-side main{
-  max-height: calc(100vh - 75px);
-  overflow: scroll;
+  /* max-height: calc(100vh - 75px);
+  min-height: calc(100vh - 75px); */
 }
 
 .wrapper.small-menu-mode{
