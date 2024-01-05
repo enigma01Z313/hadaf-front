@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import ListTable from "./components/ListTable";
+import ListTable from "./components/Boards";
 import Create from "./components/Create";
 import NoSSR from "@/app/components/NoSSR";
 

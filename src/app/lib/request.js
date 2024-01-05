@@ -52,9 +52,6 @@ const get = async (path, authed = true) => {
 
     return data;
   } catch (err) {
-    console.log("c----------------------------------------");
-    console.log(err);
-
     toast.error(err.text);
 
     return { error: true, ...err };

@@ -51,7 +51,6 @@ export default function AddUserToWorkspace({
         email: emailRef.current.value,
       });
 
-      console.log("done loading");
       modalLoading(false);
 
       if (!user.error) {

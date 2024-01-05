@@ -27,9 +27,6 @@ export default function UserWorkspaces() {
     setTheWorkspace(event.target.value);
   };
 
-  console.log(theWorkspace);
-  console.log(workspaces);
-
   return (
     <div className="ml-2">
       <Box sx={{ minWidth: 120 }}>

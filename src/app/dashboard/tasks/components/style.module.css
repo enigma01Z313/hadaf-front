@@ -1,3 +1,7 @@
+.boards-wrap > div{
+  width: calc((100% - 48px) / 3);
+}
+
 .task-gp-wrapper {
 }
 
@@ -17,6 +21,7 @@
 .task {
   background: #eee;
   border-radius: 8px;
+  cursor: pointer;
 }
 
 .add-task-field input {

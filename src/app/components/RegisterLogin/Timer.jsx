@@ -4,7 +4,6 @@ export default function Timer({ time, action }) {
     const [times, setTimes] = useState(0)
 
   useEffect(() => {
-    console.log('11111111');
     // setTimes(time / 1000)
     // const interValId = setInterval(function () {
     //     console.log('111111');

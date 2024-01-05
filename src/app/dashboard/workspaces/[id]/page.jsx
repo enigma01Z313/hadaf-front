@@ -53,7 +53,6 @@ export default function User({ params }) {
       setNameError("فیلد اجباری");
     }
 
-    console.log(membersNumber, typeof membersNumber);
     if (membersNumber === "") {
       hasError = true;
       setMemberError("فیلد اجباری");
