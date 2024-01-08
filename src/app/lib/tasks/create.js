@@ -1,9 +1,9 @@
 import requests from "../request";
 
-const createTask = async ({ newTaskTitle, createMode }) => {
+const createTask = async ({ newTaskTitle, statusId }) => {
   const newTask = await requests.post("tasks", {
     title: newTaskTitle,
-    status: createMode,
+    status: statusId,
   });
 
   return newTask

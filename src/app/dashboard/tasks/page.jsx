@@ -2,21 +2,29 @@
 
 import React, { useState } from "react";
 import ListTable from "./components/Boards";
-import Create from "./components/Create";
+import Single from "./components/Single";
 import NoSSR from "@/app/components/NoSSR";
 
 export default function Tasks() {
-  const [mode, setMode] = useState("list");
   const [reloadList, setRealoadList] = useState(false);
+  const [singleTask, setSingleTask] = useState("")
+  const [columns, setColumns] = useState([])
 
   return (
     <NoSSR>
-      <ListTable setMode={setMode} reloadList={reloadList} />
-      {mode === "create" && (
-        <Create
-          open={mode === "create"}
-          setMode={setMode}
+      <ListTable
+        reloadList={reloadList}
+        setRealoadList={setRealoadList}
+        setSingleTask={setSingleTask}
+        setColumns={setColumns}
+      />
+      {singleTask !== "" && (
+        <Single
+          open={true}
+          singleTask={singleTask}
           setRealoadList={setRealoadList}
+          setSingleTask={setSingleTask}
+          taskStatuses={columns}
         />
       )}
     </NoSSR>

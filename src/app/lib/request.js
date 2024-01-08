@@ -31,6 +31,8 @@ const request = (payload) =>
     }
 
     const res = await fetch(path, options);
+    if(method === 'DELETE') return resolve()
+
     const data = await res.json();
 
     if (res.status === 401) {

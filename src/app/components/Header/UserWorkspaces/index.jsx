@@ -17,9 +17,9 @@ export default function UserWorkspaces() {
       const workspacesList = await getWorkspacesList();
 
       setWorkspaces(
-        workspacesList.map((v, i) => ({ ...v, isActive: i === 0 }))
+        workspacesList.data.map((v, i) => ({ ...v, isActive: i === 0 }))
       );
-      setTheWorkspace(workspacesList[0].id);
+      setTheWorkspace(workspacesList.data[0].id);
     })();
   }, []);
 

@@ -20,7 +20,7 @@ export default function ListTable({ setMode, reloadList }) {
       const usersList = await getUsersList(theWorkspace);
 
       setLoading(false);
-      setUsers(usersList);
+      setUsers(usersList.data);
     })();
   }, [reloadList, theWorkspace]);
 

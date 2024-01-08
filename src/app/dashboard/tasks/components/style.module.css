@@ -1,5 +1,5 @@
 .boards-wrap > div{
-  width: calc((100% - 48px) / 3);
+  width: calc((100% - 36px) / 4);
 }
 
 .task-gp-wrapper {
@@ -8,6 +8,10 @@
 .task-gp {
 }
 
+.task-item{
+  cursor: pointer;
+  background: #eee;
+}
 /**************************/
 .task-gp-wrapper.static-cols-count {
   display: flex;

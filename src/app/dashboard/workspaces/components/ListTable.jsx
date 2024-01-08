@@ -17,7 +17,7 @@ export default function ListTable({ setMode, reloadList }) {
       const workspacesList = await getWorkspacesList();
 
       setLoading(false)
-      setWorkspaces(workspacesList);
+      setWorkspaces(workspacesList.data);
     })();
   }, [reloadList]);
 

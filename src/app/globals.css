@@ -787,6 +787,11 @@ h4,
   box-shadow: 0px 3px 5px -1px #00000033, 0px 5px 8px 0px #00000024,
     0px 1px 14px 0px #0000001f;
 }
+.wrapper-box2{
+  background: #eee;
+  border-radius: 4px;
+  padding: 10px 14px;
+}
 
 /***********************************/
 .css-pqjvzy-MuiSvgIcon-root-MuiSelect-icon,
@@ -813,3 +818,13 @@ h4,
 html, body{
   height: 100vh;
 }
+
+.cursor-pointer{
+  cursor: pointer;
+}
+
+/***************************************/
+#task-stataus-select{
+  padding: 3px 0 3px 24px !important;
+}
+/* mui end*************************************/

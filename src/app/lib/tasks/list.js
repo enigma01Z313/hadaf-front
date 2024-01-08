@@ -4,24 +4,24 @@ import getBoardssList from "../boards/list";
 
 const getTasksList = async (workspaceId) => {
   const tasksUrl = `tasks`;
-  const tasks = await requests.get(tasksUrl);
+  const tasksList = await requests.get(tasksUrl);
   const boards = await getBoardssList();
 
-  const tmp = {};
-  boards.forEach(
-    (board) => (tmp[board.id] = { id: board.id, name: board.name, items: [] })
-  );
+  const tasks = {};
+  const columns = {};
+  const columnOrder = [];
 
-  tasks.forEach((task) => {
-    const statusId = task.status.id;
-    const order =  tmp[statusId].items.length + 1
-
-    tmp[statusId].items.push({
-      ...task,
-      order
-    });
+  boards.forEach((board) => {
+    columns[board.id] = { id: board.id, title: board.name, taskIds: [] };
+    columnOrder.push(board.id);
   });
 
+  tasksList.data.forEach((task) => {
+    tasks[task.id] = task;
+    columns[task.status.id].taskIds.push(task.id);
+  });
+
+  const tmp = { tasks, columns, columnOrder };
   return tmp;
 };
 

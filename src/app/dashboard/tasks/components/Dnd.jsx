@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 
 import { DragDropContext } from "react-beautiful-dnd";
@@ -24,20 +24,19 @@ const initialData = {
     "column-1": {
       id: "column-1",
       title: "TO-DO",
-      taskIds: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      taskIds: [1, 2, 4, 5, 10, 11, 12],
     },
     "column-2": {
       id: "column-2",
       title: "IN-PROGRESS",
-      taskIds: [],
+      taskIds: [7, 8, 9],
     },
     "column-3": {
       id: "column-3",
       title: "COMPLETED",
-      taskIds: [],
+      taskIds: [3, 6],
     },
   },
-  // Facilitate reordering of the columns
   columnOrder: ["column-1", "column-2", "column-3"],
 };
 
@@ -56,9 +55,17 @@ const reorderColumnList = (sourceCol, startIndex, endIndex) => {
   return newColumn;
 };
 
-export default function Dnd() {
-  const [state, setState] = useState(initialData);
-
+export default function Dnd({
+  createMode,
+  setCreateMode,
+  newTaskTitle,
+  setNewTaskTitle,
+  cancelAdd,
+  addNewTask,
+  tasksList,
+  setTasks,
+  setSingleTask,
+}) {
   const onDragEnd = (result) => {
     const { destination, source } = result;
 
@@ -74,8 +81,8 @@ export default function Dnd() {
     }
 
     // If the user drops within the same column but in a different positoin
-    const sourceCol = state.columns[source.droppableId];
-    const destinationCol = state.columns[destination.droppableId];
+    const sourceCol = tasksList.columns[source.droppableId];
+    const destinationCol = tasksList.columns[destination.droppableId];
 
     if (sourceCol.id === destinationCol.id) {
       const newColumn = reorderColumnList(
@@ -85,13 +92,13 @@ export default function Dnd() {
       );
 
       const newState = {
-        ...state,
+        ...tasksList,
         columns: {
-          ...state.columns,
+          ...tasksList.columns,
           [newColumn.id]: newColumn,
         },
       };
-      setState(newState);
+      setTasks(newState);
       return;
     }
 
@@ -111,25 +118,42 @@ export default function Dnd() {
     };
 
     const newState = {
-      ...state,
+      ...tasksList,
       columns: {
-        ...state.columns,
+        ...tasksList.columns,
         [newStartCol.id]: newStartCol,
         [newEndCol.id]: newEndCol,
       },
     };
 
-    setState(newState);
+    setTasks(newState);
   };
+
+  useEffect(() => {
+    setTasks(tasksList);
+  }, [tasksList]);
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className={`d-flex w-100 justify-between ${styles["boards-wrap"]}`}>
-        {state.columnOrder.map((columnId) => {
-          const column = state.columns[columnId];
-          const tasks = column.taskIds.map((taskId) => state.tasks[taskId]);
+        {tasksList.columnOrder.map((columnId) => {
+          const column = tasksList.columns[columnId];
+          const tasks = column.taskIds.map((taskId) => tasksList.tasks[taskId]);
 
-          return <Column key={column.id} column={column} tasks={tasks} />;
+          return (
+            <Column
+              key={column.id}
+              column={column}
+              tasks={tasks}
+              createMode={createMode}
+              setCreateMode={setCreateMode}
+              newTaskTitle={newTaskTitle}
+              setNewTaskTitle={setNewTaskTitle}
+              cancelAdd={cancelAdd}
+              addNewTask={addNewTask}
+              setSingleTask={setSingleTask}
+            />
+          );
         })}
       </div>
     </DragDropContext>
