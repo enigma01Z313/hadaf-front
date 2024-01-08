@@ -13,7 +13,7 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import Right from "./Right";
-import Left from "./Left";
+import Left from "./Left/Index";
 import getTask from "@/app/lib/tasks/get";
 import updateTask from "@/app/lib/tasks/update";
 import deleteTask from "@/app/lib/tasks/delete";
