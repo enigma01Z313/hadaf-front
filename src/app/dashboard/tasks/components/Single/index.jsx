@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect, useReducer, useContext } from "react";
 
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
+import workspaceContext from "@/app/context/workspaceContext";
 import Right from "./Right";
 import Left from "./Left/Index";
 import getTask from "@/app/lib/tasks/get";
@@ -29,13 +30,15 @@ export default function Single({
   setSingleTask,
   taskStatuses,
 }) {
+  const { theWorkspace } = useContext(workspaceContext);
   const [loading, setLoading] = useState(false);
   const [theTask, theTaskDispatch] = useReducer(taskReducer, undefined);
 
   useEffect(() => {
     (async function () {
       setLoading(true);
-      const taskData = await getTask(singleTask);
+
+      const taskData = await getTask(singleTask, theWorkspace);
 
       setLoading(false);
       // setTheTask(taskData);
@@ -65,36 +68,39 @@ export default function Single({
     });
   };
 
+  const handleassigneeChange = (assignee) => {
+    theTaskDispatch({type: "SET_assignee", payload: assignee})
+  }
+
   const handleTaskSave = async () => {
     const newData = {
       title: theTask.title,
       status: theTask.status.id,
       description: theTask.description,
+      assignee: theTask?.assignee?.id
     };
 
     setLoading(true);
-    await updateTask(theTask.id, newData);
+    await updateTask(theTask.id, newData, theWorkspace);
     setRealoadList((state) => !state);
     setLoading(false);
   };
 
   const handleDelete = async () => {
     setLoading(true);
-    await deleteTask(theTask.id);
+    await deleteTask(theTask.id, theWorkspace);
     setRealoadList((state) => !state);
     handleClose();
   };
 
-  console.log("the task");
-  console.log(theTask);
-
   return (
     <Dialog
+      
       maxWidth="md"
       fullWidth={true}
       open={open}
       onClose={handleClose}
-      PaperProps={{ classes: { root: loading ? "loading " : "" } }}>
+      PaperProps={{ classes: { root: loading ? "loading " : "over-visible" } }}>
       <DialogTitle>
         <div className="d-flex no-wrap">
           <FormControl className="rtl-input p-relative w-100">
@@ -130,7 +136,7 @@ export default function Single({
           </div>
         </div>
       </DialogTitle>
-      <DialogContent>
+      <DialogContent style={{ overflow: "visible" }}>
         <section className="d-flex">
           <Right
             description={theTask?.description}
@@ -140,6 +146,7 @@ export default function Single({
             assignee={theTask?.assignee ?? ""}
             progress={theTask?.progress ?? ""}
             colleages={theTask?.colleages ?? []}
+            handleassigneeChange={handleassigneeChange}
           />
         </section>
       </DialogContent>

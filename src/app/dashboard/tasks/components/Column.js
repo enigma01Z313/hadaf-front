@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+import PerfectScrollbar from "react-perfect-scrollbar";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { TextField } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
@@ -35,35 +36,43 @@ const Column = ({
 
   return (
     <div
-      className={`wrapper-box p-0 d-flex direction-column
-        ${loading ? "loading" : ""}`}>
+      className={`wrapper-box p-0 d-flex direction-column no-wrap
+        ${loading ? "loading" : ""}`}
+      style={{maxHeight: 'calc(100vh - 75px - 48px)'}}  
+      >
       <h2 className="p-1 text-h6 weight-500">{column.title}</h2>
 
       <Devider line={true} spacing={0} />
-
-      <Droppable droppableId={column.id}>
-        {(droppableProvided, droppableSnapshot) => (
-          <div
-            className="grow-1 px-1 py-3"
-            ref={droppableProvided.innerRef}
-            {...droppableProvided.droppableProps}>
-            {tasks.map((task, index) => (
-              <Draggable key={task.id} draggableId={`${task.id}`} index={index}>
-                {(draggableProvided, draggableSnapshot) => (
-                  <div
-                    onClick={() => setSingleTask(task.id)}
-                    className={`p-1 mb-1 ${styles["task-item"]}`}
-                    ref={draggableProvided.innerRef}
-                    {...draggableProvided.draggableProps}
-                    {...draggableProvided.dragHandleProps}>
-                    <span>{task.title}</span>
-                  </div>
-                )}
-              </Draggable>
-            ))}
-          </div>
-        )}
-      </Droppable>
+      {/* <PerfectScrollbar style={{ maxHeight: "calc(100% - 220px)" }}> */}
+      <PerfectScrollbar style={{maxHeight: 'calc(100vh - 75px - 48px - 100px)'}}>
+        <Droppable droppableId={column.id}>
+          {(droppableProvided, droppableSnapshot) => (
+            <div
+              className="grow-1 px-1 py-3"
+              ref={droppableProvided.innerRef}
+              {...droppableProvided.droppableProps}>
+              {tasks.map((task, index) => (
+                <Draggable
+                  key={task.id}
+                  draggableId={`${task.id}`}
+                  index={index}>
+                  {(draggableProvided, draggableSnapshot) => (
+                    <div
+                      onClick={() => setSingleTask(task.id)}
+                      className={`p-1 mb-1 ${styles["task-item"]}`}
+                      ref={draggableProvided.innerRef}
+                      {...draggableProvided.draggableProps}
+                      {...draggableProvided.dragHandleProps}>
+                      <span>{task.title}</span>
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+            </div>
+          )}
+        </Droppable>
+        </PerfectScrollbar>
+      {/* </PerfectScrollbar> */}
       <Devider line={true} spacing={0} />
       <div className="p-1">
         {((createMode === "" || column.id !== createMode) && (

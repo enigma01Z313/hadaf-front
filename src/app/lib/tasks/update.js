@@ -1,7 +1,8 @@
 import requests from "../request";
 
-const updateTask = async (taskId, data) => {
-  const task = await requests.put(`tasks/${taskId}`, data);
+const updateTask = async (taskId, data, workspaceId) => {
+  const reqUrl = `workspaces/${workspaceId}/tasks/${taskId}`;
+  const task = await requests.put(reqUrl, data);
 
   return task;
 };

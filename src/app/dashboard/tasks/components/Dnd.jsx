@@ -135,7 +135,8 @@ export default function Dnd({
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div className={`d-flex w-100 justify-between ${styles["boards-wrap"]}`}>
+      <div className={`d-flex w-100 justify-between align-start
+        ${styles["boards-wrap"]}`}>
         {tasksList.columnOrder.map((columnId) => {
           const column = tasksList.columns[columnId];
           const tasks = column.taskIds.map((taskId) => tasksList.tasks[taskId]);

@@ -3,7 +3,7 @@ import requests from "../request";
 import getBoardssList from "../boards/list";
 
 const getTasksList = async (workspaceId) => {
-  const tasksUrl = `tasks`;
+  const tasksUrl = `workspaces/${workspaceId}/tasks`;
   const tasksList = await requests.get(tasksUrl);
   const boards = await getBoardssList();
 

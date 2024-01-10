@@ -32,11 +32,15 @@ export default function ListTable({
 
   const addNewTask = () =>
     new Promise(async (resolve, reject) => {
-      const newTask = await createTask({ newTaskTitle, statusId: createMode });
+      const newTask = await createTask({
+        newTaskTitle,
+        statusId: createMode,
+        theWorkspace,
+      });
 
       setRealoadList((state) => !state);
-      setCreateMode("")
-      resolve()
+      setCreateMode("");
+      resolve();
     });
 
   const cancelAdd = () => {

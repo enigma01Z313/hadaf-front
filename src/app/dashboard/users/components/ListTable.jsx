@@ -11,17 +11,24 @@ export default function ListTable({ setMode, reloadList }) {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const { theWorkspace } = useContext(workspaceContext);
+  const { theWorkspace, theUsers, setTheUsers } = useContext(workspaceContext);
   const columns = listColumns();
-
 
   useEffect(() => {
     (async function () {
-      const usersList = await getUsersList(theWorkspace);
+
+      console.log('222222222');
+      let usersList;
+
+      // if (theUsers.total === 0) {
+        usersList = await getUsersList(theWorkspace);
+        // setTheUsers(usersList);
+      // } else usersList = theUsers;
 
       setLoading(false);
       setUsers(usersList.data);
     })();
+  // }, []);
   }, [reloadList, theWorkspace]);
 
   return (
