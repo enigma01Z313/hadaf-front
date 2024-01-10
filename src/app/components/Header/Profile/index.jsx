@@ -14,9 +14,9 @@ import styles from "./style.module.css";
 
 export default function Profile() {
   const router = useRouter();
-  const user = JSON.parse(localStorage.getItem("user"));
-
   const { theUser, setTheUser } = useContext(workspaceContext);
+  const user = theUser ?? JSON.parse(localStorage.getItem("user"));
+
 
   useEffect(() => {
     setTheUser(user)

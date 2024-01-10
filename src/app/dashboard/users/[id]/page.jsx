@@ -123,7 +123,10 @@ export default function User({ params }) {
         referalCode: referalCodeRef.current.value
       });
 
-      if (user.id === theUser.id) setTheUser(uppedUser);
+      if (user.id === theUser.id) {
+        setTheUser(uppedUser);
+        localStorage.setItem('user', JSON.stringify({...user, fullName: uppedUser.fullName}))
+      }
       setLoading(false);
     }
   };
