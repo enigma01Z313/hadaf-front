@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import {
   FormControl,
   InputLabel,
@@ -21,6 +21,8 @@ import getUser from "@/app/lib/users/get";
 import getUsersList from "@/app/lib/users/list";
 import uploadImage from "@/app/lib/file/uploadImage";
 import updateUser from "@/app/lib/users/update";
+
+import workspaceContext from "@/app/context/workspaceContext";
 
 import styles from "./page.module.css";
 
@@ -45,6 +47,7 @@ export default function User({ params }) {
   const [passwordReError, setPasswordReError] = useState();
   const [superviser, setSupervser] = useState();
   const [usage, setUsage] = useState(0);
+  const { theUser, setTheUser } = useContext(workspaceContext);
 
   useEffect(() => {
     (async function () {
@@ -112,12 +115,13 @@ export default function User({ params }) {
     if (!hasError) {
       setLoading(true);
 
-      const { uppedUser } = await updateUser(user.id, {
+      const uppedUser  = await updateUser(user.id, {
         fullName,
         phone,
         email,
       });
 
+      if (user.id === theUser.id) setTheUser(uppedUser);
       setLoading(false);
     }
   };
@@ -136,15 +140,13 @@ export default function User({ params }) {
     <div
       className={`
     d-flex justify-between py-3 px-2 wrapper-box align-center
-    ${loading ? "loading" : ""}`}
-    >
+    ${loading ? "loading" : ""}`}>
       <div className="w-50">
         <Button
           className={`p-0 d-flex justify-between
             ${uploadLoading ? styles["loading"] : ""}`}
           color="inherit"
-          component="label"
-        >
+          component="label">
           <input type="file" onChange={(e) => handleImageUpload(e)} hidden />
           {(user.imageId && "aaaa") || (
             <AccountCircleIcon style={{ fontSize: 50, opacity: 0.5 }} />
@@ -240,16 +242,14 @@ export default function User({ params }) {
       </FormControl>
       <FormControl
         className="mt-3 rtl-input p-relative w-50"
-        variant="standard"
-      >
+        variant="standard">
         <InputLabel htmlFor="password-re">ناظر</InputLabel>
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
           value={superviser}
           onChange={(e) => setSupervser(e.target.value)}
-          label="ناظر"
-        >
+          label="ناظر">
           <MenuItem value="">
             <em>-</em>
           </MenuItem>
@@ -267,8 +267,7 @@ export default function User({ params }) {
       <ContainedPrimary
         onClick={submitRegisterForm}
         className="mt-3 justify-center"
-        size="large"
-      >
+        size="large">
         ذخیره
       </ContainedPrimary>
     </div>

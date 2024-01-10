@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -8,13 +8,19 @@ import PersonIcon from "@mui/icons-material/Person";
 import TexedInherit from "@/app/components/Button/TexedInherit";
 import Devider from "../../Devider";
 
+import workspaceContext from "@/app/context/workspaceContext";
+
 import styles from "./style.module.css";
 
 export default function Profile() {
   const router = useRouter();
   const user = JSON.parse(localStorage.getItem("user"));
 
-  const [fullName, setFullName] = useState(user.fullName);
+  const { theUser, setTheUser } = useContext(workspaceContext);
+
+  useEffect(() => {
+    setTheUser(user)
+  }, [])
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
@@ -29,15 +35,15 @@ export default function Profile() {
     <div className={styles["profile-wrapper"]}>
       <Link
         className="d-flex align-center px-2 py-1"
-        href={`/dashboard/users/${user.id}`}>
-        {fullName}
+        href={`/dashboard/users/${theUser?.id}`}>
+        {theUser?.fullName}
         <KeyboardArrowDownIcon className="mr-1" />
       </Link>
       <div className="pt-3">
         <div className="wrapper-box p-0">
           <ul className="py-1">
             <li className="px-1">
-              <Link href={`/dashboard/users/${user.id}`}>
+              <Link href={`/dashboard/users/${theUser?.id}`}>
                 <TexedInherit className="w-100 px-1 py-1 d-flex" href="">
                   <PersonIcon className="ml-1" />
                   ویرایش

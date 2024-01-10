@@ -90,9 +90,8 @@ export default function User({ params }) {
 
   return (
     <div
-      className={`
-    d-flex justify-between w-100 py-3 px-2 wrapper-box align-center
-    ${loading ? "loading" : ""}`}>
+      className={`d-flex justify-between w-100 py-3 px-2 wrapper-box align-center
+        ${loading ? "loading" : ""}`}>
       <FormControl className="rtl-input p-relative w-50">
         <InputLabel htmlFor="full-name">نام فضای کاری</InputLabel>
         <Input
