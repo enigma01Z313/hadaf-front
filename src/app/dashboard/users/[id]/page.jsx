@@ -119,6 +119,8 @@ export default function User({ params }) {
         fullName,
         phone,
         email,
+        passowrd: passwordRef.current.value,
+        referalCode: referalCodeRef.current.value
       });
 
       if (user.id === theUser.id) setTheUser(uppedUser);
