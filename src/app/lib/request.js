@@ -41,7 +41,7 @@ const request = (payload) =>
       localStorage.removeItem("meta");
       localStorage.removeItem("refresToken");
 
-      return;
+      return resolve({error: "نام کاربری یا پسورد اشتباه است"});
     }
     if (!res.ok) return reject(data.error);
 

@@ -95,7 +95,6 @@ export default function Single({
 
   return (
     <Dialog
-      
       maxWidth="md"
       fullWidth={true}
       open={open}

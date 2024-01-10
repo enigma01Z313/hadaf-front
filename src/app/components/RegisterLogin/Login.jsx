@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FormControl, InputLabel, Input } from "@mui/material";
+import { toast } from "react-toastify";
 
 import saveLoginData from "../Auth/utils/saveLoginData";
 import ContainedPrimary from "@/app/components/Button/ContainedPrimary";
@@ -53,7 +54,10 @@ export default function Login({ setFormStatus }) {
         passwordRef.current.value
       );
 
-      if (user.error) setLoading(false);
+      if (user.error) {
+        setLoading(false);
+        toast.error(user.error);
+      }
       else {
         saveLoginData(user);
         router.push(`/dashboard`);
