@@ -4,7 +4,10 @@ const workspaceContext = createContext();
 
 export const WorkspaceContextProvider = ({ children }) => {
   const [theWorkspace, setTheWorkspace] = useState([]);
-  const [theUsers, setTheUsers] = useState({data: [], total: 0});
+  const [theUsers, setTheUsers] = useState({ data: [], total: 0 });
+
+  const [theUser, setTheUser] = useState();
+  const [userWorkspaces, setUserWorkspaces] = useState([]);
 
   return (
     <workspaceContext.Provider
@@ -13,6 +16,10 @@ export const WorkspaceContextProvider = ({ children }) => {
         setTheWorkspace,
         theUsers,
         setTheUsers,
+        theUser,
+        setTheUser,
+        userWorkspaces,
+        setUserWorkspaces,
       }}>
       {children}
     </workspaceContext.Provider>

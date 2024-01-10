@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   FormControl,
   InputLabel,
@@ -16,6 +16,7 @@ import ContainedPrimary from "@/app/components/Button/ContainedPrimary";
 import DoupleActiveSwitch from "@/app/components/DoupleActiveSwitch";
 import getWorkspace from "@/app/lib/workspaces/get";
 import updateWorkspace from "@/app/lib/workspaces/update";
+import workspaceContext from "@/app/context/workspaceContext";
 
 export default function User({ params }) {
   // const router = useRouter();
@@ -28,6 +29,7 @@ export default function User({ params }) {
   const [nameError, setNameError] = useState();
   const [memberError, setMemberError] = useState();
   const [usage, setUsage] = useState(0);
+  const { setUserWorkspaces } = useContext(workspaceContext);
 
   useEffect(() => {
     (async function () {
@@ -75,6 +77,13 @@ export default function User({ params }) {
         usageType,
         description,
       });
+      setUserWorkspaces((old) =>
+        old.map((item) => ({
+          ...item,
+          name: item.id === workspace.id ? name : item.name,
+        }))
+      );
+
       setLoading(false);
     }
   };
@@ -83,8 +92,7 @@ export default function User({ params }) {
     <div
       className={`
     d-flex justify-between w-100 py-3 px-2 wrapper-box align-center
-    ${loading ? "loading" : ""}`}
-    >
+    ${loading ? "loading" : ""}`}>
       <FormControl className="rtl-input p-relative w-50">
         <InputLabel htmlFor="full-name">نام فضای کاری</InputLabel>
         <Input
@@ -144,8 +152,7 @@ export default function User({ params }) {
       <ContainedPrimary
         onClick={updaeWorkspaceForm}
         className="mt-3 justify-center"
-        size="large"
-      >
+        size="large">
         ذخیره
       </ContainedPrimary>
     </div>

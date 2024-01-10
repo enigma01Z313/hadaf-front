@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useContext } from "react";
 import { useRouter } from "next/navigation";
 import { FormControl, InputLabel, Input, Grid, TextField } from "@mui/material";
 
@@ -13,6 +13,7 @@ import TexedError from "@/app/components/Button/TextedError";
 import TexedPrimary from "@/app/components/Button/TexedPrimary";
 
 import createWorkspace from "@/app/lib/workspaces/create";
+import workspaceContext from "@/app/context/workspaceContext";
 
 export default function WorkspaceCreate({
   modal,
@@ -32,6 +33,7 @@ export default function WorkspaceCreate({
   const [nameError, setNameError] = useState();
   const [memberError, setMemberError] = useState();
   const [usage, setUsage] = useState(0);
+  const { setUserWorkspaces } = useContext(workspaceContext);
 
   const formValidate = () => {
     let hasError = false;
@@ -67,6 +69,7 @@ export default function WorkspaceCreate({
         description?.current?.value ?? "",
         theUser.id
       );
+      setUserWorkspaces((old) => [...old, { ...workspace, isActive: false }]);
 
       if (modal) modalLoading(false);
       else setLoading(false);

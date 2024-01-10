@@ -8,15 +8,14 @@ import getWorkspacesList from "@/app/lib/workspaces/list";
 import workspaceContext from "@/app/context/workspaceContext";
 
 export default function UserWorkspaces() {
-  const { theWorkspace, setTheWorkspace } = useContext(workspaceContext);
-
-  const [workspaces, setWorkspaces] = useState([]);
+  const { theWorkspace, setTheWorkspace, userWorkspaces, setUserWorkspaces } =
+    useContext(workspaceContext);
 
   useEffect(() => {
     (async function () {
       const workspacesList = await getWorkspacesList();
 
-      setWorkspaces(
+      setUserWorkspaces(
         workspacesList.data.map((v, i) => ({ ...v, isActive: i === 0 }))
       );
       setTheWorkspace(workspacesList.data[0].id);
@@ -36,7 +35,7 @@ export default function UserWorkspaces() {
             value={theWorkspace ?? ""}
             label="Age"
             onChange={handleChange}>
-            {workspaces.map((item) => (
+            {userWorkspaces.map((item) => (
               <MenuItem key={item.id} value={item.id}>
                 {item.name}
               </MenuItem>
