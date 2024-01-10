@@ -117,6 +117,7 @@ export default function User({ params }) {
         phone,
         email,
       });
+
       setLoading(false);
     }
   };

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import EditIcon from "@mui/icons-material/Edit";
 
 const listColumns = () => {
   const columns = [
@@ -29,6 +30,19 @@ const listColumns = () => {
       headerName: "نوع استفاده",
       width: 160,
       valueGetter: (data) => `${data?.row?.usageType?.label || ""}`,
+    },
+    {
+      field: "",
+      headerName: "ویرایش",
+      width: 70,
+      renderCell: (data) => (
+        <Link
+          className="w-100 text-center"
+          href={`/dashboard/workspaces/${data.row.id}`}
+          prefetch={false}>
+          <EditIcon />
+        </Link>
+      ),
     },
   ];
 

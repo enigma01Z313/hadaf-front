@@ -8,8 +8,6 @@ import PersonIcon from "@mui/icons-material/Person";
 import TexedInherit from "@/app/components/Button/TexedInherit";
 import Devider from "../../Devider";
 
-import useLogout from "@/app/hooks/useLogout";
-
 import styles from "./style.module.css";
 
 export default function Profile() {

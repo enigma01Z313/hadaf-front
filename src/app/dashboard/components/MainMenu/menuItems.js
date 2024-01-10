@@ -65,9 +65,9 @@ const menuItems = [
   },
   {
     id: 80,
-    title: "okr",
-    slug: "okr",
-    link: "/dashboard/okr",
+    title: "KPI",
+    slug: "kpi",
+    link: "/dashboard/kpi",
     icon: CrisisAlertIcon,
     disabled: true,
   },

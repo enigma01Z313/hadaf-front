@@ -27,7 +27,7 @@ export default function ListTable({ setMode, reloadList }) {
       <div className="d-flex justify-between align-center mb-2">
         <h3 className="">لیست فضاهای کاری</h3>
         <ContainedPrimary onClick={() => setMode("create")}>
-          افزودن کاربر جدید
+          افزودن فضای کاری
         </ContainedPrimary>
       </div>
       <DataGrid
