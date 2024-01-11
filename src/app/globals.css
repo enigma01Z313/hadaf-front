@@ -833,4 +833,8 @@ html, body{
 .over-visible{
   overflow: visible !important;
 }
+#task-stataus-select-wrap svg{
+  right: unset !important;
+  left: 0 !important;
+}
 /* mui end*************************************/

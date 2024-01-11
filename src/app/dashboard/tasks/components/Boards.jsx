@@ -21,7 +21,8 @@ export default function ListTable({
 
   useEffect(() => {
     (async function () {
-      const tasksList = await getTasksList(theWorkspace);
+      const tasksList =
+        theWorkspace.length !== 0 ? await getTasksList(theWorkspace) : [];
 
       setColumns(tasksList.columns);
       setLoading(false);

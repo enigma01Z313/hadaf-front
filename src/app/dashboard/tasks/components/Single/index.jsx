@@ -89,6 +89,9 @@ export default function Single({
     await updateTask(theTask.id, newData, theWorkspace);
     setRealoadList((state) => !state);
     setLoading(false);
+    setTimeout(function(){
+      setSingleTask("")
+    }, 500)
   };
 
   const handleDelete = async () => {
@@ -111,21 +114,21 @@ export default function Single({
             <Input
               id="full-name"
               aria-describedby="my-helper-text"
-              className="text-h4"
+              className="text-h5 py-1"
               value={theTask?.title ?? ""}
               onChange={handleTitleChange}
             />
           </FormControl>
           <div className="mr-2" style={{ width: "150px" }}>
             <div className="text-h6">وضعیت</div>
-            <FormControl fullWidth variant="standard">
+            <FormControl id="task-stataus-select-wrap" fullWidth variant="standard">
               <Select
                 labelId="task-stataus-select-label"
                 id="task-stataus-select"
                 value={theTask?.status?.id ?? ""}
                 label="وضعیت"
                 onChange={handleStatusChange}
-                className="text-body-1">
+                className="text-body-2">
                 {Object.keys(taskStatuses).map((status) => {
                   return (
                     <MenuItem
