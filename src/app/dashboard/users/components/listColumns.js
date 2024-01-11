@@ -68,7 +68,7 @@ const listColumns = () => {
       renderCell: (data) => (
         <Link
           className="w-100 text-center"
-          href={`/dashboard/workspaces/${data.row.id}`}
+          href={`/dashboard/users/${data.row.id}`}
           prefetch={false}>
           <EditIcon />
         </Link>

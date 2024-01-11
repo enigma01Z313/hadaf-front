@@ -42,8 +42,7 @@ export default function Login({ setFormStatus }) {
     }
 
     return hasError;
-  };
-
+  }
   const submitRegisterForm = async () => {
     const hasError = formValidate();
 
@@ -56,9 +55,8 @@ export default function Login({ setFormStatus }) {
 
       if (user.error) {
         setLoading(false);
-        toast.error(user.error)
-      }
-      else {
+        toast.error(user.error);
+      } else {
         saveLoginData(user);
         router.push(`/dashboard`);
       }

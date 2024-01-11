@@ -27,6 +27,7 @@ export default function Profile() {
     localStorage.removeItem("user");
     localStorage.removeItem("meta");
     localStorage.removeItem("refresToken");
+    document.exitFullscreen();
 
     router.push(`/`);
   };
