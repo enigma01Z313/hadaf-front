@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, use } from "react";
 import { Input } from "@mui/material";
 import styles from "./style.module.css";
 
-export default function DigitsInput({ digits, setter }) {
+export default function DigitsInput({ digits, setter, resetDigits }) {
   const [digitsVal, setDigitsVal] = useState([]);
   const digitsRefs = useRef();
 
@@ -18,6 +18,10 @@ export default function DigitsInput({ digits, setter }) {
   useEffect(() => {
     setter(digitsVal.join(""));
   }, [digitsVal]);
+
+  useEffect(() => {
+    setDigitsVal(["","","",""])
+  }, [resetDigits])
 
   const hadnleDigitFocus = (index) => {
     setDigitsVal((oldState) => {

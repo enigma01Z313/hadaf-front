@@ -1,5 +1,6 @@
-'use client'
+"use client";
 
+import saveLoginData from "../Auth/utils/saveLoginData";
 import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Countdown from "react-countdown";
@@ -21,7 +22,7 @@ import Link from "next/link";
 const resendInterval = 120 * 1000;
 
 export default function ActivateAccount({ setFormStatus }) {
-  const router = useRouter()
+  const router = useRouter();
   const searchParams = useSearchParams();
 
   const usernameRef = useRef();
@@ -80,7 +81,10 @@ export default function ActivateAccount({ setFormStatus }) {
         localStorage.setItem("sendActivateCode", new Date().getTime());
         setResendTimer(resendInterval);
         if (user.error) setResend(true);
-        else router.push('/dashboard')
+        else {
+          saveLoginData(...user)
+          router.push("/dashboard");
+        }
       }
 
       setLoading(false);
@@ -144,8 +148,7 @@ export default function ActivateAccount({ setFormStatus }) {
             <Link href={"/"}>
               <TexedPrimary
                 className="mr-1"
-                onClick={() => setFormStatus("register")}
-              >
+                onClick={() => setFormStatus("register")}>
                 ثبت نام
               </TexedPrimary>
             </Link>

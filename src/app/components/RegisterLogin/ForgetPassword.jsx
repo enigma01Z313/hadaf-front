@@ -15,17 +15,18 @@ import oneTimePassword from "@/app/lib/Auth/oneTimePassword";
 import DigitsInput from "@/app/components/DigitsInput";
 
 const resendInterval = 90 * 1000;
-const oneTimeLenght = 4
+const oneTimeLenght = 4;
 
-export default function ForgetPassword() {
+export default function ForgetPassword({setFormStatus}) {
   const router = useRouter();
-  
-  const [username, setUsername] = useState('')
+
+  const [username, setUsername] = useState("");
   const [usernameError, setUsernameError] = useState();
   const [loading, setLoading] = useState(false);
   const [resendTimer, setResendTimer] = useState(0);
   const [step, setStep] = useState(1);
   const [password, setPassword] = useState("");
+  const [resetDigits, setResetDigits] = useState(false);
 
   const usernameIdRef = useRef();
 
@@ -51,7 +52,11 @@ export default function ForgetPassword() {
   const submitOnetimePasswordForm = async () => {
     const hasError = formValidate();
 
-    if (!hasError) {
+    console.log('1-------------------');
+    console.log(username);
+    console.log(hasError);
+
+    if (!hasError || hasError) {
       setLoading(true);
       const { id } = await oneTimeLogin(username);
       localStorage.setItem("sendOnetimeLogin", new Date().getTime());
@@ -59,10 +64,14 @@ export default function ForgetPassword() {
       if (id) {
         usernameIdRef.current = id;
         toast.success("رمز یکبار مصرف ارسال شد");
+
+        setResendTimer(resendInterval);
+        setStep(2);
+      }else{
+        setUsername("");
       }
       setLoading(false);
-      setResendTimer(resendInterval);
-      setStep(2);
+      setResetDigits(state => !state)
     }
   };
 
@@ -72,10 +81,13 @@ export default function ForgetPassword() {
     setLoading(true);
     const user = await oneTimePassword(userId, password);
 
-    setLoading(false)
+    setLoading(false);
     if (!user.error) {
       saveLoginData(user);
       router.push(`/dashboard`);
+    }else{
+      setResetDigits(state => !state)
+      toast.error(user.error)
     }
   };
 
@@ -107,6 +119,7 @@ export default function ForgetPassword() {
             <Input
               id="full-name"
               aria-describedby="my-helper-text"
+              value={username}
               onChange={(e) => setUsername(e.target.value)}
               onFocus={() => setUsernameError(undefined)}
             />
@@ -126,7 +139,11 @@ export default function ForgetPassword() {
             className={`d-flex direction-column mt-3 
                 ${loading ? "loading" : ""}`}
             style={{ width: 400 }}>
-            <DigitsInput digits={oneTimeLenght} setter={setPassword} />
+            <DigitsInput
+              digits={oneTimeLenght}
+              setter={setPassword}
+              resetDigits={resetDigits}
+            />
 
             <ContainedPrimary
               disabled={password.length !== oneTimeLenght}
@@ -136,10 +153,12 @@ export default function ForgetPassword() {
               ورود
             </ContainedPrimary>
             <span className="mt-2 d-flex justify-center align-center">
-              {resendTimer !== 0 && <Countdown
-                date={Date.now() + resendTimer}
-                renderer={countdownRenderer}
-              />}
+              {resendTimer !== 0 && (
+                <Countdown
+                  date={Date.now() + resendTimer}
+                  renderer={countdownRenderer}
+                />
+              )}
               <TexedPrimary
                 onClick={submitOnetimePasswordForm}
                 disabled={resendTimer !== 0}
