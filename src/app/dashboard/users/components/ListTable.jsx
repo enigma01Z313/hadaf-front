@@ -21,7 +21,7 @@ export default function ListTable({ setMode, reloadList }) {
       let usersList;
 
       // if (theUsers.total === 0) {
-        usersList = await getUsersList(theWorkspace);
+        usersList = theWorkspace ? await getUsersList(theWorkspace) : [];
         // setTheUsers(usersList);
       // } else usersList = theUsers;
 
