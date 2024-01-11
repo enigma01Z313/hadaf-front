@@ -82,7 +82,7 @@ export default function ActivateAccount({ setFormStatus }) {
         setResendTimer(resendInterval);
         if (user.error) setResend(true);
         else {
-          saveLoginData(...user)
+          saveLoginData(user);
           router.push("/dashboard");
         }
       }
