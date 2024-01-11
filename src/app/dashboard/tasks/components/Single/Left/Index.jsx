@@ -9,6 +9,7 @@ export default function Left({
   progress,
   colleages,
   handleassigneeChange,
+  handleProgressChange,
 }) {
   return (
     <aside className={`grow-1`} style={{ maxWidth: "25%" }}>
@@ -17,7 +18,11 @@ export default function Left({
         handleassigneeChange={handleassigneeChange}
         className="mb-1"
       />
-      <Progress progress={progress} className="mb-1" />
+      <Progress
+        progress={progress}
+        handleProgressChange={handleProgressChange}
+        className="mb-1"
+      />
       <Colleages colleages={colleages} />
     </aside>
   );

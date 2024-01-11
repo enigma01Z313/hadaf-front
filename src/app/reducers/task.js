@@ -8,12 +8,11 @@ const taskReducer = (state, action) => {
   if (action.type === "SET_DESCRIPTION")
     return { ...state, description: action.payload };
 
-  if(action.type === 'SET_assignee') {
-    console.log(action.payload);
-    console.log(state);
+  if (action.type === "SET_ASSIGNEE")
+    return { ...state, assignee: action.payload };
 
-    return {...state, assignee: action.payload}
-  }
+  if (action.type === "SET_PROGRESS")
+    return { ...state, progress: action.payload };
 
   return state;
 };

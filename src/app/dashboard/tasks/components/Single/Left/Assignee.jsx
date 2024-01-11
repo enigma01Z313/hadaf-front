@@ -10,18 +10,38 @@ import CheckIcon from "@mui/icons-material/Check";
 
 import styles from "./style.module.css";
 
-export default function Assignee({ assignee, className, handleassigneeChange }) {
+export default function Assignee({
+  assignee,
+  className,
+  handleassigneeChange,
+}) {
+  const { theWorkspace } = useContext(workspaceContext);
+
   const [isEditting, setIsEditting] = useState(false);
   const [workspaceUsers, setWorkspaceUsers] = useState([]);
-
-  const { theWorkspace } = useContext(workspaceContext);
 
   useEffect(() => {
     (async function () {
       const usersList = await getUsersList(theWorkspace);
-      setWorkspaceUsers(usersList);
+      setWorkspaceUsers({
+        ...usersList,
+        data: usersList.data.map((user) => ({ ...user, isFiltered: true })),
+      });
     })();
   }, []);
+
+  const handleSearch = (e) => {
+    const val = e.target.value;
+    const newUsers = workspaceUsers.data.map((user) => ({
+      ...user,
+      isFiltered:
+        val === "" ||
+        (val !== "" &&
+          (user.fullName.includes(val) || user.email.includes(val))),
+    }));
+
+    setWorkspaceUsers((state) => ({ ...state, data: newUsers }));
+  };
 
   return (
     <div className={styles["task-config"]}>
@@ -51,26 +71,32 @@ export default function Assignee({ assignee, className, handleassigneeChange }) 
                 className="w-100"
                 variant="standard"
                 placeholder="جستجو اعضا..."
+                onChange={handleSearch}
+                inputProps={{className: "text-subtitle-3"}}
               />
+
               <div className={`py-1 ${styles["assignee-users"]}`}>
-                {workspaceUsers.data.map((user) => (
-                  <div
-                    className={`p-1 d-flex justify-between no-wrap
+                {workspaceUsers.data
+                  .filter((user) => user.isFiltered)
+                  .map((user) => (
+                    <div
+                      className={`text-subtitle-3 p-1 d-flex justify-between no-wrap 
                       ${styles["assignee-user"]}
                       ${assignee.id === user.id ? styles["checked"] : ""}`}
-                    key={user.id}>
-                    <div
-                      onClick={() => {
-                        handleassigneeChange({
-                          id: user.id,
-                          fullName: user.fullName,
-                        });
-                      }}>
-                      {user.fullName} ({user.email})
+                      key={user.id}>
+                      <div
+                        onClick={() => {
+                          handleassigneeChange({
+                            id: user.id,
+                            fullName: user.fullName,
+                          });
+                          setIsEditting(false);
+                        }}>
+                        {user.fullName} ({user.email})
+                      </div>
+                      {assignee.id === user.id && <CheckIcon />}
                     </div>
-                    {assignee.id === user.id && <CheckIcon />}
-                  </div>
-                ))}
+                  ))}
               </div>
             </section>
           </article>
