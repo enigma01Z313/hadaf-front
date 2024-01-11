@@ -8,6 +8,7 @@ import TexedPrimary from "@/app/components/Button/TexedPrimary";
 import Error from "../Shared/Error";
 
 import loginForm from "@/app/lib/Auth/loginForm";
+import { toast } from "react-toastify";
 
 export default function Login({ setFormStatus }) {
   const router = useRouter();
@@ -53,7 +54,10 @@ export default function Login({ setFormStatus }) {
         passwordRef.current.value
       );
 
-      if (user.error) setLoading(false);
+      if (user.error) {
+        setLoading(false);
+        toast.error(user.error)
+      }
       else {
         saveLoginData(user);
         router.push(`/dashboard`);
