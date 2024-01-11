@@ -76,13 +76,18 @@ export default function Single({
     theTaskDispatch({type: "SET_PROGRESS", payload: progress})
   }
 
+  const handleColleagesChange = (colleages) => {
+    theTaskDispatch({type: "SET_COLLEAGES", payload: colleages})
+  }
+
   const handleTaskSave = async () => {
     const newData = {
       title: theTask.title,
       status: theTask.status.id,
       description: theTask.description,
       assignee: theTask?.assignee?.id,
-      progress: theTask?.progress
+      progress: theTask?.progress,
+      colleagues: theTask.colleagues.map(item => item.id)
     };
 
     setLoading(true);
@@ -152,9 +157,10 @@ export default function Single({
           <Left
             assignee={theTask?.assignee ?? ""}
             progress={theTask?.progress ?? ""}
-            colleages={theTask?.colleages ?? []}
+            colleages={theTask?.colleagues ?? []}
             handleassigneeChange={handleassigneeChange}
             handleProgressChange={handleProgressChange}
+            handleColleagesChange={handleColleagesChange}
           />
         </section>
       </DialogContent>

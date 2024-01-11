@@ -130,12 +130,6 @@ const {theWorkspace} = useContext(workspaceContext)
       },
     };
 
-    // console.log(destination);
-    // console.log(endTaskIds);
-    // console.log(destination.index);
-    // console.log('------------------------');
-    // console.log(endTaskIds[destination.index], {status: destination.droppableId}, theWorkspace);
-
     setTasks(newState);
     await updateTask(endTaskIds[destination.index], {status: destination.droppableId}, theWorkspace)
   };

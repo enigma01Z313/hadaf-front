@@ -14,6 +14,9 @@ const taskReducer = (state, action) => {
   if (action.type === "SET_PROGRESS")
     return { ...state, progress: action.payload };
 
+  if (action.type === "SET_COLLEAGES")
+    return { ...state, colleagues: action.payload };
+
   return state;
 };
 
