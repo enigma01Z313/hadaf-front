@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import dynamic from "next/dynamic";
 
 import { DragDropContext } from "react-beautiful-dnd";
 
 import styles from "./style.module.css";
+import updateTask from "@/app/lib/tasks/update";
+import workspaceContext from "@/app/context/workspaceContext";
 
 const initialData = {
   tasks: {
@@ -66,7 +68,9 @@ export default function Dnd({
   setTasks,
   setSingleTask,
 }) {
-  const onDragEnd = (result) => {
+const {theWorkspace} = useContext(workspaceContext)
+
+  const onDragEnd = async (result) => {
     const { destination, source } = result;
 
     // If user tries to drop in an unknown destination
@@ -126,7 +130,14 @@ export default function Dnd({
       },
     };
 
+    // console.log(destination);
+    // console.log(endTaskIds);
+    // console.log(destination.index);
+    // console.log('------------------------');
+    // console.log(endTaskIds[destination.index], {status: destination.droppableId}, theWorkspace);
+
     setTasks(newState);
+    await updateTask(endTaskIds[destination.index], {status: destination.droppableId}, theWorkspace)
   };
 
   useEffect(() => {
