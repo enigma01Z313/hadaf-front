@@ -93,7 +93,7 @@ export default function User({ params }) {
     if (
       passwordRef.current.value !== "" &&
       !passwordRef.current.value.match(
-        /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,}$/
+        /^(?=.*?[a-z])((?=.*?[A-Z])(?=.*?[0-9])|(?=.*?[#?!@$ %^&*-])).{8,}$/
       )
     ) {
       setPasswordError("حداقل 8 کارکتر و استفاده از حروف انگلیسی کوچک و بزرگ");

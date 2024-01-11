@@ -60,7 +60,7 @@ export default function Register({ setFormStatus }) {
       setPasswordError("فیلد اجباری");
     } else if (
       !passwordRef.current.value.match(
-        /^(?=.*?[a-z])((?=.*?[A-Z])|(?=.*?[0-9])|(?=.*?[#?!@$ %^&*-])).{8,}$/
+        /^(?=.*?[a-z])((?=.*?[A-Z])(?=.*?[0-9])|(?=.*?[#?!@$ %^&*-])).{8,}$/
       )
     ) {
       setPasswordError("حداقل 8 کارکتر و استفاده از حروف انگلیسی کوچک و بزرگ");
