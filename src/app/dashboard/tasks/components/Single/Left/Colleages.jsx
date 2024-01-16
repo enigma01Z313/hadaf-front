@@ -53,9 +53,6 @@ export default function Colleages({
     handleColleagesChange(newColleags);
   };
 
-  console.log("5--------------------------------");
-  console.log(colleages);
-
   return (
     <div className={styles["task-config"]}>
       <div

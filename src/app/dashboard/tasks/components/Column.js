@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { Draggable, Droppable } from "react-beautiful-dnd";
@@ -26,25 +26,29 @@ const Column = ({
   setSingleTask,
 }) => {
   const [loading, setLoading] = useState(false);
+  const newTaskRef = useRef();
 
   const handleNewTaskAdd = async () => {
     setLoading(true);
-    await addNewTask();
+    await addNewTask(tasks.length);
     setNewTaskTitle("");
     setLoading(false);
   };
+
+  useEffect(() => {
+    if (createMode !== "") newTaskRef?.current?.focus();
+  }, [createMode]);
 
   return (
     <div
       className={`wrapper-box p-0 d-flex direction-column no-wrap
         ${loading ? "loading" : ""}`}
-      style={{maxHeight: 'calc(100vh - 75px - 48px)'}}  
-      >
+      style={{ maxHeight: "calc(100vh - 75px - 48px)" }}>
       <h2 className="p-1 text-h6 weight-500">{column.title}</h2>
 
       <Devider line={true} spacing={0} />
-      {/* <PerfectScrollbar style={{ maxHeight: "calc(100% - 220px)" }}> */}
-      <PerfectScrollbar style={{maxHeight: 'calc(100vh - 75px - 48px - 100px)'}}>
+      <PerfectScrollbar
+        style={{ maxHeight: "calc(100vh - 75px - 48px - 100px)" }}>
         <Droppable droppableId={column.id}>
           {(droppableProvided, droppableSnapshot) => (
             <div
@@ -71,8 +75,7 @@ const Column = ({
             </div>
           )}
         </Droppable>
-        </PerfectScrollbar>
-      {/* </PerfectScrollbar> */}
+      </PerfectScrollbar>
       <Devider line={true} spacing={0} />
       <div className="p-1">
         {((createMode === "" || column.id !== createMode) && (
@@ -88,12 +91,14 @@ const Column = ({
         )) || (
           <div className="d-flex no-wrap align-center">
             <TextField
-              value={newTaskTitle}
-              onChange={(e) => {
-                setNewTaskTitle(e.target.value);
-              }}
               className={styles["add-task-field"]}
               placeholder="افزودن وظیفه جدید"
+              value={newTaskTitle}
+              onChange={(e) => setNewTaskTitle(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleNewTaskAdd()}
+              inputProps={{
+                ref: newTaskRef,
+              }}
             />
             <TexedError
               size="extra-small"

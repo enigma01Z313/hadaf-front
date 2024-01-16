@@ -5,6 +5,8 @@ import workspaceContext from "@/app/context/workspaceContext";
 import styles from "./style.module.css";
 import createTask from "@/app/lib/tasks/create";
 import Dnd from "./Dnd";
+import Header from "./Header";
+import TasksRowMode from "./TasksRowMode";
 
 export default function ListTable({
   reloadList,
@@ -16,6 +18,7 @@ export default function ListTable({
   const [loading, setLoading] = useState(true);
   const [createMode, setCreateMode] = useState("");
   const [newTaskTitle, setNewTaskTitle] = useState("");
+  const [viewMode, setViewMode] = useState("column");
 
   const { theWorkspace } = useContext(workspaceContext);
 
@@ -31,9 +34,10 @@ export default function ListTable({
     // }, []);
   }, [reloadList, theWorkspace]);
 
-  const addNewTask = () =>
+  const addNewTask = (order) =>
     new Promise(async (resolve, reject) => {
       const newTask = await createTask({
+        order,
         newTaskTitle,
         statusId: createMode,
         theWorkspace,
@@ -50,24 +54,30 @@ export default function ListTable({
   };
 
   return (
-    <div
-      className={`
+    <div>
+      <Header viewMode={viewMode} setViewMode={setViewMode} />
+      {(viewMode === "column" && (
+        <div
+          className={`
         ${styles["static-cols-count"]}
         ${styles["task-gp-wrapper"]}
         ${loading ? "loading" : ""}`}>
-      {Object.keys(tasks).length !== 0 && (
-        <Dnd
-          createMode={createMode}
-          setCreateMode={setCreateMode}
-          newTaskTitle={newTaskTitle}
-          setNewTaskTitle={setNewTaskTitle}
-          cancelAdd={cancelAdd}
-          addNewTask={addNewTask}
-          tasksList={tasks}
-          setTasks={setTasks}
-          setSingleTask={setSingleTask}
-        />
-      )}
+          {Object.keys(tasks).length !== 0 && (
+            <Dnd
+              createMode={createMode}
+              setCreateMode={setCreateMode}
+              newTaskTitle={newTaskTitle}
+              setNewTaskTitle={setNewTaskTitle}
+              cancelAdd={cancelAdd}
+              addNewTask={addNewTask}
+              tasksList={tasks}
+              setTasks={setTasks}
+              setSingleTask={setSingleTask}
+            />
+          )}
+        </div>
+      )) ||
+        (viewMode === "row" && <TasksRowMode tasks={tasks}/>)}
     </div>
   );
 }

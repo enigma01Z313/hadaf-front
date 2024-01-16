@@ -3,6 +3,7 @@ import React, { useState, useContext, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import SettingsIcon from '@mui/icons-material/Settings';
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import PersonIcon from "@mui/icons-material/Person";
 import TexedInherit from "@/app/components/Button/TexedInherit";
@@ -14,10 +15,9 @@ import styles from "./style.module.css";
 
 export default function Profile() {
   const router = useRouter();
-  const { theUser, setTheUser } = useContext(workspaceContext);
+  const { theUser, setTheUser, theWorkspace } = useContext(workspaceContext);
   const user = theUser ?? JSON.parse(localStorage.getItem("user"));
-
-
+['']
   useEffect(() => {
     setTheUser(user)
   }, [])
@@ -48,6 +48,14 @@ export default function Profile() {
                 <TexedInherit className="w-100 px-1 py-1 d-flex" href="">
                   <PersonIcon className="ml-1" />
                   ویرایش
+                </TexedInherit>
+              </Link>
+            </li>
+            <li className="px-1">
+              <Link href={`/dashboard/workspaces/${theWorkspace}`}>
+                <TexedInherit className="w-100 px-1 py-1 d-flex" href="">
+                  <SettingsIcon className="ml-1" />
+                  تنظیمات فضای کاری
                 </TexedInherit>
               </Link>
             </li>

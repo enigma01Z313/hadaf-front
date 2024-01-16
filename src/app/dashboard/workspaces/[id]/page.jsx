@@ -17,6 +17,8 @@ import DoupleActiveSwitch from "@/app/components/DoupleActiveSwitch";
 import getWorkspace from "@/app/lib/workspaces/get";
 import updateWorkspace from "@/app/lib/workspaces/update";
 import workspaceContext from "@/app/context/workspaceContext";
+import Devider from "@/app/components/Devider";
+import Timeframe from "./Timeframe";
 
 export default function User({ params }) {
   // const router = useRouter();
@@ -89,6 +91,7 @@ export default function User({ params }) {
   };
 
   return (
+    <>
     <div
       className={`d-flex justify-between w-100 py-3 px-2 wrapper-box align-center
         ${loading ? "loading" : ""}`}>
@@ -155,5 +158,8 @@ export default function User({ params }) {
         ذخیره
       </ContainedPrimary>
     </div>
+    <Devider line={true} spacing="4" color="#ccc"/>
+    <Timeframe />
+    </>
   );
 }

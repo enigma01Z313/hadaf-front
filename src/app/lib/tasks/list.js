@@ -16,10 +16,12 @@ const getTasksList = async (workspaceId) => {
     columnOrder.push(board.id);
   });
 
-  tasksList.data.forEach((task) => {
-    tasks[task.id] = task;
-    columns[task.status.id].taskIds.push(task.id);
-  });
+  tasksList.data
+    .sort((a, b) => a.order - b.order)
+    .forEach((task) => {
+      tasks[task.id] = task;
+      columns[task.status.id].taskIds.push(task.id);
+    });
 
   const tmp = { tasks, columns, columnOrder };
   return tmp;

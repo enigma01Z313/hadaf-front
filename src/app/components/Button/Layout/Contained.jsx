@@ -6,11 +6,13 @@ export default function ContainedBase({
   variant,
   className,
   size,
+  active,
   ...rest
 }) {
   const sizeClass =
-  size && ["extra-small", "small", "normal", "large", "over-large"].includes(size)
-  ? styles[`btn-${size}`]
+    size &&
+    ["extra-small", "small", "normal", "large", "over-large"].includes(size)
+      ? styles[`btn-${size}`]
       : styles["btn-normal"];
 
   return (
@@ -20,9 +22,9 @@ export default function ContainedBase({
         ${styles[`contained`]} 
         ${styles[`contained-${variant}`]} 
         ${styles["btn"]} 
+        ${active === true ? styles["active"] : ""}
         ${sizeClass}`}
-      {...rest}
-    >
+      {...rest}>
       {children}
       <span></span>
     </button>

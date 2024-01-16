@@ -5,42 +5,8 @@ import { DragDropContext } from "react-beautiful-dnd";
 
 import styles from "./style.module.css";
 import updateTask from "@/app/lib/tasks/update";
+import reorderTasks from "@/app/lib/tasks/reorder";
 import workspaceContext from "@/app/context/workspaceContext";
-
-const initialData = {
-  tasks: {
-    1: { id: 1, content: "Configure Next.js application" },
-    2: { id: 2, content: "Configure Next.js and tailwind " },
-    3: { id: 3, content: "Create sidebar navigation menu" },
-    4: { id: 4, content: "Create page footer" },
-    5: { id: 5, content: "Create page navigation menu" },
-    6: { id: 6, content: "Create page layout" },
-    7: { id: 7, content: "Create page layout" },
-    8: { id: 8, content: "Create page layout" },
-    9: { id: 9, content: "Create page layout" },
-    10: { id: 10, content: "Create page layout" },
-    11: { id: 11, content: "Create page layout" },
-    12: { id: 12, content: "Create page layout" },
-  },
-  columns: {
-    "column-1": {
-      id: "column-1",
-      title: "TO-DO",
-      taskIds: [1, 2, 4, 5, 10, 11, 12],
-    },
-    "column-2": {
-      id: "column-2",
-      title: "IN-PROGRESS",
-      taskIds: [7, 8, 9],
-    },
-    "column-3": {
-      id: "column-3",
-      title: "COMPLETED",
-      taskIds: [3, 6],
-    },
-  },
-  columnOrder: ["column-1", "column-2", "column-3"],
-};
 
 const Column = dynamic(() => import("./Column"), { ssr: false });
 
@@ -68,7 +34,7 @@ export default function Dnd({
   setTasks,
   setSingleTask,
 }) {
-const {theWorkspace} = useContext(workspaceContext)
+  const { theWorkspace } = useContext(workspaceContext);
 
   const onDragEnd = async (result) => {
     const { destination, source } = result;
@@ -102,7 +68,14 @@ const {theWorkspace} = useContext(workspaceContext)
           [newColumn.id]: newColumn,
         },
       };
+
+      const newTasksOrder = newColumn.taskIds.map((v, i) => ({
+        id: v,
+        order: i,
+      }));
+
       setTasks(newState);
+      await reorderTasks({ workspaceId: theWorkspace, data: newTasksOrder });
       return;
     }
 
@@ -130,8 +103,16 @@ const {theWorkspace} = useContext(workspaceContext)
       },
     };
 
+    const newTasksOrder = newEndCol.taskIds.map((v, i) => {
+      const newOrder = { id: v, order: i };
+      if (v === endTaskIds[destination.index])
+        newOrder.status = destination.droppableId;
+
+      return newOrder;
+    });
+
     setTasks(newState);
-    await updateTask(endTaskIds[destination.index], {status: destination.droppableId}, theWorkspace)
+    await reorderTasks({ workspaceId: theWorkspace, data: newTasksOrder });
   };
 
   useEffect(() => {
@@ -140,7 +121,8 @@ const {theWorkspace} = useContext(workspaceContext)
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div className={`d-flex w-100 justify-between align-start
+      <div
+        className={`d-flex w-100 justify-between align-start
         ${styles["boards-wrap"]}`}>
         {tasksList.columnOrder.map((columnId) => {
           const column = tasksList.columns[columnId];
