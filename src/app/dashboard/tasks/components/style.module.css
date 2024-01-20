@@ -1,4 +1,4 @@
-.boards-wrap > div{
+.boards-wrap > div {
   width: calc((100% - 36px) / 4);
 }
 
@@ -8,7 +8,7 @@
 .task-gp {
 }
 
-.task-item{
+.task-item {
   cursor: pointer;
   background: #eee;
 }
@@ -32,4 +32,9 @@
   --padding: 8px;
   padding-top: var(--padding) !important;
   padding-bottom: var(--padding) !important;
+}
+
+.row-search-wrapper svg {
+  position: relative;
+  right: -20px;
 }

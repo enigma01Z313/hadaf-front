@@ -13,26 +13,32 @@ export default function ListTable({
   setRealoadList,
   setSingleTask,
   setColumns,
+  setTasksCount,
 }) {
   const [tasks, setTasks] = useState({});
   const [loading, setLoading] = useState(true);
   const [createMode, setCreateMode] = useState("");
   const [newTaskTitle, setNewTaskTitle] = useState("");
   const [viewMode, setViewMode] = useState("column");
+  const [filteredUser, setFilteredUser] = useState("all");
 
   const { theWorkspace } = useContext(workspaceContext);
 
   useEffect(() => {
     (async function () {
       const tasksList =
-        theWorkspace.length !== 0 ? await getTasksList(theWorkspace) : [];
+        theWorkspace.length !== 0 ? await getTasksList(theWorkspace, filteredUser) : [];
 
+        console.log('11111111111111112222222222222222');
+        console.log(tasksList);
+
+      setTasksCount(tasksList?.length ?? 0);
       setColumns(tasksList.columns);
       setLoading(false);
       setTasks(tasksList);
     })();
     // }, []);
-  }, [reloadList, theWorkspace]);
+  }, [reloadList, theWorkspace, filteredUser]);
 
   const addNewTask = (order) =>
     new Promise(async (resolve, reject) => {
@@ -55,13 +61,18 @@ export default function ListTable({
 
   return (
     <div>
-      <Header viewMode={viewMode} setViewMode={setViewMode} />
+      <Header
+        viewMode={viewMode}
+        setViewMode={setViewMode}
+        filteredUser={filteredUser}
+        setFilteredUser={setFilteredUser}
+      />
       {(viewMode === "column" && (
         <div
           className={`
-        ${styles["static-cols-count"]}
-        ${styles["task-gp-wrapper"]}
-        ${loading ? "loading" : ""}`}>
+            ${styles["static-cols-count"]}
+            ${styles["task-gp-wrapper"]}
+            ${loading ? "loading" : ""}`}>
           {Object.keys(tasks).length !== 0 && (
             <Dnd
               createMode={createMode}
@@ -77,7 +88,9 @@ export default function ListTable({
           )}
         </div>
       )) ||
-        (viewMode === "row" && <TasksRowMode tasks={tasks}/>)}
+        (viewMode === "row" && (
+          <TasksRowMode tasks={tasks} setSingleTask={setSingleTask} />
+        ))}
     </div>
   );
 }

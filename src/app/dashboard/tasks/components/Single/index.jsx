@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useReducer, useContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  useReducer,
+  useContext,
+  useRef,
+} from "react";
 
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
@@ -22,6 +28,7 @@ import Devider from "@/app/components/Devider";
 import TexedPrimary from "@/app/components/Button/TexedPrimary";
 import TexedError from "@/app/components/Button/TextedError";
 import taskReducer from "@/app/reducers/task";
+import createTask from "@/app/lib/tasks/create";
 
 export default function Single({
   open,
@@ -29,19 +36,22 @@ export default function Single({
   setRealoadList,
   setSingleTask,
   taskStatuses,
+  tasksCount,
 }) {
   const { theWorkspace } = useContext(workspaceContext);
   const [loading, setLoading] = useState(false);
   const [theTask, theTaskDispatch] = useReducer(taskReducer, undefined);
+  const taskTitleRef = useRef();
 
   useEffect(() => {
     (async function () {
+      let taskData = {};
       setLoading(true);
 
-      const taskData = await getTask(singleTask, theWorkspace);
+      if (singleTask !== "create")
+        taskData = await getTask(singleTask, theWorkspace);
 
       setLoading(false);
-      // setTheTask(taskData);
       theTaskDispatch({ type: "SET", payload: taskData });
     })();
   }, [singleTask]);
@@ -69,16 +79,16 @@ export default function Single({
   };
 
   const handleassigneeChange = (assignee) => {
-    theTaskDispatch({type: "SET_ASSIGNEE", payload: assignee})
-  }
+    theTaskDispatch({ type: "SET_ASSIGNEE", payload: assignee });
+  };
 
   const handleProgressChange = (progress) => {
-    theTaskDispatch({type: "SET_PROGRESS", payload: progress})
-  }
+    theTaskDispatch({ type: "SET_PROGRESS", payload: progress });
+  };
 
   const handleColleagesChange = (colleages) => {
-    theTaskDispatch({type: "SET_COLLEAGES", payload: colleages})
-  }
+    theTaskDispatch({ type: "SET_COLLEAGES", payload: colleages });
+  };
 
   const handleTaskSave = async () => {
     const newData = {
@@ -87,16 +97,16 @@ export default function Single({
       description: theTask.description,
       assignee: theTask?.assignee?.id,
       progress: theTask?.progress,
-      colleagues: theTask.colleagues.map(item => item.id)
+      colleagues: theTask.colleagues.map((item) => item.id),
     };
 
     setLoading(true);
     await updateTask(theTask.id, newData, theWorkspace);
     setRealoadList((state) => !state);
     setLoading(false);
-    setTimeout(function(){
-      setSingleTask("")
-    }, 500)
+    setTimeout(function () {
+      setSingleTask("");
+    }, 500);
   };
 
   const handleDelete = async () => {
@@ -105,6 +115,30 @@ export default function Single({
     setRealoadList((state) => !state);
     handleClose();
   };
+
+  const handleTaskCreate = async () => {
+    const newTaskTitle = theTask.title;
+    const statusId =
+      theTask?.status?.id ??
+      Object.values(taskStatuses)?.find((item) => item.title === "شروع نشده")
+        ?.id;
+    const order = tasksCount + 1;
+
+    setLoading(true);
+
+    await createTask({
+      newTaskTitle,
+      statusId,
+      theWorkspace,
+      order,
+    });
+    setRealoadList((state) => !state);
+    setSingleTask("");
+
+    setLoading(false);
+  };
+
+  if (singleTask === "create") taskTitleRef?.current?.focus();
 
   return (
     <Dialog
@@ -122,27 +156,40 @@ export default function Single({
               className="text-h5 py-1"
               value={theTask?.title ?? ""}
               onChange={handleTitleChange}
+              placeholder="عنوان وظیفه..."
+              inputRef={taskTitleRef}
             />
           </FormControl>
           <div className="mr-2" style={{ width: "150px" }}>
             <div className="text-h6">وضعیت</div>
-            <FormControl id="task-stataus-select-wrap" fullWidth variant="standard">
+            <FormControl
+              id="task-stataus-select-wrap"
+              fullWidth
+              variant="standard">
               <Select
                 labelId="task-stataus-select-label"
                 id="task-stataus-select"
-                value={theTask?.status?.id ?? ""}
+                value={
+                  theTask?.status?.id ??
+                  (taskStatuses &&
+                    Object.values(taskStatuses)?.find(
+                      (item) => item.title === "شروع نشده"
+                    )?.id) ??
+                  ""
+                }
                 label="وضعیت"
                 onChange={handleStatusChange}
                 className="text-body-2">
-                {Object.keys(taskStatuses).map((status) => {
-                  return (
-                    <MenuItem
-                      key={taskStatuses[status].id}
-                      value={taskStatuses[status].id}>
-                      {taskStatuses[status].title}
-                    </MenuItem>
-                  );
-                })}
+                {taskStatuses &&
+                  Object.keys(taskStatuses).map((status) => {
+                    return (
+                      <MenuItem
+                        key={taskStatuses[status].id}
+                        value={taskStatuses[status].id}>
+                        {taskStatuses[status].title}
+                      </MenuItem>
+                    );
+                  })}
               </Select>
             </FormControl>
           </div>
@@ -166,13 +213,23 @@ export default function Single({
       </DialogContent>
       <Devider line={true} spacing={0} />
       <DialogActions>
-        <TexedError
-          onClick={handleDelete}
-          style={{ marginLeft: "auto", padding: "6px" }}>
-          <DeleteIcon />
-        </TexedError>
-        <TexedError onClick={handleClose}>لغو</TexedError>
-        <TexedPrimary onClick={handleTaskSave}>به روز رسانی</TexedPrimary>
+        {(singleTask !== "create" && (
+          <>
+            <TexedError
+              onClick={handleDelete}
+              style={{ marginLeft: "auto", padding: "6px" }}>
+              <DeleteIcon />
+            </TexedError>
+            <TexedError onClick={handleClose}>لغو</TexedError>
+            <TexedPrimary onClick={handleTaskSave}>به روز رسانی</TexedPrimary>
+          </>
+        )) || (
+          <TexedPrimary
+            disabled={(theTask?.title?.length ?? 0) === 0}
+            onClick={handleTaskCreate}>
+            افزودن
+          </TexedPrimary>
+        )}
       </DialogActions>
     </Dialog>
   );

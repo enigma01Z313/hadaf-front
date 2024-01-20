@@ -2,8 +2,10 @@ import requests from "../request";
 
 import getBoardssList from "../boards/list";
 
-const getTasksList = async (workspaceId) => {
-  const tasksUrl = `workspaces/${workspaceId}/tasks`;
+const getTasksList = async (workspaceId, filteredUser) => {
+  let tasksUrl = `workspaces/${workspaceId}/tasks`;
+  tasksUrl += filteredUser !== "all" ? `?userId=${filteredUser}` : "";
+
   const tasksList = await requests.get(tasksUrl);
   const boards = await getBoardssList();
 

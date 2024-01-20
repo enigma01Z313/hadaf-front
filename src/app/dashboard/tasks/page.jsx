@@ -9,6 +9,7 @@ export default function Tasks() {
   const [reloadList, setRealoadList] = useState(false);
   const [singleTask, setSingleTask] = useState("")
   const [columns, setColumns] = useState([])
+  const [tasksCount, setTasksCount] = useState(0)
 
   return (
     <NoSSR>
@@ -17,6 +18,7 @@ export default function Tasks() {
         setRealoadList={setRealoadList}
         setSingleTask={setSingleTask}
         setColumns={setColumns}
+        setTasksCount={setTasksCount}
       />
       {singleTask !== "" && (
         <Single
@@ -25,6 +27,7 @@ export default function Tasks() {
           setRealoadList={setRealoadList}
           setSingleTask={setSingleTask}
           taskStatuses={columns}
+          tasksCount={tasksCount}
         />
       )}
     </NoSSR>

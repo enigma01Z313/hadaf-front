@@ -837,4 +837,8 @@ html, body{
   right: unset !important;
   left: 0 !important;
 }
+#select-user{
+  padding-right: 0 !important;
+  padding-left: 24px !important;
+}
 /* mui end*************************************/

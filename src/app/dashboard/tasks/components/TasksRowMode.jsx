@@ -1,29 +1,77 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 
+import ContainedPrimary from "@/app/components/Button/ContainedPrimary";
 import styles from "./style.module.css";
+import Devider from "@/app/components/Devider";
+import { Input } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import IOSSlider from "@/app/components/Shared/I|OSSlider";
 
-export default function TasksRowMode({ tasks: { tasks } }) {
-  console.log("1111111111111111111111");
-  console.log(tasks);
+import workspaceContext from "@/app/context/workspaceContext";
+
+import updateTask from "@/app/lib/tasks/update";
+
+export default function TasksRowMode({ tasks: { tasks }, setSingleTask }) {
+  const { theWorkspace } = useContext(workspaceContext);
+  const [searchTerm, setSeartTerm] = useState("");
+
+  const handleCommit = async (e, taskId) => {
+    const progress = +e.target.innerText;
+
+    await updateTask(taskId, { progress }, theWorkspace);
+  };
 
   return (
     <>
       {tasks && (
-        <section className={`mt-2 ${styles["tasks-row"]}`}>
-          {Object.keys(tasks).map((taskId) => {
-            const theTask = tasks[taskId];
+        <section className={`mt-2 wrapper-box ${styles["tasks-row"]}`}>
+          <header className="d-flex justify-between align-center">
+            <div
+              className={`d-flex align-center ${styles["row-search-wrapper"]}`}>
+              <Input
+                placeholder="جستجو..."
+                value={searchTerm}
+                onChange={(e) => setSeartTerm(e.target.value)}
+              />
+              <SearchIcon />
+            </div>
+            <ContainedPrimary onClick={() => setSingleTask("create")}>
+              افزودن
+            </ContainedPrimary>
+          </header>
+          <Devider spacing={2} line={true} />
+          {Object.keys(tasks)
+            .filter((taskId) => {
+              const theTask = tasks[taskId];
 
-            return (
-              <article key={taskId} className="wrapper-box mb-2">
-                <header className="d-flex justify-between align-center">
-                  <h4 className="text-h5">{tasks[taskId].title}</h4>
-                  <h5 className="ext-subtitle-1">
-                    وضعیت: {tasks[taskId].status.name}
-                  </h5>
-                </header>
-              </article>
-            );
-          })}
+              return theTask.title
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase());
+            })
+            .map((taskId, index) => {
+              const theTask = tasks[taskId];
+
+              return (
+                <article
+                  key={theTask.id}
+                  className={`${index !== 0 ? "mt-2" : ""} py-1`}>
+                  <header
+                    className="d-flex justify-between align-center mb-2 cursor-pointer"
+                    onClick={() => setSingleTask(theTask.id)}>
+                    <h4 className="text-h5 weight-500">{theTask.title}</h4>
+                    <h5 className="ext-subtitle-1 weight-500">
+                      وضعیت: {theTask.status.name}
+                    </h5>
+                  </header>
+                  <IOSSlider
+                    aria-label="ios slider"
+                    value={theTask.progress ?? 0}
+                    valueLabelDisplay="on"
+                    onChangeCommitted={(e) => handleCommit(e, theTask.id)}
+                  />
+                </article>
+              );
+            })}
         </section>
       )}
     </>
