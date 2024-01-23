@@ -27,10 +27,9 @@ export default function ListTable({
   useEffect(() => {
     (async function () {
       const tasksList =
-        theWorkspace.length !== 0 ? await getTasksList(theWorkspace, filteredUser) : [];
-
-        console.log('11111111111111112222222222222222');
-        console.log(tasksList);
+        theWorkspace.length !== 0
+          ? await getTasksList(theWorkspace, filteredUser)
+          : [];
 
       setTasksCount(tasksList?.length ?? 0);
       setColumns(tasksList.columns);
@@ -38,7 +37,7 @@ export default function ListTable({
       setTasks(tasksList);
     })();
     // }, []);
-  }, [reloadList, theWorkspace, filteredUser]);
+  }, [reloadList, theWorkspace, filteredUser, viewMode]);
 
   const addNewTask = (order) =>
     new Promise(async (resolve, reject) => {
@@ -84,6 +83,7 @@ export default function ListTable({
               tasksList={tasks}
               setTasks={setTasks}
               setSingleTask={setSingleTask}
+              setRealoadList={setRealoadList}
             />
           )}
         </div>

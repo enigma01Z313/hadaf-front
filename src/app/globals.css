@@ -841,4 +841,40 @@ html, body{
   padding-right: 0 !important;
   padding-left: 24px !important;
 }
+.MuiDateRangeCalendar-root > div:first-child{display: none !important;}
+
+.MuiDayCalendar-weekContainer > div:last-child,
+.MuiDateRangePickerDay-rangeIntervalDayHighlightEnd{
+  border-radius: 0 !important;
+  border-top-left-radius: 50% !important;
+  border-bottom-left-radius: 50% !important;
+}
+.MuiDayCalendar-weekContainer > div:first-child,
+.MuiDateRangePickerDay-rangeIntervalDayHighlightStart {
+  border-radius: 0 !important;
+  border-top-right-radius: 50% !important;
+  border-bottom-right-radius: 50% !important;
+}
+.MuiMultiInputDateRangeField-separator {
+  margin: 0 16px !important
+}
+.MuiMultiInputDateRangeField-separator + div{
+  margin-left: 0 !important;
+}
+.range-date-input input{
+  padding-top: 3px !important;
+  padding-bottom: 2px !important;
+}
+.range-date-input fieldset{
+  border-radius: 0 !important;
+  border-top: 0 !important;
+  border-right: 0 !important;
+  border-left: 0 !important;
+}
 /* mui end*************************************/
+#tasks-row-view-wrapper{
+  margin: 0 -16px
+}
+#tasks-row-view-wrapper .ps__rail-x{
+  display: none !important;
+}

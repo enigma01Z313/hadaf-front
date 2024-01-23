@@ -38,3 +38,10 @@
   position: relative;
   right: -20px;
 }
+
+.task-row-article{
+  border-radius: 4px;
+}
+.task-row-article:hover{
+  background: #eee;
+}

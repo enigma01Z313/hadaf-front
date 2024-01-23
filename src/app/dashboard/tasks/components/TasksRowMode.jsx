@@ -6,6 +6,7 @@ import Devider from "@/app/components/Devider";
 import { Input } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import IOSSlider from "@/app/components/Shared/I|OSSlider";
+import PerfectScrollbar from "react-perfect-scrollbar";
 
 import workspaceContext from "@/app/context/workspaceContext";
 
@@ -40,38 +41,46 @@ export default function TasksRowMode({ tasks: { tasks }, setSingleTask }) {
             </ContainedPrimary>
           </header>
           <Devider spacing={2} line={true} />
-          {Object.keys(tasks)
-            .filter((taskId) => {
-              const theTask = tasks[taskId];
+          <section id="tasks-row-view-wrapper">
+            <PerfectScrollbar style={{ maxHeight: "calc(100vh - 300px)" }}>
+              <div className="px-2">
+                
+              {Object.keys(tasks)
+                .filter((taskId) => {
+                  const theTask = tasks[taskId];
 
-              return theTask.title
-                .toLowerCase()
-                .includes(searchTerm.toLowerCase());
-            })
-            .map((taskId, index) => {
-              const theTask = tasks[taskId];
+                  return theTask.title
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase());
+                })
+                .map((taskId, index) => {
+                  const theTask = tasks[taskId];
 
-              return (
-                <article
-                  key={theTask.id}
-                  className={`${index !== 0 ? "mt-2" : ""} py-1`}>
-                  <header
-                    className="d-flex justify-between align-center mb-2 cursor-pointer"
-                    onClick={() => setSingleTask(theTask.id)}>
-                    <h4 className="text-h5 weight-500">{theTask.title}</h4>
-                    <h5 className="ext-subtitle-1 weight-500">
-                      وضعیت: {theTask.status.name}
-                    </h5>
-                  </header>
-                  <IOSSlider
-                    aria-label="ios slider"
-                    value={theTask.progress ?? 0}
-                    valueLabelDisplay="on"
-                    onChangeCommitted={(e) => handleCommit(e, theTask.id)}
-                  />
-                </article>
-              );
-            })}
+                  return (
+                    <article
+                      key={theTask.id}
+                      className={`${index !== 0 ? "mt-2" : ""} p-2 
+                    ${styles["task-row-article"]}`}>
+                      <header
+                        className={`d-flex justify-between align-center mb-2 cursor-pointer`}
+                        onClick={() => setSingleTask(theTask.id)}>
+                        <h4 className="text-h5 weight-500">{theTask.title}</h4>
+                        <h5 className="ext-subtitle-1 weight-500">
+                          وضعیت: {theTask.status.name}
+                        </h5>
+                      </header>
+                      <IOSSlider
+                        aria-label="ios slider"
+                        defaultValue={theTask.progress ?? 0}
+                        valueLabelDisplay="on"
+                        onChangeCommitted={(e) => handleCommit(e, theTask.id)}
+                      />
+                    </article>
+                  );
+                })}
+                </div>
+            </PerfectScrollbar>
+          </section>
         </section>
       )}
     </>

@@ -1,0 +1,7 @@
+.timeframes-wrapper .timeframe-item {
+  max-width: calc((100% - 32px) / 3);
+}
+
+.timeframes-wrapper .timeframe-item:not(:nth-child(3n)) {
+  margin-left: 16px;
+}

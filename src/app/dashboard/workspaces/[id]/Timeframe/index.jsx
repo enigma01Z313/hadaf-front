@@ -4,33 +4,50 @@ import workspaceContext from "@/app/context/workspaceContext";
 import ContainedPrimary from "@/app/components/Button/ContainedPrimary";
 
 import listTimeframes from "@/app/lib/timeframes/list";
+import Single from "./Single";
+import Devider from "@/app/components/Devider";
+import TimeFrameItem from "./TimeFrameItem";
+import TimeFrameGp from "./TimeFrameGp";
 
 export default function Timeframe() {
   const { theWorkspace } = useContext(workspaceContext);
   const [timeframes, setTimeframes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [single, setSingle] = useState("");
+  const [reloadList, setReloadList] = useState(false);
 
   useEffect(() => {
     (async function () {
-      console.log("0----------------------");
-      console.log(theWorkspace);
-
       const timeframesList = theWorkspace
-        ? await listTimeframes(theWorkspace)
+        ? await listTimeframes(theWorkspace, true)
         : [];
 
-      console.log("2----------------------");
-      console.log(timeframesList);
-      //   setTimeframes(timeframesList);
+      setTimeframes(timeframesList);
+      setLoading(false);
     })();
-  }, [theWorkspace]);
+  }, [reloadList, theWorkspace]);
 
   return (
-    <section className={loading ? "loading" : ""}>
-      <header className="d-flex justify-between">
-        <h3 className="text-h6 mb-2">بازه های زمانی</h3>
-        <ContainedPrimary>افزودن</ContainedPrimary>
-      </header>
-    </section>
+    <>
+      <section className={loading ? "loading" : ""}>
+        <header className="d-flex justify-between align-center">
+          <h3 className="text-h6 mb-2">بازه های زمانی</h3>
+          <ContainedPrimary onClick={() => setSingle("create")}>
+            ایجاد بازه زمانی جدید
+          </ContainedPrimary>
+        </header>
+      </section>
+      {single !== "" && (
+        <Single
+          single={single}
+          setSingle={setSingle}
+          setReloadList={setReloadList}
+          theWorkspace={theWorkspace}
+        />
+      )}
+      {timeframes.map((v, i) => (
+        <TimeFrameGp key={i} timeframeGp={v} setSingle={setSingle} />
+      ))}
+    </>
   );
 }

@@ -33,6 +33,7 @@ export default function Dnd({
   tasksList,
   setTasks,
   setSingleTask,
+  setRealoadList,
 }) {
   const { theWorkspace } = useContext(workspaceContext);
 
@@ -76,6 +77,7 @@ export default function Dnd({
 
       setTasks(newState);
       await reorderTasks({ workspaceId: theWorkspace, data: newTasksOrder });
+      setRealoadList(state => !state)
       return;
     }
 
@@ -113,6 +115,7 @@ export default function Dnd({
 
     setTasks(newState);
     await reorderTasks({ workspaceId: theWorkspace, data: newTasksOrder });
+    setRealoadList(state => !state)
   };
 
   useEffect(() => {
