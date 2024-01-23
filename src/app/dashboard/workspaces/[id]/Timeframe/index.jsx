@@ -36,6 +36,16 @@ export default function Timeframe() {
             ایجاد بازه زمانی جدید
           </ContainedPrimary>
         </header>
+
+        {timeframes.map((v, i) => (
+          <TimeFrameGp
+            key={i}
+            timeframeGp={v}
+            setSingle={setSingle}
+            setLoading={setLoading}
+            setReloadList={setReloadList}
+          />
+        ))}
       </section>
       {single !== "" && (
         <Single
@@ -45,9 +55,6 @@ export default function Timeframe() {
           theWorkspace={theWorkspace}
         />
       )}
-      {timeframes.map((v, i) => (
-        <TimeFrameGp key={i} timeframeGp={v} setSingle={setSingle} />
-      ))}
     </>
   );
 }
