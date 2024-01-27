@@ -19,7 +19,7 @@ export default function Timeframe() {
   useEffect(() => {
     (async function () {
       const timeframesList = theWorkspace
-        ? await listTimeframes(theWorkspace, true)
+        ? await listTimeframes({ workspaceId: theWorkspace, all: true })
         : [];
 
       setTimeframes(timeframesList);

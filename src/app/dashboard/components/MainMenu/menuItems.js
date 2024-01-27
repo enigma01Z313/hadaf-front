@@ -58,17 +58,16 @@ const menuItems = [
   {
     id: 70,
     title: "اهداف",
-    slug: "goals",
-    link: "/dashboard/goals",
-    icon: FlagCircleIcon,
-    disabled: true,
+    slug: "okr",
+    link: "/dashboard/ork",
+    icon: CrisisAlertIcon,
   },
   {
     id: 80,
     title: "KPI",
     slug: "kpi",
     link: "/dashboard/kpi",
-    icon: CrisisAlertIcon,
+    icon: FlagCircleIcon,
     disabled: true,
   },
   {

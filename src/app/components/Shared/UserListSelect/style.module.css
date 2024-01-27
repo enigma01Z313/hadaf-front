@@ -1,0 +1,17 @@
+.value-users .value-user {
+  cursor: pointer;
+  transition: all 0.25s;
+}
+.value-users .value-user:hover {
+  background: #eee;
+  cursor: pointer;
+}
+.value-users .value-user > div {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.value-users .value-user.checked > div {
+  width: calc(100% - 40px);
+}

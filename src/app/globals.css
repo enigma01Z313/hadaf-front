@@ -627,6 +627,9 @@ a {
 .ml-1 {
   margin-left: 8px !important;
 }
+.ml-1-5 {
+  margin-left: 12px !important;
+}
 .ml-2 {
   margin-left: 16px !important;
 }
@@ -644,6 +647,9 @@ a {
 }
 .ml-7 {
   margin-left: 56px !important;
+}
+.ml-auto{
+  margin-left: auto;
 }
 
 .mr-0 {
@@ -673,6 +679,9 @@ a {
 .mr-7 {
   margin-right: 56px !important;
 }
+.mr-auto{
+  margin-right: auto;
+}
 
 .mt-0 {
   margin-top: 0 !important;
@@ -701,6 +710,9 @@ a {
 .mt-7 {
   margin-top: 56px !important;
 }
+.mt-auto{
+  margin-top: auto;
+}
 
 .mb-0 {
   margin-bottom: 0 !important;
@@ -728,6 +740,9 @@ a {
 }
 .mb-7 {
   margin-bottom: 56px !important;
+}
+.mb-auto{
+  margin-bottom: auto;
 }
 
 .w-100 {
@@ -837,7 +852,10 @@ html, body{
   right: unset !important;
   left: 0 !important;
 }
-#select-user{
+#select-user,
+#timeframe-select,
+.MuiFormControl-root.rtl-input .MuiSelect-select
+{
   padding-right: 0 !important;
   padding-left: 24px !important;
 }

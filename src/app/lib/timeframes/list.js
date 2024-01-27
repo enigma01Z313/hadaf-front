@@ -1,10 +1,16 @@
 import requests from "../request";
 
-const listTimeframes = async (workspaceId, all = false) => {
+const listTimeframes = async (params) => {
+  const all = params?.all ?? false;
+  const raw = params?.raw ?? false;
+  const workspaceId = params?.workspaceId ?? "";
+
   const timeFrames = [];
   const data = await requests.get(
     `workspaces/${workspaceId}/timeFrames?all=${all}`
   );
+
+  if (raw) return data.data;
 
   data.data.forEach((item) => {
     const itemStatus = item.status;
@@ -18,7 +24,7 @@ const listTimeframes = async (workspaceId, all = false) => {
     timeFrames[targetStatusIndex].items.push(item);
   });
 
-  const alphSorted = timeFrames.sort((a, b) => a.label < b.label ? 1 : -1)
+  const alphSorted = timeFrames.sort((a, b) => (a.label < b.label ? 1 : -1));
 
   return alphSorted;
 };
