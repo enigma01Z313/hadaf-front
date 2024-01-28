@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { FormControl, Select, MenuItem, InputLabel } from "@mui/material";
 import workspaceContext from "@/app/context/workspaceContext";
 
-export default function UsersSelector({ id, label, value }) {
+export default function UsersSelector({ id, label, value, changeHandlre }) {
   const { theUsers } = useContext(workspaceContext);
 
   return (
@@ -17,7 +17,7 @@ export default function UsersSelector({ id, label, value }) {
         id={`okr-owner-select-${id}`}
         value={value ?? theUsers?.data?.[0]?.id ?? ""}
         label={label}
-        // onChange={handleChange}
+        onChange={changeHandlre}
         className="text-h6 py-1">
         {theUsers?.data &&
           theUsers?.data?.map((user) => (

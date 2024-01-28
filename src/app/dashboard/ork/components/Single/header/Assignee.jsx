@@ -2,7 +2,7 @@ import React from 'react'
 
 import { FormControl, Select, MenuItem } from "@mui/material";
 
-export default function Assignee({workspaceUsers, value}) {
+export default function Assignee({ changeHandlred, workspaceUsers, value}) {
   return (
     <div className="ml-2 grow-1">
       <FormControl
@@ -15,7 +15,7 @@ export default function Assignee({workspaceUsers, value}) {
           id="okr-owner-select"
           value={value}
           label="منصوب به"
-          // onChange={handleChange}
+          onChange={(e) =>  changeHandlred('assignee', e.target.value)}
           className="text-h6 py-1">
           {workspaceUsers &&
             workspaceUsers?.map((user) => (

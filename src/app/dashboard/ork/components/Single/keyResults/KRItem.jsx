@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
-import TextedInfo from "@/app/components/Button/TextedInfo";
 import AddIcon from "@mui/icons-material/Add";
 import {
   FormControl,
@@ -9,32 +8,53 @@ import {
   MenuItem,
   InputLabel,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import TextedInfo from "@/app/components/Button/TextedInfo";
+import TexedError from "@/app/components/Button/TextedError";
 
 import UsersSelector from "../../UsersSelector";
 import styles from "./style.module.css";
 import canAddNew from "./canAddNew";
 
-export default function KRItem({ index, krData, isNew }) {
+import workspaceContext from "@/app/context/workspaceContext";
+
+export default function KRItem({
+  index,
+  krData,
+  isNew,
+  setTheOkr,
+  keyResultsL,
+  addNewKr,
+  deleteKr,
+}) {
+  const { theUsers } = useContext(workspaceContext);
   const directions = JSON.parse(localStorage.getItem("meta")).direction;
 
-  const [theKR, setTheKR] = useState(
-    krData ?? {
-      title: "",
-      owner: {},
-      direction: {code: directions[1].code ?? 1},
-      start: 0,
-      current: 0,
-      end: 100,
-      coefficient: 1,
-    }
-  );
+  const defaultKR = {
+    title: "",
+    owner: theUsers?.data?.[0]?.id ?? "",
+    direction: directions?.[1]?.code ?? 1,
+    start: 0,
+    current: 0,
+    end: 100,
+    coefficient: 1,
+  };
+
+  const [theKR, setTheKR] = useState(krData ?? defaultKR);
 
   const handleChange = (key, value) => {
     setTheKR((state) => ({ ...state, [key]: value }));
   };
 
-  console.log("1-------------------------");
-  console.log(theKR);
+  const handleOwnerChange = (e) => handleChange("owner", e.target.value);
+
+  const addNewKrItem = () => {
+    addNewKr(theKR)
+    setTheKR(defaultKR);
+  };
+
+  console.log('-----------------------');
+  console.log(setTheOkr);
 
   return (
     <>
@@ -54,18 +74,19 @@ export default function KRItem({ index, krData, isNew }) {
         <UsersSelector
           id={`kr-owner-${index}`}
           label={"مالک"}
-          value={theKR?.owner?.id}
+          value={theKR?.owner}
+          changeHandlre={handleOwnerChange}
         />
 
         <FormControl
-          id={"key-result-direction"}
+          id={"key-result-direction-" + index}
           variant="standard"
           className="rtl-input p-relative grow-1 ml-1-5">
           <InputLabel id="demo-simple-select-standard-label">جهت</InputLabel>
           <Select
             labelId="okey-result-direction-label"
             id={`okey-result-direction`}
-            value={theKR.direction.code}
+            value={theKR.direction}
             label={"جهت"}
             // onChange={handleChange}
             className="text-h6 py-1">
@@ -80,7 +101,7 @@ export default function KRItem({ index, krData, isNew }) {
 
         <FormControl
           className="rtl-input p-relative grow-1 ml-1-5"
-          style={{ width: "100px" }}>
+          style={{ maxWidth: "70px" }}>
           <TextField
             id="key-result-start"
             label="شروع"
@@ -94,7 +115,7 @@ export default function KRItem({ index, krData, isNew }) {
 
         <FormControl
           className="rtl-input p-relative grow-1 ml-1-5"
-          style={{ width: "100px" }}>
+          style={{ maxWidth: "70px" }}>
           <TextField
             id="key-result-current"
             label="جاری"
@@ -108,7 +129,7 @@ export default function KRItem({ index, krData, isNew }) {
 
         <FormControl
           className="rtl-input p-relative grow-1 ml-1-5"
-          style={{ width: "100px" }}>
+          style={{ maxWidth: "70px" }}>
           <TextField
             id="key-result-goal"
             label="هدف"
@@ -122,7 +143,7 @@ export default function KRItem({ index, krData, isNew }) {
 
         <FormControl
           className="rtl-input p-relative grow-1"
-          style={{ width: "100px" }}>
+          style={{ maxWidth: "70px" }}>
           <TextField
             id="key-result-coefficient"
             label="ضریب"
@@ -133,10 +154,16 @@ export default function KRItem({ index, krData, isNew }) {
             value={theKR?.coefficient ?? 1}
           />
         </FormControl>
+
+        {keyResultsL !== 0 && index !== keyResultsL && (
+          <TexedError onClick={() => deleteKr(index)}>
+            <DeleteIcon />
+          </TexedError>
+        )}
       </article>
 
       {isNew && (
-        <TextedInfo disabled={!canAddNew(theKR.title)}>
+        <TextedInfo disabled={!canAddNew(theKR.title)} onClick={addNewKrItem}>
           <AddIcon className="ml-1" />
           افزودن نتیجه کلیدی
         </TextedInfo>

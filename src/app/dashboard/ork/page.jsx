@@ -10,7 +10,8 @@ import listTimeframes from "@/app/lib/timeframes/list";
 import Single from "./components/Single";
 
 export default function Okr() {
-  const { theWorkspace } = useContext(workspaceContext);
+  const { theWorkspace, theWorkspaceTimeframes, setTheWorkspaceTimeframes } =
+    useContext(workspaceContext);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTimeframe, setActiveTimeframe] = useState();
@@ -19,16 +20,22 @@ export default function Okr() {
 
   useEffect(() => {
     (async function () {
-      const timeframesList = theWorkspace
-        ? await listTimeframes({ workspaceId: theWorkspace, raw: true })
-        : [];
+      let timeframesList;
+
+      if (theWorkspaceTimeframes.length === 0) {
+        timeframesList = theWorkspace
+          ? await listTimeframes({ workspaceId: theWorkspace, raw: true })
+          : [];
+
+        setTheWorkspaceTimeframes(timeframesList);
+      } else timeframesList = theWorkspaceTimeframes;
 
       setActiveTimeframe(timeframesList?.[0].id);
       setTimeframes(timeframesList);
     })();
   }, [theWorkspace]);
 
-  const closePopup = () => setSingleOkr("")
+  const closePopup = () => setSingleOkr("");
 
   return (
     <>
@@ -45,7 +52,9 @@ export default function Okr() {
           <Okrlist searchTerm={searchTerm} />
         </div>
       </div>
-      {singleOkr !== "" && <Single singleOkr={singleOkr} closePopup={closePopup} />}
+      {singleOkr !== "" && (
+        <Single singleOkr={singleOkr} closePopup={closePopup} />
+      )}
     </>
   );
 }

@@ -889,6 +889,21 @@ html, body{
   border-right: 0 !important;
   border-left: 0 !important;
 }
+[id^="kr-owner-"],
+[id^="key-result-direction-"],
+[id^="kr-owner-"] > div,
+[id^="key-result-direction-"] > div{
+  padding: 0 !important;
+}
+[id^="kr-owner-"] > div > div,
+[id^="key-result-direction-"] > div > div{
+  padding-top: 2.5px !important;
+  padding-bottom: 2.5px !important;
+}
+#ork-timeframe{
+  display: flex;
+  align-items: center;
+}
 /* mui end*************************************/
 #tasks-row-view-wrapper{
   margin: 0 -16px

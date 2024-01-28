@@ -2,7 +2,7 @@ import React from 'react'
 
 import { FormControl, TextField } from "@mui/material";
 
-export default function Weight({value}) {
+export default function ˇWeight({changeHandlred, value}) {
   return (
     <div>
       <FormControl className="rtl-input p-relative w-100">
@@ -12,7 +12,7 @@ export default function Weight({value}) {
           variant="standard"
           placeholder="وزن..."
           inputProps={{ className: "text-h6 py-0-5" }}
-          //   onChange={(e) => handleChange("title", e.target.value)}
+          onChange={(e) =>  changeHandlred('weight', +e.target.value)}
           value={value}
         />
       </FormControl>

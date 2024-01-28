@@ -16,19 +16,18 @@ export default function ListTable({ setMode, reloadList }) {
 
   useEffect(() => {
     (async function () {
-
-      console.log('222222222');
+      console.log("222222222");
       let usersList;
 
       // if (theUsers.total === 0) {
-        usersList = theWorkspace ? await getUsersList(theWorkspace) : [];
-        // setTheUsers(usersList);
+      usersList = theWorkspace ? await getUsersList(theWorkspace) : [];
+      setTheUsers(usersList);
       // } else usersList = theUsers;
 
       setLoading(false);
       setUsers(usersList.data);
     })();
-  // }, []);
+    // }, []);
   }, [reloadList, theWorkspace]);
 
   return (

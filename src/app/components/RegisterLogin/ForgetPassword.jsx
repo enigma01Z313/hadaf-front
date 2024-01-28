@@ -52,10 +52,6 @@ export default function ForgetPassword({setFormStatus}) {
   const submitOnetimePasswordForm = async () => {
     const hasError = formValidate();
 
-    console.log('1-------------------');
-    console.log(username);
-    console.log(hasError);
-
     if (!hasError || hasError) {
       setLoading(true);
       const { id } = await oneTimeLogin(username);

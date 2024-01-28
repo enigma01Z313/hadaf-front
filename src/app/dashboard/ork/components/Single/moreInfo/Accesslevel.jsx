@@ -1,8 +1,10 @@
-import React from 'react'
+import React from "react";
 
 import { FormControl, Select, MenuItem } from "@mui/material";
 
-export default function Status({changeHandlred, okrStatuses, value}) {
+export default function Accesslevel({ value, changeHandlred }) {
+  const accessList = JSON.parse(localStorage.getItem("meta")).access;
+
   return (
     <div className="ml-2 grow-1">
       <FormControl
@@ -14,15 +16,15 @@ export default function Status({changeHandlred, okrStatuses, value}) {
           id="ork-stataus"
           value={value}
           label=""
-          onChange={(e) =>  changeHandlred('status', e.target.value)}
+          onChange={(e) => changeHandlred("access", e.target.value)}
           className="text-h6 py-1">
-          {okrStatuses.map((okrStatus) => (
-            <MenuItem key={okrStatus.code} value={okrStatus.code}>
-              {okrStatus.label}
+          {accessList.map((item) => (
+            <MenuItem key={item.code} value={item.code}>
+              {item.label}
             </MenuItem>
           ))}
         </Select>
       </FormControl>
     </div>
-  )
+  );
 }
