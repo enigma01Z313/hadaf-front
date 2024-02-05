@@ -1,21 +1,28 @@
-import React from 'react'
+import React from "react";
 
 import { FormControl, TextField } from "@mui/material";
 
-export default function ˇWeight({changeHandlred, value}) {
+export default function OkrWeight({
+  value,
+  className,
+  changeHandler,
+  saveCurrentOkr,
+}) {
   return (
-    <div className='ml-2' style={{width: 40}}>
+    <div className={className}>
       <FormControl className="rtl-input p-relative w-100">
         <TextField
           id="okr-weight"
           label="وزن"
           variant="standard"
-          placeholder="وزن..."
+          placeholder=""
           inputProps={{ className: "text-h6 py-0-5" }}
-          onChange={(e) =>  changeHandlred('weight', +e.target.value)}
+          onChange={(e) => changeHandler("weight", e.target.value)}
           value={value}
+          style={{ width: "40px" }}
+          onBlur={() => saveCurrentOkr()}
         />
       </FormControl>
     </div>
-  )
+  );
 }

@@ -200,6 +200,9 @@ a {
 .align-start{
   align-items: flex-start !important;
 }
+.align-end{
+  align-items: flex-end !important;
+}
 .text-center {
   text-align: center !important;
 }
@@ -370,6 +373,10 @@ a {
 .py-0-5 {
   padding-top: 4px !important;
   padding-bottom: 4px !important;
+}
+.py-0-7{
+  padding-top: 6.5px !important;
+  padding-bottom: 6.5px !important;
 }
 .py-1 {
   padding-top: 8px !important;
@@ -896,13 +903,23 @@ html, body{
   padding: 0 !important;
 }
 [id^="kr-owner-"] > div > div,
-[id^="key-result-direction-"] > div > div{
+[id^="key-result-direction-"] > div > div,
+#okr-owner-select,
+#ork-stataus{
   padding-top: 2.5px !important;
   padding-bottom: 2.5px !important;
 }
 #ork-timeframe{
   display: flex;
   align-items: center;
+} 
+#okr-owner-select-wrap > div,
+#okr-wrap-stataus > div,
+#okr-wrap-timeframe > div,
+#okr-wrap-parent-okr > div,
+#okr-wrap-access-level > div{
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
 }
 /* mui end*************************************/
 #tasks-row-view-wrapper{

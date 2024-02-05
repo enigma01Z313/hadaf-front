@@ -36,7 +36,7 @@ export default function KRItem({
     direction: directions?.[1]?.code ?? 1,
     start: 0,
     current: 0,
-    end: 100,
+    goal: 100,
     coefficient: 1,
   };
 
@@ -52,9 +52,6 @@ export default function KRItem({
     addNewKr(theKR)
     setTheKR(defaultKR);
   };
-
-  console.log('-----------------------');
-  console.log(setTheOkr);
 
   return (
     <>
@@ -81,7 +78,8 @@ export default function KRItem({
         <FormControl
           id={"key-result-direction-" + index}
           variant="standard"
-          className="rtl-input p-relative grow-1 ml-1-5">
+          className="rtl-input p-relative grow-1 ml-1-5"
+          style={{width: '50px'}}>
           <InputLabel id="demo-simple-select-standard-label">جهت</InputLabel>
           <Select
             labelId="okey-result-direction-label"
@@ -103,11 +101,11 @@ export default function KRItem({
           className="rtl-input p-relative grow-1 ml-1-5"
           style={{ maxWidth: "70px" }}>
           <TextField
-            id="key-result-start"
+            id={`key-result-start-${index}`}
             label="شروع"
             variant="standard"
             placeholder="شروع"
-            inputProps={{ className: "text-h6 py-0-5" }}
+            inputProps={{ className: "text-body-2 py-0-7" }}
             onChange={(e) => handleChange("start", +e.target.value)}
             value={theKR?.start ?? 0}
           />
@@ -117,11 +115,11 @@ export default function KRItem({
           className="rtl-input p-relative grow-1 ml-1-5"
           style={{ maxWidth: "70px" }}>
           <TextField
-            id="key-result-current"
+            id={`key-result-current-${index}`}
             label="جاری"
             variant="standard"
             placeholder="جاری"
-            inputProps={{ className: "text-h6 py-0-5" }}
+            inputProps={{ className: "text-body-2 py-0-7" }}
             onChange={(e) => handleChange("current", +e.target.value)}
             value={theKR?.current ?? 0}
           />
@@ -131,11 +129,11 @@ export default function KRItem({
           className="rtl-input p-relative grow-1 ml-1-5"
           style={{ maxWidth: "70px" }}>
           <TextField
-            id="key-result-goal"
+            id={`key-result-goal-${index}`}
             label="هدف"
             variant="standard"
             placeholder="هدف"
-            inputProps={{ className: "text-h6 py-0-5" }}
+            inputProps={{ className: "text-body-2 py-0-7" }}
             onChange={(e) => handleChange("goal", +e.target.value)}
             value={theKR?.goal ?? 100}
           />
@@ -145,11 +143,11 @@ export default function KRItem({
           className="rtl-input p-relative grow-1"
           style={{ maxWidth: "70px" }}>
           <TextField
-            id="key-result-coefficient"
+            id={`key-result-coefficient-${index}`}
             label="ضریب"
             variant="standard"
             placeholder="ضریب"
-            inputProps={{ className: "text-h6 py-0-5" }}
+            inputProps={{ className: "text-body-2 py-0-7" }}
             onChange={(e) => handleChange("coefficient", +e.target.value)}
             value={theKR?.coefficient ?? 1}
           />

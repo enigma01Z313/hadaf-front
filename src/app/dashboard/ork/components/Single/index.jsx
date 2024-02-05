@@ -10,18 +10,30 @@ import TexedPrimary from "@/app/components/Button/TexedPrimary";
 import TexedError from "@/app/components/Button/TextedError";
 import workspaceContext from "@/app/context/workspaceContext";
 import getUsersList from "@/app/lib/users/list";
+import getOkr from "@/app/lib/okr/get";
 
 import Title from "./header/Title";
 import Assignee from "./header/Assignee";
 import Status from "./header/Status";
 import Weight from "./header/Weight";
+import OkrFrom from "./header/OkrFrom";
+import OkrTo from "./header/OkrTo";
 import KeyResults from "./keyResults";
 import Timeframe from "./moreInfo/Timeframe";
 import ParentOkr from "./moreInfo/ParentOkr";
 import Accesslevel from "./moreInfo/Accesslevel";
 import Colleages from "./moreInfo/Colleages";
 
-export default function Single({ singleOkr, closePopup, loading }) {
+import createOkr from "@/app/lib/okr/create";
+import Gauge from "@/app/components/Gauge";
+
+export default function Single({
+  singleOkr,
+  setSingleOkr,
+  closePopup,
+  saveCurrentOkr,
+}) {
+  const [loading, setLoading] = useState(false);
   const { theWorkspace, theUsers, setTheUsers, theWorkspaceTimeframes } =
     useContext(workspaceContext);
 
@@ -48,8 +60,18 @@ export default function Single({ singleOkr, closePopup, loading }) {
   useEffect(() => {
     if (singleOkr !== "create") {
       (async function () {
-        // const theOkrData = await getOkr(singleOkr)
-        // setTheOker(theOkrData)
+        setLoading(true);
+        const theOkrData = await getOkr(theWorkspace, singleOkr);
+
+        setTheOker({
+          ...theOkrData,
+          timeFrame: theOkrData.timeFrame.id,
+          assignee: theOkrData.assignee.id,
+          status: theOkrData.status.code,
+          access: theOkrData.access.code,
+          colleagues: theOkrData.colleagues.map((item) => item.id),
+        });
+        setLoading(false);
       })();
     }
   }, []);
@@ -65,8 +87,6 @@ export default function Single({ singleOkr, closePopup, loading }) {
         setTheUsers(usersList);
       }
 
-      //   console.log('0000000000000000000000000000');
-      //   console.log(usersList.data.map((user) => ({ ...user, isFiltered: true })));
       setWorkspaceUsers(
         usersList.data.map((user) => ({ ...user, isFiltered: true }))
       );
@@ -77,9 +97,11 @@ export default function Single({ singleOkr, closePopup, loading }) {
     setTheOker((state) => ({ ...state, [key]: value }));
   };
 
-  const handleOkrCreate = () => {
-    console.log("create new okr");
-    console.log(theOkr);
+  const handleOkrCreate = async () => {
+    setLoading(true);
+    await createOkr(theWorkspace, theOkr);
+    setSingleOkr("");
+    setLoading(false);
   };
 
   return (
@@ -88,7 +110,7 @@ export default function Single({ singleOkr, closePopup, loading }) {
       fullWidth={true}
       open={true}
       onClose={closePopup}
-      PaperProps={{ classes: { root: loading ? "loading " : "over-visible" } }}>
+      PaperProps={{ classes: { root: loading ? "loading" : "over-visible" } }}>
       <DialogTitle>
         <div className="d-flex no-wrap">
           <Title changeHandlred={changeHandlred} value={theOkr?.title ?? ""} />
@@ -105,10 +127,16 @@ export default function Single({ singleOkr, closePopup, loading }) {
             changeHandlred={changeHandlred}
           />
 
+          <OkrFrom value={theOkr?.from ?? ""} changeHandlred={changeHandlred} />
+
+          <OkrTo value={theOkr?.to ?? ""} changeHandlred={changeHandlred} />
+
           <Weight
             value={theOkr?.weight ?? ""}
             changeHandlred={changeHandlred}
           />
+
+          <Gauge value={theOkr.progress}/>
         </div>
       </DialogTitle>
 
@@ -145,7 +173,7 @@ export default function Single({ singleOkr, closePopup, loading }) {
           <>
             <TexedError onClick={closePopup}>لغو</TexedError>
             <TexedPrimary
-            // onClick={handleTimeframeSave}
+            onClick={() => saveCurrentOkr(singleOkr, theOkr)}
             >
               به روز رسانی
             </TexedPrimary>

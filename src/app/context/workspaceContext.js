@@ -6,6 +6,7 @@ export const WorkspaceContextProvider = ({ children }) => {
   const [theWorkspace, setTheWorkspace] = useState([]);
   const [theUsers, setTheUsers] = useState({ data: [], total: 0 });
   const [theWorkspaceTimeframes, setTheWorkspaceTimeframes] = useState([]);
+  const [theWorkspaceOkrs, setTheWorkspaceOkrs] = useState([]);
 
   const [theUser, setTheUser] = useState();
   const [userWorkspaces, setUserWorkspaces] = useState([]);
@@ -23,6 +24,8 @@ export const WorkspaceContextProvider = ({ children }) => {
         setUserWorkspaces,
         theWorkspaceTimeframes,
         setTheWorkspaceTimeframes,
+        theWorkspaceOkrs,
+        setTheWorkspaceOkrs,
       }}>
       {children}
     </workspaceContext.Provider>

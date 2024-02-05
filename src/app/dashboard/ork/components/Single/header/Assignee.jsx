@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useEffect } from "react";
 
-import { FormControl, Select, MenuItem } from "@mui/material";
+import { FormControl, Select, MenuItem, InputLabel } from "@mui/material";
 
-export default function Assignee({ changeHandlred, workspaceUsers, value}) {
+export default function Assignee({ changeHandlred, workspaceUsers, value }) {
+  useEffect(() => {
+    if (value === "" && workspaceUsers?.[0]?.id)
+      changeHandlred("assignee", workspaceUsers?.[0]?.id);
+  }, [workspaceUsers]);
+
+  const label = "منصوب به";
+
   return (
     <div className="ml-2 grow-1">
       <FormControl
@@ -10,12 +17,12 @@ export default function Assignee({ changeHandlred, workspaceUsers, value}) {
         fullWidth
         variant="standard"
         className="rtl-input p-relative w-100">
+        <InputLabel id="okr-owner-select-label">{label}</InputLabel>
         <Select
           labelId="okr-owner-select-label"
           id="okr-owner-select"
           value={value}
-          label="منصوب به"
-          onChange={(e) =>  changeHandlred('assignee', e.target.value)}
+          onChange={(e) => changeHandlred("assignee", e.target.value)}
           className="text-h6 py-1">
           {workspaceUsers &&
             workspaceUsers?.map((user) => (
@@ -26,5 +33,5 @@ export default function Assignee({ changeHandlred, workspaceUsers, value}) {
         </Select>
       </FormControl>
     </div>
-  )
+  );
 }

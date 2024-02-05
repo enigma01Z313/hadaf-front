@@ -1,0 +1,25 @@
+.gauge-wrapper {
+  position: relative;
+  width: 60px;
+  height: 60px;
+}
+
+.gauge-wrapper .circle {
+  position: absolute;
+  width: 100% !important;
+  height: 100% !important;
+  transform: rotate(-210deg) !important;
+}
+
+.gauge-wrapper:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 4px solid #2d4e5c1f;
+  border-radius: 50%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
+}

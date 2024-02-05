@@ -1,24 +1,33 @@
-import React from 'react'
+import React from "react";
 
 import { FormControl, Select, MenuItem, InputLabel } from "@mui/material";
 
-export default function Status({changeHandlred, okrStatuses, value}) {
-  const label = "وضعیت";
+export default function OkrStatus({
+  value,
+  className,
+  changeHandler,
+  saveCurrentOkr,
+}) {
+  const handleChange = (e) => {
+    changeHandler("status", { code: +e.target.value });
+    saveCurrentOkr({ status: +e.target.value });
+  };
+
+  const okrStatuses = JSON.parse(localStorage.getItem("meta")).okrStatus;
 
   return (
-    <div className="ml-2 grow-1">
+    <div className={className} style={{ maxWidth: "180px" }}>
       <FormControl
         id="okr-wrap-stataus"
         fullWidth
         variant="standard"
         className="rtl-input p-relative w-100">
-        <InputLabel id="okr-status-select-label">{label}</InputLabel>
+        <InputLabel id="okr-status-select-label">وضعیت</InputLabel>
         <Select
           labelId="okr-status-select-label"
           id="ork-stataus"
           value={value}
-          label=""
-          onChange={(e) =>  changeHandlred('status', e.target.value)}
+          onChange={handleChange}
           className="text-h6 py-1">
           {okrStatuses.map((okrStatus) => (
             <MenuItem key={okrStatus.code} value={okrStatus.code}>
@@ -28,5 +37,5 @@ export default function Status({changeHandlred, okrStatuses, value}) {
         </Select>
       </FormControl>
     </div>
-  )
+  );
 }
