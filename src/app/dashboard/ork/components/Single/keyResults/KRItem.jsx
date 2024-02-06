@@ -17,6 +17,8 @@ import styles from "./style.module.css";
 import canAddNew from "./canAddNew";
 
 import workspaceContext from "@/app/context/workspaceContext";
+import updateKR from "@/app/lib/keryResult/update";
+import getOkr from "@/app/lib/okr/get";
 
 export default function KRItem({
   index,
@@ -26,8 +28,11 @@ export default function KRItem({
   keyResultsL,
   addNewKr,
   deleteKr,
+  okrId,
+  setLoading,
+  createMode,
 }) {
-  const { theUsers } = useContext(workspaceContext);
+  const { theUsers, theWorkspace } = useContext(workspaceContext);
   const directions = JSON.parse(localStorage.getItem("meta")).direction;
 
   const defaultKR = {
@@ -42,14 +47,42 @@ export default function KRItem({
 
   const [theKR, setTheKR] = useState(krData ?? defaultKR);
 
+  const saveCurrentKR = async () => {
+    if (!isNew && !createMode) {
+      setLoading(true);
+      await updateKR(okrId, krData.id, theKR);
+      const uppedOkr = await getOkr(theWorkspace, okrId);
+
+      setTheOkr({
+        ...uppedOkr,
+        assignee: uppedOkr.assignee.id,
+        status: uppedOkr.status.code,
+        timeFrame: uppedOkr.timeFrame.id,
+        access: uppedOkr.access.code,
+      });
+      setLoading(false);
+    }
+  };
+
   const handleChange = (key, value) => {
+    setTheOkr((theOkr) => {
+      const nweKeyResults = theOkr.keyResults.map((item, i) => {
+        if (i !== index) return item;
+
+        return { ...item, [key]: value };
+      });
+
+      const newOkr = { ...theOkr, keyResults: nweKeyResults };
+
+      return newOkr;
+    });
     setTheKR((state) => ({ ...state, [key]: value }));
   };
 
   const handleOwnerChange = (e) => handleChange("owner", e.target.value);
 
   const addNewKrItem = () => {
-    addNewKr(theKR)
+    addNewKr(theKR);
     setTheKR(defaultKR);
   };
 
@@ -65,6 +98,7 @@ export default function KRItem({
             inputProps={{ className: "text-h6 py-0-5" }}
             onChange={(e) => handleChange("title", e.target.value)}
             value={theKR?.title ?? ""}
+            onBlur={() => saveCurrentKR()}
           />
         </FormControl>
 
@@ -79,14 +113,14 @@ export default function KRItem({
           id={"key-result-direction-" + index}
           variant="standard"
           className="rtl-input p-relative grow-1 ml-1-5"
-          style={{width: '50px'}}>
+          style={{ width: "50px" }}>
           <InputLabel id="demo-simple-select-standard-label">جهت</InputLabel>
           <Select
             labelId="okey-result-direction-label"
             id={`okey-result-direction`}
             value={theKR.direction}
             label={"جهت"}
-            // onChange={handleChange}
+            onChange={(e) => handleChange("direction", e.target.value)}
             className="text-h6 py-1">
             {directions &&
               directions?.map((direction) => (
@@ -108,6 +142,7 @@ export default function KRItem({
             inputProps={{ className: "text-body-2 py-0-7" }}
             onChange={(e) => handleChange("start", +e.target.value)}
             value={theKR?.start ?? 0}
+            onBlur={() => saveCurrentKR?.()}
           />
         </FormControl>
 
@@ -122,6 +157,7 @@ export default function KRItem({
             inputProps={{ className: "text-body-2 py-0-7" }}
             onChange={(e) => handleChange("current", +e.target.value)}
             value={theKR?.current ?? 0}
+            onBlur={() => saveCurrentKR?.()}
           />
         </FormControl>
 
@@ -136,6 +172,7 @@ export default function KRItem({
             inputProps={{ className: "text-body-2 py-0-7" }}
             onChange={(e) => handleChange("goal", +e.target.value)}
             value={theKR?.goal ?? 100}
+            onBlur={() => saveCurrentKR?.()}
           />
         </FormControl>
 
@@ -150,6 +187,7 @@ export default function KRItem({
             inputProps={{ className: "text-body-2 py-0-7" }}
             onChange={(e) => handleChange("coefficient", +e.target.value)}
             value={theKR?.coefficient ?? 1}
+            onBlur={() => saveCurrentKR?.()}
           />
         </FormControl>
 

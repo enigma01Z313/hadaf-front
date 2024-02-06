@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 
+import { toast } from "react-toastify";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -32,6 +33,7 @@ export default function Single({
   setSingleOkr,
   closePopup,
   saveCurrentOkr,
+  setReloadList,
 }) {
   const [loading, setLoading] = useState(false);
   const { theWorkspace, theUsers, setTheUsers, theWorkspaceTimeframes } =
@@ -57,6 +59,8 @@ export default function Single({
     colleagues: [],
   });
 
+  const [createMode, setCreateMode] = useState(false);
+
   useEffect(() => {
     if (singleOkr !== "create") {
       (async function () {
@@ -74,6 +78,8 @@ export default function Single({
         setLoading(false);
       })();
     }
+
+    setCreateMode(singleOkr === "create");
   }, []);
 
   useEffect(() => {
@@ -102,6 +108,15 @@ export default function Single({
     await createOkr(theWorkspace, theOkr);
     setSingleOkr("");
     setLoading(false);
+    setReloadList((state) => !state);
+    toast.success("هدف جدید با موفقیت ایجاد شد");
+  };
+
+  const handleSingleSave = async () => {
+    setLoading(true);
+    await saveCurrentOkr(singleOkr, theOkr);
+    setLoading(false);
+    toast.success("ویرایش با موفقیت انجام شد");
   };
 
   return (
@@ -136,18 +151,25 @@ export default function Single({
             changeHandlred={changeHandlred}
           />
 
-          <Gauge value={theOkr.progress}/>
+          <Gauge value={theOkr.progress} />
         </div>
       </DialogTitle>
 
       <DialogContent style={{ overflow: "visible" }}>
         <Devider spacing={0} line={true} />
+
         <h6 className="text-h6 weight-400 my-2">نتایج کلیدی</h6>
+
         <KeyResults
           keyResults={theOkr?.keyResults ?? []}
           setTheOkr={setTheOker}
+          okrId={theOkr.id}
+          setLoading={setLoading}
+          createMode={createMode}
         />
+
         <Devider line={true} spacing={2} />
+
         <div className="d-flex">
           <Timeframe value={theOkr.timeFrame} changeHandlred={changeHandlred} />
 
@@ -172,11 +194,7 @@ export default function Single({
         {(singleOkr !== "create" && (
           <>
             <TexedError onClick={closePopup}>لغو</TexedError>
-            <TexedPrimary
-            onClick={() => saveCurrentOkr(singleOkr, theOkr)}
-            >
-              به روز رسانی
-            </TexedPrimary>
+            <TexedPrimary onClick={handleSingleSave}>به روز رسانی</TexedPrimary>
           </>
         )) || (
           <>

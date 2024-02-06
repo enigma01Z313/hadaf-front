@@ -4,8 +4,13 @@ import KRItem from "./KRItem";
 
 import canAddNew from "./canAddNew";
 
-export default function KeyResults({ keyResults, setTheOkr }) {
-
+export default function KeyResults({
+  keyResults,
+  setTheOkr,
+  okrId,
+  setLoading,
+  createMode,
+}) {
   const addNewKr = (newKr) => {
     setTheOkr((state) => {
       const newState = JSON.parse(JSON.stringify(state));
@@ -13,16 +18,16 @@ export default function KeyResults({ keyResults, setTheOkr }) {
 
       return newState;
     });
-  }
+  };
 
   const deleteKr = (index) => {
     setTheOkr((state) => {
       const newState = JSON.parse(JSON.stringify(state));
-      newState.keyResults = state.keyResults.filter((v, i) => i !== index)
+      newState.keyResults = state.keyResults.filter((v, i) => i !== index);
 
       return newState;
     });
-  }
+  };
 
   return (
     <section>
@@ -31,9 +36,13 @@ export default function KeyResults({ keyResults, setTheOkr }) {
           index={index}
           key={index}
           krData={keyResult}
+          setTheOkr={setTheOkr}
           isNew={false}
           keyResultsL={keyResults.length}
           deleteKr={deleteKr}
+          okrId={okrId}
+          setLoading={setLoading}
+          createMode={createMode}
         />
       ))}
       <KRItem
@@ -42,6 +51,7 @@ export default function KeyResults({ keyResults, setTheOkr }) {
         setTheOkr={setTheOkr}
         keyResultsL={keyResults.length}
         addNewKr={addNewKr}
+        createMode={createMode}
       />
     </section>
   );

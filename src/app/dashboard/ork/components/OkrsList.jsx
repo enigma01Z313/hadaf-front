@@ -7,7 +7,12 @@ import OkrItem from "./OkrItem";
 import deleteOkr from "@/app/lib/okr/delete";
 import styles from "./style.module.css";
 
-export default function OkrsList({ searchTerm, setSingleOkr, saveCurrentOkr }) {
+export default function OkrsList({
+  searchTerm,
+  setSingleOkr,
+  saveCurrentOkr,
+  reloadList,
+}) {
   const [okrs, setOkrs] = useState([]);
   const [loading, setLoading] = useState(false);
   const { theWorkspace, setTheWorkspaceOkrs } = useContext(workspaceContext);
@@ -19,22 +24,26 @@ export default function OkrsList({ searchTerm, setSingleOkr, saveCurrentOkr }) {
       setOkrs(okrsList);
       setTheWorkspaceOkrs(okrsList);
     })();
-  }, [theWorkspace]);
+  }, [theWorkspace, reloadList]);
 
   const deleteOkrHandler = async (id) => {
     setLoading(true);
     await deleteOkr(theWorkspace, id);
     setOkrs((okrs) => {
-      const filteredOkrs = okrs.data.filter(item => item.id !== id)
+      const filteredOkrs = okrs.data.filter((item) => item.id !== id);
       const newOkrs = {
         data: filteredOkrs,
-        total: okrs.total - 1
-      }
-      
-      return newOkrs
+        total: okrs.total - 1,
+      };
+
+      return newOkrs;
     });
     setLoading(false);
   };
+
+  const updateTheOkr = (id) => {
+    
+  }
 
   return (
     <div

@@ -19,6 +19,7 @@ export default function Okr() {
   const [activeTimeframe, setActiveTimeframe] = useState();
   const [timeframes, setTimeframes] = useState([]);
   const [singleOkr, setSingleOkr] = useState("");
+  const [reloadList, setReloadList] = useState(false)
 
   useEffect(() => {
     (async function () {
@@ -39,16 +40,11 @@ export default function Okr() {
 
   const closePopup = () => setSingleOkr("");
 
-  const saveCurrentOkr = async (id, data) => {
-    console.log('---------------------');
-    console.log(id);
-    console.log(data);
-    // const updatedData = await updateOkr(
-    //   theWorkspace,
-    //   id,
-    //   data
-    // );
-  };
+  const saveCurrentOkr = async (id, data) =>
+    new Promise(async (resolve, reject) => {
+      const updatedData = await updateOkr(theWorkspace, id, data);
+      resolve();
+    });
 
   return (
     <>
@@ -66,6 +62,7 @@ export default function Okr() {
             searchTerm={searchTerm}
             setSingleOkr={setSingleOkr}
             saveCurrentOkr={saveCurrentOkr}
+            reloadList={reloadList}
           />
         </div>
       </div>
@@ -75,6 +72,7 @@ export default function Okr() {
           setSingleOkr={setSingleOkr}
           closePopup={closePopup}
           saveCurrentOkr={saveCurrentOkr}
+          setReloadList={setReloadList}
         />
       )}
     </>

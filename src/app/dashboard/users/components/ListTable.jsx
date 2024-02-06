@@ -16,7 +16,6 @@ export default function ListTable({ setMode, reloadList }) {
 
   useEffect(() => {
     (async function () {
-      console.log("222222222");
       let usersList;
 
       // if (theUsers.total === 0) {
