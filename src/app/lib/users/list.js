@@ -3,10 +3,11 @@ import permissionChec from "@/app/utils/permissionCheck";
 
 const getUsersList = async (workspaceId) => {
   const isSuperAdmin = permissionChec("SUPER_USER");
+  const isAdmin = permissionChec("ADMIN");
   const isStandard = permissionChec("STANDARD");
 
   const usersGetUrl =
-    (isSuperAdmin && "users") ||
+    ((isSuperAdmin || isAdmin) && "users") ||
     (isStandard && `workspaces/${workspaceId}/users`);
 
   if (isStandard && !workspaceId) return [];

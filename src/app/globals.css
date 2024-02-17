@@ -869,6 +869,12 @@ body {
   padding-right: 0 !important;
   padding-left: 24px !important;
 }
+#select-user + input + svg,
+#timeframe-select + input + svg,
+.MuiFormControl-root.rtl-input .MuiSelect-select + input + svg{
+  left: 0 !important;
+  right: auto !important;
+}
 .MuiDateRangeCalendar-root > div:first-child {
   display: none !important;
 }

@@ -59,7 +59,7 @@ const menuItems = [
     id: 70,
     title: "اهداف",
     slug: "okr",
-    link: "/dashboard/ork",
+    link: "/dashboard/okr",
     icon: CrisisAlertIcon,
   },
   {

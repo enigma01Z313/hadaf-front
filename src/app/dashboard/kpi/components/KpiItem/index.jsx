@@ -15,7 +15,7 @@ export default function KpiItem({
   setReloadList,
 }) {
   console.log('1-1-----------------------------------');
-  console.log(kpi);
+  // console.log(kpi);
 
   return (
     <div className={`d-flex align-center `}>

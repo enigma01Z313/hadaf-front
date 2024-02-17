@@ -19,10 +19,10 @@ export default function Actions({
   const deactiveKpi = async () => {
     setLoading(true);
     setOpenedActions("")
-    
+
     await updateKpi(theWorkspace, kpiId, {
       ...kpi,
-      status: 1,
+      status: 0,
       continuous: +kpi.continuous.code,
       direction: +kpi.direction.code,
       calculationMethod: +kpi.calculationMethod.code,

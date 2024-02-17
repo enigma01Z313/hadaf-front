@@ -26,7 +26,7 @@ import Description from "./Description";
 import Title from "./Title";
 import Tags from "./Tags";
 import Calculation from "./Calculation";
-import Colleages from "@/app/dashboard/ork/components/Single/moreInfo/Colleages";
+import Colleages from "@/app/dashboard/okr/components/Single/moreInfo/Colleages";
 import ColoredThreshholds from "./ColoredThreshholds";
 
 import createKPI from "@/app/lib/kpi/create";

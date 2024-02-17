@@ -59,7 +59,7 @@ export default function User({ params }) {
           aria-label="basic tabs example">
           <Tab label="تنظیمات فضای کاری" {...a11yProps(0)} />
           <Tab label="بازه های زمانی" {...a11yProps(1)} />
-          <Tab label="برجسب ها" {...a11yProps(2)} />
+          <Tab label="برچسب ها" {...a11yProps(2)} />
           <Tab label="ارزش ها" {...a11yProps(3)} />
         </Tabs>
       </Box>
