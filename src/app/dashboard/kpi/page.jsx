@@ -19,8 +19,8 @@ export default function KPI() {
   const [activeTimeframe, setActiveTimeframe] = useState();
   const [timeframes, setTimeframes] = useState([]);
   const [singleKpi, setSingleKpi] = useState("");
-  const [reloadList, setReloadList] = useState(false)
-  const [openedActions, setOpenedActions] = useState('')
+  const [reloadList, setReloadList] = useState(false);
+  const [openedActions, setOpenedActions] = useState("");
 
   useEffect(() => {
     (async function () {
@@ -59,7 +59,11 @@ export default function KPI() {
           setSingleKpi={setSingleKpi}
         />
         <div className="wrapper-box">
-          <KpisList setSingleKpi={setSingleKpi} />
+          <KpisList
+            setSingleKpi={setSingleKpi}
+            reloadList={reloadList}
+            setReloadList={setReloadList}
+          />
         </div>
       </div>
       {singleKpi !== "" && (

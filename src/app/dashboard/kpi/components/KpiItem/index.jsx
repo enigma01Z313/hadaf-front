@@ -12,9 +12,13 @@ export default function KpiItem({
   setOpenedActions,
   setSingleKpi,
   setLoading,
+  setReloadList,
 }) {
+  console.log('1-1-----------------------------------');
+  console.log(kpi);
+
   return (
-    <div className="d-flex">
+    <div className={`d-flex align-center `}>
       <span>{kpi.name}</span>
       <span className="text-center" style={{ width: "110px" }}>
         <CurrentPeriod continuous={kpi.continuous} />
@@ -22,23 +26,25 @@ export default function KpiItem({
       <span>
         <Assignee assignee={kpi.assignee} />
       </span>
-      <span className="p-relative">
+      <div className="p-relative mr-auto">
         <span
-          className="cursor-pointer"
+          className="cursor-pointer d-flex align-center p-1"
           onClick={() => setOpenedActions(kpi.id)}>
           <MoreHorizIcon />
         </span>
         {kpi.id === openedActions && (
           <>
             <Actions
+              kpi={kpi}
               kpiId={kpi.id}
               setOpenedActions={setOpenedActions}
               setSingleKpi={setSingleKpi}
               setLoading={setLoading}
+              setReloadList={setReloadList}
             />
           </>
         )}
-      </span>
+      </div>
     </div>
   );
 }

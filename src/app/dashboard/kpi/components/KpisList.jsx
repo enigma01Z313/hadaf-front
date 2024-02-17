@@ -5,12 +5,13 @@ import getKpisList from "@/app/lib/kpi/list";
 import KpiItem from "./KpiItem";
 
 import styles from "./style.module.css";
+import Devider from "@/app/components/Devider";
 
 export default function KpisList({
   searchTerm,
   setSingleKpi,
-  saveCurrentOkr,
   reloadList,
+  setReloadList,
 }) {
   const [kpis, setKpis] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -56,6 +57,8 @@ export default function KpisList({
                 .includes(searchTerm?.toLocaleLowerCase?.() ?? "")
             )
             .map((kpi, i) => (
+              <>
+              {i!==0 && <Devider line={true} spacing={2}/>}
               <KpiItem
                 key={kpi.id}
                 kpi={kpi}
@@ -63,11 +66,13 @@ export default function KpisList({
                 setOpenedActions={setOpenedActions}
                 setSingleKpi={setSingleKpi}
                 setLoading={setLoading}
+                setReloadList={setReloadList}
                 // className={`p-2 radius-1 ${i !== 0 ? "mt-1" : ""}`}
                 // theWorkspace={theWorkspace}
                 // deleteOkr={deleteOkrHandler}
                 // saveCurrentOkr={saveCurrentOkr}
               />
+              </>
             ))}
         </ul>
       )}
