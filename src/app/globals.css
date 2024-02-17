@@ -162,7 +162,6 @@ a {
   color: #1976d2;
 }
 /****************************************/
-
 .p-relative {
   position: relative;
 }
@@ -173,7 +172,7 @@ a {
   display: flex;
   flex-wrap: wrap;
 }
-.no-wrap{
+.no-wrap {
   flex-wrap: nowrap;
 }
 .direction-column {
@@ -197,10 +196,10 @@ a {
 .align-center {
   align-items: center !important;
 }
-.align-start{
+.align-start {
   align-items: flex-start !important;
 }
-.align-end{
+.align-end {
   align-items: flex-end !important;
 }
 .text-center {
@@ -374,7 +373,7 @@ a {
   padding-top: 4px !important;
   padding-bottom: 4px !important;
 }
-.py-0-7{
+.py-0-7 {
   padding-top: 6.5px !important;
   padding-bottom: 6.5px !important;
 }
@@ -382,7 +381,7 @@ a {
   padding-top: 8px !important;
   padding-bottom: 8px !important;
 }
-.py-1-5{
+.py-1-5 {
   padding-top: 12px !important;
   padding-bottom: 12px !important;
 }
@@ -655,7 +654,7 @@ a {
 .ml-7 {
   margin-left: 56px !important;
 }
-.ml-auto{
+.ml-auto {
   margin-left: auto;
 }
 
@@ -686,7 +685,7 @@ a {
 .mr-7 {
   margin-right: 56px !important;
 }
-.mr-auto{
+.mr-auto {
   margin-right: auto;
 }
 
@@ -717,7 +716,7 @@ a {
 .mt-7 {
   margin-top: 56px !important;
 }
-.mt-auto{
+.mt-auto {
   margin-top: auto;
 }
 
@@ -748,7 +747,7 @@ a {
 .mb-7 {
   margin-bottom: 56px !important;
 }
-.mb-auto{
+.mb-auto {
   margin-bottom: auto;
 }
 
@@ -812,7 +811,7 @@ h4,
   box-shadow: 0px 3px 5px -1px #00000033, 0px 5px 8px 0px #00000024,
     0px 1px 14px 0px #0000001f;
 }
-.wrapper-box2{
+.wrapper-box2 {
   background: #eee;
   border-radius: 4px;
   padding: 10px 14px;
@@ -835,41 +834,43 @@ h4,
   flex-direction: row-reverse;
 }
 
-#select-workspace{
+#select-workspace {
   padding-left: 24px;
   padding-right: 4px;
 }
 
-html, body{
+html,
+body {
   height: 100vh;
 }
 
-.cursor-pointer{
+.cursor-pointer {
   cursor: pointer;
 }
 
 /***************************************/
-#task-stataus-select{
+#task-stataus-select {
   padding: 3px 0 3px 24px !important;
 }
-.over-visible{
+.over-visible {
   overflow: visible !important;
 }
-#task-stataus-select-wrap svg{
+#task-stataus-select-wrap svg {
   right: unset !important;
   left: 0 !important;
 }
 #select-user,
 #timeframe-select,
-.MuiFormControl-root.rtl-input .MuiSelect-select
-{
+.MuiFormControl-root.rtl-input .MuiSelect-select {
   padding-right: 0 !important;
   padding-left: 24px !important;
 }
-.MuiDateRangeCalendar-root > div:first-child{display: none !important;}
+.MuiDateRangeCalendar-root > div:first-child {
+  display: none !important;
+}
 
 .MuiDayCalendar-weekContainer > div:last-child,
-.MuiDateRangePickerDay-rangeIntervalDayHighlightEnd{
+.MuiDateRangePickerDay-rangeIntervalDayHighlightEnd {
   border-radius: 0 !important;
   border-top-left-radius: 50% !important;
   border-bottom-left-radius: 50% !important;
@@ -881,16 +882,16 @@ html, body{
   border-bottom-right-radius: 50% !important;
 }
 .MuiMultiInputDateRangeField-separator {
-  margin: 0 16px !important
+  margin: 0 16px !important;
 }
-.MuiMultiInputDateRangeField-separator + div{
+.MuiMultiInputDateRangeField-separator + div {
   margin-left: 0 !important;
 }
-.range-date-input input{
+.range-date-input input {
   padding-top: 3px !important;
   padding-bottom: 2px !important;
 }
-.range-date-input fieldset{
+.range-date-input fieldset {
   border-radius: 0 !important;
   border-top: 0 !important;
   border-right: 0 !important;
@@ -899,32 +900,48 @@ html, body{
 [id^="kr-owner-"],
 [id^="key-result-direction-"],
 [id^="kr-owner-"] > div,
-[id^="key-result-direction-"] > div{
+[id^="key-result-direction-"] > div {
   padding: 0 !important;
 }
 [id^="kr-owner-"] > div > div,
 [id^="key-result-direction-"] > div > div,
 #okr-owner-select,
-#ork-stataus{
+#ork-stataus,
+#kpi-assignee {
   padding-top: 2.5px !important;
   padding-bottom: 2.5px !important;
 }
-#ork-timeframe{
+#ork-timeframe {
   display: flex;
   align-items: center;
-} 
+}
 #okr-owner-select-wrap > div,
 #okr-wrap-stataus > div,
 #okr-wrap-timeframe > div,
 #okr-wrap-parent-okr > div,
-#okr-wrap-access-level > div{
+#okr-wrap-access-level > div,
+#kpi-wrap-assignee > div {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
 }
-/* mui end*************************************/
-#tasks-row-view-wrapper{
-  margin: 0 -16px
+#color-picker-wrapper > div {
+  width: 100% !important;
 }
-#tasks-row-view-wrapper .ps__rail-x{
+#color-picker-wrapper button {
+  margin-right: -5px !important;
+}
+#color-picker-wrapper
+  .MuiInputBase-input.MuiInput-input.MuiInputBase-inputAdornedStart.css-1x51dt5-MuiInputBase-input-MuiInput-input {
+  padding: 5px 10px !important;
+}
+
+.MuiAccordion-root.bg-trans {
+  background: transparent !important;
+}
+/* mui end*************************************/
+#tasks-row-view-wrapper {
+  margin: 0 -16px;
+}
+#tasks-row-view-wrapper .ps__rail-x {
   display: none !important;
 }

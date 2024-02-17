@@ -68,7 +68,6 @@ const menuItems = [
     slug: "kpi",
     link: "/dashboard/kpi",
     icon: FlagCircleIcon,
-    disabled: true,
   },
   {
     id: 90,

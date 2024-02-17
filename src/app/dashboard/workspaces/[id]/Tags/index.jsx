@@ -2,25 +2,25 @@ import React, { useEffect, useState, useContext } from "react";
 
 import workspaceContext from "@/app/context/workspaceContext";
 import ContainedPrimary from "@/app/components/Button/ContainedPrimary";
-
-import listTimeframes from "@/app/lib/timeframes/list";
 import Single from "./Single";
-import TimeFrameGp from "./TimeFrameGp";
 
-export default function Timeframe() {
+import listTags from "@/app/lib/tags/list";
+import List from "./List";
+
+export default function Tags() {
   const { theWorkspace } = useContext(workspaceContext);
-  const [timeframes, setTimeframes] = useState([]);
+  const [tags, setTags] = useState([]);
   const [loading, setLoading] = useState(true);
   const [single, setSingle] = useState("");
   const [reloadList, setReloadList] = useState(false);
 
   useEffect(() => {
     (async function () {
-      const timeframesList = theWorkspace
-        ? await listTimeframes({ workspaceId: theWorkspace, all: true })
+      const tagsList = theWorkspace
+        ? await listTags({ workspaceId: theWorkspace })
         : [];
 
-      setTimeframes(timeframesList);
+      setTags(tagsList);
       setLoading(false);
     })();
   }, [reloadList, theWorkspace]);
@@ -28,22 +28,21 @@ export default function Timeframe() {
   return (
     <>
       <section className={loading ? "loading" : ""}>
-        <header className="d-flex justify-between align-center mb-6">
-          <h3 className="text-h6 mb-2">بازه های زمانی</h3>
+        <header className="d-flex justify-between align-center mb-3">
+          <h3 className="text-h6">برچسب ها</h3>
           <ContainedPrimary onClick={() => setSingle("create")}>
-            ایجاد بازه زمانی جدید
+            ایجاد برچسب جدید
           </ContainedPrimary>
         </header>
 
-        {timeframes.map((v, i) => (
-          <TimeFrameGp
-            key={i}
-            timeframeGp={v}
+        {(tags?.data?.length ?? 0) !== 0 && (
+          <List
+            tags={tags.data}
             setSingle={setSingle}
             setLoading={setLoading}
             setReloadList={setReloadList}
           />
-        ))}
+        )}
       </section>
       {single !== "" && (
         <Single
@@ -51,6 +50,7 @@ export default function Timeframe() {
           setSingle={setSingle}
           setReloadList={setReloadList}
           theWorkspace={theWorkspace}
+          tags={tags.data}
         />
       )}
     </>

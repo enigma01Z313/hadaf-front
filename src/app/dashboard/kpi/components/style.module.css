@@ -1,0 +1,9 @@
+.okr-list-wrapper ul {
+  list-style: none;
+}
+
+.okr-list-wrapper ul li {
+  background: #eee;
+  border-radius: 4px;
+  cursor: pointer;
+}

@@ -1,0 +1,45 @@
+.merits-list {
+  --items-count: 4;
+  --item-space-left: 16px;
+}
+
+.merit-item {
+  width: calc(
+    (100% - (calc(var(--items-count) - 1) * 16px)) / var(--items-count)
+  );
+}
+.merit-item:not(:nth-child(4n)) {
+  margin-left: var(--item-space-left);
+}
+
+@media (max-width: 1450px) {
+  .merits-list {
+    --items-count: 3;
+  }
+  .merits-list .merit-item {
+    margin-left: 0;
+  }
+  .merit-item:not(:nth-child(3n)) {
+    margin-left: var(--item-space-left);
+  }
+}
+@media (max-width: 1200px) {
+  .merits-list {
+    --items-count: 2;
+  }
+  .merits-list .merit-item {
+    margin-left: 0;
+  }
+  .merit-item:not(:nth-child(2n)) {
+    margin-left: var(--item-space-left);
+  }
+}
+
+@media (max-width: 900px) {
+  .merits-list {
+    --items-count: 1;
+  }
+  .merits-list .merit-item {
+    margin-left: 0;
+  }
+}

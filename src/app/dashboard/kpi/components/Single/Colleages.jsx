@@ -1,41 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 
-import { FormControl, Select, MenuItem } from "@mui/material";
-import InputLabel from "@mui/material/InputLabel";
-import Input from "@mui/material/Input";
-import ListItemText from "@mui/material/ListItemText";
-import Checkbox from "@mui/material/Checkbox";
+import workspaceContext from "@/app/context/workspaceContext";
+import {
+  FormControl,
+  Select,
+  MenuItem,
+  Input,
+  Checkbox,
+  ListItemText,
+  InputLabel,
+} from "@mui/material";
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
-
-export default function Colleages({ workspaceUsers, values, changeHandlred }) {
+export default function Colleages({ theUsers, value }) {
+  const { theWorkspace } = useContext(workspaceContext);
   const [personName, setPersonName] = useState(values ?? []);
-
-  useEffect(() => {
-    setPersonName(values);
-  }, [values]);
-
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    const personNames = typeof value === "string" ? value.split(",") : value;
-
-    setPersonName(personNames);
-  };
-
-  useEffect(() => {
-    changeHandlred("colleagues", personName);
-  }, [personName]);
 
   return (
     <div className="grow-1 w-100 mt-2">

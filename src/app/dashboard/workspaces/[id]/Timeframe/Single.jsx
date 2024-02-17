@@ -1,9 +1,14 @@
 import React, { useRef, useState, useEffect } from "react";
 
-import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import { FormControl, Input, DialogActions, TextField } from "@mui/material";
+import {
+  FormControl,
+  Input,
+  DialogActions,
+  TextField,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
 
 import Devider from "@/app/components/Devider";
 import TexedPrimary from "@/app/components/Button/TexedPrimary";

@@ -7,7 +7,11 @@ import {
   Select,
   MenuItem,
   InputLabel,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
 } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DeleteIcon from "@mui/icons-material/Delete";
 import TextedInfo from "@/app/components/Button/TextedInfo";
 import TexedError from "@/app/components/Button/TextedError";
@@ -196,6 +200,28 @@ export default function KRItem({
             <DeleteIcon />
           </TexedError>
         )}
+
+        <div className="w-100 mt-2">
+          <Accordion className="bg-trans">
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1-content"
+              id="panel1-header">
+              توضیحات
+            </AccordionSummary>
+            <AccordionDetails>
+              <TextField
+                className="w-100"
+                variant="standard"
+                placeholder="توضیحات..."
+                multiline
+                rows={4}
+                onChange={(e) => handleChange("description", e.target.value)}
+                value={theKR?.description ?? ""}
+              />
+            </AccordionDetails>
+          </Accordion>
+        </div>
       </article>
 
       {isNew && (
