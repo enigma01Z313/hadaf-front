@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 
+import PerfectScrollbar from "react-perfect-scrollbar";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Dialog,
@@ -11,28 +12,27 @@ import {
   AccordionDetails,
 } from "@mui/material";
 
-import getUsersList from "@/app/lib/users/list";
-
-import workspaceContext from "@/app/context/workspaceContext";
 import Devider from "@/app/components/Devider";
 import TexedError from "@/app/components/Button/TextedError";
+import workspaceContext from "@/app/context/workspaceContext";
 import TexedPrimary from "@/app/components/Button/TexedPrimary";
 
-import Continuous from "./Continuous";
+import Tags from "./Tags";
+import Title from "./Title";
 import Assignee from "./Assignee";
 import Direction from "./Direction";
+import ValidDays from "./ValidDays";
+import Continuous from "./Continuous";
 import TargetValue from "./TargetValue";
 import Description from "./Description";
-import Title from "./Title";
-import Tags from "./Tags";
 import Calculation from "./Calculation";
-import Colleages from "@/app/dashboard/okr/components/Single/moreInfo/Colleages";
 import ColoredThreshholds from "./ColoredThreshholds";
+import Colleages from "@/app/dashboard/okr/components/Single/moreInfo/Colleages";
 
-import createKPI from "@/app/lib/kpi/create";
 import getKpi from "@/app/lib/kpi/get";
-import ValidDays from "./ValidDays";
+import createKPI from "@/app/lib/kpi/create";
 import updateKpi from "@/app/lib/kpi/update";
+import getUsersList from "@/app/lib/users/list";
 
 export default function Single({
   closePopup,
@@ -50,7 +50,7 @@ export default function Single({
     thresholdsTwo: "",
     thresholdsThree: "",
     thresholdsFour: "",
-    assignee: { id: "" },
+    assignee: { id: undefined },
     direction: { code: 0 },
     continuous: { code: 0 },
     colleagues: [],
@@ -109,6 +109,7 @@ export default function Single({
       assignee: theKPI.assignee.id,
       continuous: theKPI.continuous.code,
       direction: theKPI.direction.code,
+      targetValue: theKPI.targetValue === "" ? undefined : targetValue,
       validDays:
         theKPI.continuous.code === 0
           ? theKPI.validDays.reduce((acc, cur, index) => {
@@ -122,7 +123,7 @@ export default function Single({
 
     setSingleKpi("");
     setLoading(false);
-    setReloadList(state => !state)
+    setReloadList((state) => !state);
   };
 
   const handleSingleSave = async () => {
@@ -143,11 +144,11 @@ export default function Single({
             }, [])
           : undefined,
     });
-    
+
     // setSingleKpi("");
     // setLoading(false);
     // setReloadList(state => !state)
-  }
+  };
 
   const isDirectionTresholdsValid = (theKPI) => {
     if (
@@ -235,109 +236,115 @@ export default function Single({
       fullWidth={true}
       open={true}
       onClose={closePopup}
-      PaperProps={{ classes: { root: loading ? "loading" : "over-visible" } }}>
-      <DialogTitle>
-        <Title value={theKPI?.name ?? ""} changeHandlred={changeHandlred} />
-      </DialogTitle>
+      PaperProps={{
+        classes: { root: loading ? "loading" : "over-visible" },
+      }}>
+      <PerfectScrollbar>
+        <DialogTitle>
+          <Title value={theKPI?.name ?? ""} changeHandlred={changeHandlred} />
+        </DialogTitle>
 
-      <DialogContent style={{ overflow: "visible" }}>
-        <Description
-          value={theKPI?.description ?? ""}
-          changeHandlred={changeHandlred}
-        />
-
-        <div className="d-flex no-wrap mt-3">
-          <Continuous
-            value={theKPI?.continuous?.code ?? continuousList[0].code}
+        <DialogContent style={{ overflow: "visible" }}>
+          <Description
+            value={theKPI?.description ?? ""}
             changeHandlred={changeHandlred}
-            continuousList={continuousList}
           />
 
-          <Direction
-            value={theKPI?.direction?.code ?? directionsList[0].code}
+          <div className="d-flex no-wrap mt-3">
+            <Continuous
+              value={theKPI?.continuous?.code ?? continuousList[0].code}
+              changeHandlred={changeHandlred}
+              continuousList={continuousList}
+            />
+
+            <Direction
+              value={theKPI?.direction?.code ?? directionsList[0].code}
+              changeHandlred={changeHandlred}
+              directionsList={directionsList}
+              checkThreshHoldsError={checkThreshHoldsError}
+            />
+          </div>
+
+          <div className="d-flex no-wrap mt-2">
+            <TargetValue
+              value={theKPI?.targetValue ?? ""}
+              changeHandlred={changeHandlred}
+            />
+
+            <Assignee
+              value={theKPI?.assignee?.id ?? theUsers?.data?.[0]?.id}
+              changeHandlred={changeHandlred}
+              theUsers={theUsers}
+            />
+          </div>
+
+          <ColoredThreshholds
             changeHandlred={changeHandlred}
-            directionsList={directionsList}
             checkThreshHoldsError={checkThreshHoldsError}
+            treshOne={theKPI?.thresholdsOne ?? ""}
+            treshTwo={theKPI?.thresholdsTwo ?? ""}
+            treshThree={theKPI?.thresholdsThree ?? ""}
+            treshFour={theKPI?.thresholdsFour ?? ""}
+            thresholdsErrors={thresholdsErrors}
+            direction={theKPI?.direction?.code}
           />
-        </div>
 
-        <div className="d-flex no-wrap mt-2">
-          <TargetValue
-            value={theKPI?.targetValue ?? ""}
-            changeHandlred={changeHandlred}
-          />
-
-          <Assignee
-            value={theKPI?.assignee?.id ?? theUsers?.data?.[0]?.id}
-            changeHandlred={changeHandlred}
-            theUsers={theUsers}
-          />
-        </div>
-
-        <ColoredThreshholds
-          changeHandlred={changeHandlred}
-          checkThreshHoldsError={checkThreshHoldsError}
-          treshOne={theKPI?.thresholdsOne ?? ""}
-          treshTwo={theKPI?.thresholdsTwo ?? ""}
-          treshThree={theKPI?.thresholdsThree ?? ""}
-          treshFour={theKPI?.thresholdsFour ?? ""}
-          thresholdsErrors={thresholdsErrors}
-          direction={theKPI?.direction?.code}
-        />
-
-        <Accordion className="mt-2">
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1-content"
-            id="panel1-header">
-            <span className="text-body-1">گزینه های بیشتر...</span>
-          </AccordionSummary>
-          <Devider spacing={0} line={true} />
-          <AccordionDetails>
-            <Colleages
-              values={theKPI?.colleagues}
-              workspaceUsers={theUsers?.data?.map(item => item.id) ?? []}
-              changeHandlred={changeHandlred}
-            />
-            <Devider line={false} spacing={2} />
-            <Tags value={theKPI?.tags} />
-            <Devider line={false} spacing={2} />
-            <Calculation
-              value={theKPI?.calculationMethod?.code ?? 0}
-              calculationMethods={calculationMethods}
-              changeHandlred={changeHandlred}
-            />
-            {theKPI.continuous.code === 0 && (
-              <ValidDays
-                value={theKPI?.validDays}
+          <Accordion className="mt-2">
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1-content"
+              id="panel1-header">
+              <span className="text-body-1">گزینه های بیشتر...</span>
+            </AccordionSummary>
+            <Devider spacing={0} line={true} />
+            <AccordionDetails>
+              <Colleages
+                values={theKPI?.colleagues}
+                workspaceUsers={theUsers?.data?.map((item) => item.id) ?? []}
                 changeHandlred={changeHandlred}
               />
-            )}
-          </AccordionDetails>
-        </Accordion>
-      </DialogContent>
+              <Devider line={false} spacing={2} />
+              <Tags value={theKPI?.tags} />
+              <Devider line={false} spacing={2} />
+              <Calculation
+                value={theKPI?.calculationMethod?.code ?? 0}
+                calculationMethods={calculationMethods}
+                changeHandlred={changeHandlred}
+              />
+              {theKPI.continuous.code === 0 && (
+                <ValidDays
+                  value={theKPI?.validDays}
+                  changeHandlred={changeHandlred}
+                />
+              )}
+            </AccordionDetails>
+          </Accordion>
+        </DialogContent>
 
-      <DialogActions>
-        {(singleKpi !== "create" && (
-          <>
-            <TexedError onClick={closePopup}>لغو</TexedError>
-            <TexedPrimary onClick={handleSingleSave}>به روز رسانی</TexedPrimary>
-          </>
-        )) || (
-          <>
-            <TexedError onClick={closePopup}>لغو</TexedError>
-            <TexedPrimary
-              disabled={
-                (theKPI?.name ?? "") === "" ||
-                (theKPI?.assignee?.id ?? "") === "" ||
-                !isDirectionTresholdsValid(theKPI)
-              }
-              onClick={handleKPICreate}>
-              افزودن
-            </TexedPrimary>
-          </>
-        )}
-      </DialogActions>
+        <DialogActions>
+          {(singleKpi !== "create" && (
+            <>
+              <TexedError onClick={closePopup}>لغو</TexedError>
+              <TexedPrimary onClick={handleSingleSave}>
+                به روز رسانی
+              </TexedPrimary>
+            </>
+          )) || (
+            <>
+              <TexedError onClick={closePopup}>لغو</TexedError>
+              <TexedPrimary
+                disabled={
+                  (theKPI?.name ?? "") === "" ||
+                  (theKPI?.assignee?.id ?? "") === "" ||
+                  !isDirectionTresholdsValid(theKPI)
+                }
+                onClick={handleKPICreate}>
+                افزودن
+              </TexedPrimary>
+            </>
+          )}
+        </DialogActions>
+      </PerfectScrollbar>
     </Dialog>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 
+import PerfectScrollbar from "react-perfect-scrollbar";
 import { toast } from "react-toastify";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
@@ -126,89 +127,105 @@ export default function Single({
       open={true}
       onClose={closePopup}
       PaperProps={{ classes: { root: loading ? "loading" : "over-visible" } }}>
-      <DialogTitle>
-        <div className="d-flex no-wrap">
-          <Title changeHandlred={changeHandlred} value={theOkr?.title ?? ""} />
+      <PerfectScrollbar>
+        <DialogTitle>
+          <div className="d-flex no-wrap">
+            <Title
+              changeHandlred={changeHandlred}
+              value={theOkr?.title ?? ""}
+            />
 
-          <Assignee
-            workspaceUsers={workspaceUsers}
-            value={theOkr?.assignee}
-            changeHandlred={changeHandlred}
+            <Assignee
+              workspaceUsers={workspaceUsers}
+              value={theOkr?.assignee}
+              changeHandlred={changeHandlred}
+            />
+
+            <Status
+              okrStatuses={okrStatuses}
+              value={theOkr?.status}
+              changeHandlred={changeHandlred}
+            />
+
+            <OkrFrom
+              value={theOkr?.from ?? ""}
+              changeHandlred={changeHandlred}
+            />
+
+            <OkrTo value={theOkr?.to ?? ""} changeHandlred={changeHandlred} />
+
+            <Weight
+              value={theOkr?.weight ?? ""}
+              changeHandlred={changeHandlred}
+            />
+
+            <Gauge value={theOkr.progress} />
+          </div>
+        </DialogTitle>
+
+        <DialogContent style={{ overflow: "visible" }}>
+          <Devider spacing={0} line={true} />
+
+          <h6 className="text-h6 weight-400 my-2">نتایج کلیدی</h6>
+
+          <KeyResults
+            keyResults={theOkr?.keyResults ?? []}
+            setTheOkr={setTheOker}
+            okrId={theOkr.id}
+            setLoading={setLoading}
+            createMode={createMode}
           />
 
-          <Status
-            okrStatuses={okrStatuses}
-            value={theOkr?.status}
-            changeHandlred={changeHandlred}
-          />
+          <Devider line={true} spacing={2} />
 
-          <OkrFrom value={theOkr?.from ?? ""} changeHandlred={changeHandlred} />
+          <div className="d-flex">
+            <Timeframe
+              value={theOkr.timeFrame}
+              changeHandlred={changeHandlred}
+            />
 
-          <OkrTo value={theOkr?.to ?? ""} changeHandlred={changeHandlred} />
+            <ParentOkr
+              value={theOkr.targetParent}
+              changeHandlred={changeHandlred}
+              // okrs={okrs}
+            />
 
-          <Weight
-            value={theOkr?.weight ?? ""}
-            changeHandlred={changeHandlred}
-          />
+            <Accesslevel
+              value={theOkr.access}
+              changeHandlred={changeHandlred}
+            />
 
-          <Gauge value={theOkr.progress} />
-        </div>
-      </DialogTitle>
+            <Colleages
+              workspaceUsers={workspaceUsers}
+              values={theOkr.colleagues}
+              changeHandlred={changeHandlred}
+            />
+          </div>
+        </DialogContent>
 
-      <DialogContent style={{ overflow: "visible" }}>
-        <Devider spacing={0} line={true} />
-
-        <h6 className="text-h6 weight-400 my-2">نتایج کلیدی</h6>
-
-        <KeyResults
-          keyResults={theOkr?.keyResults ?? []}
-          setTheOkr={setTheOker}
-          okrId={theOkr.id}
-          setLoading={setLoading}
-          createMode={createMode}
-        />
-
-        <Devider line={true} spacing={2} />
-
-        <div className="d-flex">
-          <Timeframe value={theOkr.timeFrame} changeHandlred={changeHandlred} />
-
-          <ParentOkr
-            value={theOkr.targetParent}
-            changeHandlred={changeHandlred}
-            // okrs={okrs}
-          />
-
-          <Accesslevel value={theOkr.access} changeHandlred={changeHandlred} />
-
-          <Colleages
-            workspaceUsers={workspaceUsers}
-            values={theOkr.colleagues}
-            changeHandlred={changeHandlred}
-          />
-        </div>
-      </DialogContent>
-
-      <Devider line={true} spacing={0} />
-      <DialogActions>
-        {(singleOkr !== "create" && (
-          <>
-            <TexedError onClick={closePopup}>لغو</TexedError>
-            <TexedPrimary onClick={handleSingleSave}>به روز رسانی</TexedPrimary>
-          </>
-        )) || (
-          <>
-            <TexedError onClick={closePopup}>لغو</TexedError>
-            <TexedPrimary
-              disabled={
-                theOkr.title.length === 0 || theOkr.keyResults.length === 0
-              }
-              onClick={handleOkrCreate}>
-              افزودن
-            </TexedPrimary>
-          </>
-        )}
-      </DialogActions>
+        <Devider line={true} spacing={0} />
+        <DialogActions>
+          {(singleOkr !== "create" && (
+            <>
+              <TexedError onClick={closePopup}>لغو</TexedError>
+              <TexedPrimary onClick={handleSingleSave}>
+                به روز رسانی
+              </TexedPrimary>
+            </>
+          )) || (
+            <>
+              <TexedError onClick={closePopup}>لغو</TexedError>
+              <TexedPrimary
+                disabled={
+                  theOkr.title.length === 0 || theOkr.keyResults.length === 0
+                }
+                onClick={handleOkrCreate}>
+                افزودن
+              </TexedPrimary>
+            </>
+          )}
+        </DialogActions>
+      </PerfectScrollbar>
     </Dialog>
   );
 }

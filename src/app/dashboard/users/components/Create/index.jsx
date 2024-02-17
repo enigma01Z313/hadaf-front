@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 
+import PerfectScrollbar from "react-perfect-scrollbar";
+
 import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
 
 import UserCreate from "@/app/dashboard/users/create/page";
 import AddUserToWorkspace from "../AddUserToWorkspace";
@@ -16,6 +18,7 @@ export default function Create({ open, setMode, setRealoadList }) {
   };
 
   const isSuperAdmin = permissionChec("SUPER_USER");
+  const isAdmin = permissionChec("ADMIN");
   const isStandardUser = permissionChec("STANDARD");
 
   return (
@@ -24,24 +27,26 @@ export default function Create({ open, setMode, setRealoadList }) {
       open={open}
       onClose={handleClose}
       PaperProps={{ classes: { root: loading ? "loading " : "" } }}>
-      <DialogTitle>افزودن کاربر جدید</DialogTitle>
-      <DialogContent>
-        {(isSuperAdmin && (
-          <UserCreate
-            modal={true}
-            modalClose={handleClose}
-            modalLoading={setLoading}
-            setRealoadList={setRealoadList}
-          />
-        )) ||
-          (isStandardUser && (
-            <AddUserToWorkspace
+      <PerfectScrollbar>
+        <DialogTitle>افزودن کاربر جدید</DialogTitle>
+        <DialogContent>
+          {((isSuperAdmin || isAdmin) && (
+            <UserCreate
+              modal={true}
               modalClose={handleClose}
               modalLoading={setLoading}
               setRealoadList={setRealoadList}
             />
-          ))}
-      </DialogContent>
+          )) ||
+            (isStandardUser && (
+              <AddUserToWorkspace
+                modalClose={handleClose}
+                modalLoading={setLoading}
+                setRealoadList={setRealoadList}
+              />
+            ))}
+        </DialogContent>
+      </PerfectScrollbar>
     </Dialog>
   );
 }
