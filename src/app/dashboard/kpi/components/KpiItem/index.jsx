@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 import CurrentPeriod from "./CurrentPeriod";
 import Assignee from "./Assignee";
 import Actions from "./Actions";
+import Amount from "../Amount";
 
 export default function KpiItem({
   kpi,
@@ -14,8 +15,7 @@ export default function KpiItem({
   setLoading,
   setReloadList,
 }) {
-  console.log('1-1-----------------------------------');
-  // console.log(kpi);
+  const [openAmount, setOpenAmount] = useState(false);
 
   return (
     <div className={`d-flex align-center `}>
@@ -41,10 +41,20 @@ export default function KpiItem({
               setSingleKpi={setSingleKpi}
               setLoading={setLoading}
               setReloadList={setReloadList}
+              setOpenAmount={setOpenAmount}
             />
           </>
         )}
       </div>
+
+      {openAmount && (
+        <Amount
+          setOpenAmount={setOpenAmount}
+          kpiId={kpi.id}
+          title={kpi.name}
+          continuous={kpi.continuous.key}
+        />
+      )}
     </div>
   );
 }

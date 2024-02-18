@@ -14,11 +14,12 @@ export default function Actions({
   setSingleKpi,
   setLoading,
   setReloadList,
+  setOpenAmount,
 }) {
   const { theWorkspace } = useContext(workspaceContext);
   const deactiveKpi = async () => {
     setLoading(true);
-    setOpenedActions("")
+    setOpenedActions("");
 
     await updateKpi(theWorkspace, kpiId, {
       ...kpi,
@@ -46,6 +47,11 @@ export default function Actions({
     setOpenedActions("");
   };
 
+  const handleAmountOpen = () => {
+    setOpenAmount(true);
+    setOpenedActions("");
+  };
+
   return (
     <div
       className={`wrapper-box px-0 pb-1 mr-auto ${styles["actions-wrapper"]}`}>
@@ -59,7 +65,11 @@ export default function Actions({
         onClick={handleEditKpi}>
         ویرایش
       </div>
-      <div className={`px-3 py-1 ${styles["actions-item"]}`}>مقادیر</div>
+      <div
+        className={`px-3 py-1 ${styles["actions-item"]}`}
+        onClick={handleAmountOpen}>
+        مقادیر
+      </div>
       <div
         className={`px-3 py-1 ${styles["actions-item"]}`}
         style={{ color: "orange" }}

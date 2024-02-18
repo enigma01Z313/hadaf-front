@@ -162,6 +162,8 @@ a {
   color: #1976d2;
 }
 /****************************************/
+.no-shadow{box-shadow: none !important;}
+.radius-circle{border-radius: 100px !important;}
 .p-relative {
   position: relative;
 }
