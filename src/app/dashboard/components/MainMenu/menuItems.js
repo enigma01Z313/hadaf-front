@@ -73,9 +73,8 @@ const menuItems = [
     id: 90,
     title: "تحسین",
     slug: "bonus",
-    link: "/dashboard/bonus",
+    link: "/dashboard/admirations",
     icon: EmojiEventsIcon,
-    disabled: true,
   },
   {
     id: 100,

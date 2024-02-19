@@ -120,6 +120,9 @@ export default function Single({
     toast.success("ویرایش با موفقیت انجام شد");
   };
 
+  console.log('1-1-1-----------------------');
+  console.log(theOkr.colleagues);
+
   return (
     <Dialog
       maxWidth="lg"

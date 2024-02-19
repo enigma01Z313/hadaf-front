@@ -6,6 +6,7 @@ export default function ContainedInheritText({
   children,
   className,
   size,
+  active,
   ...rest
 }) {
   return (
@@ -13,6 +14,7 @@ export default function ContainedInheritText({
       variant="inherited-text"
       className={className}
       size={size}
+      active={active}
       {...rest}>
       {children}
     </ContainedBase>

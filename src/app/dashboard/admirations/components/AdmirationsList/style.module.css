@@ -1,0 +1,43 @@
+.admiration-item {
+  max-width: calc((100% - 16px) / 2);
+  margin-left: 16px;
+  position: relative;
+}
+
+.admiration-item:nth-child(2n) {
+  margin-left: 0;
+}
+
+@media (max-width: 800px) {
+  .admiration-item {
+    margin-left: 0;
+  }
+}
+
+.admiration-item .icon{
+  position: absolute;
+  top: 6px;
+  right: 16px;
+  background: #fff;
+  color: #0288D1;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admiration-item .more-trigger{
+  position: relative
+}
+.admiration-item .more-trigger .actions{
+  position: absolute;
+  left: 100%;
+  top: 0;
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+}
+.admiration-item .more-trigger:hover .actions{
+  opacity: 1;
+  visibility: visible;
+}

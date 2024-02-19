@@ -17,11 +17,10 @@ const MenuProps = {
   },
 };
 
-export default function Colleages({
+export default function Merits({
   workspaceUsers,
   values,
   changeHandlred,
-  label,
 }) {
   const [personName, setPersonName] = useState(values ?? []);
 
@@ -39,31 +38,31 @@ export default function Colleages({
   }, [values]);
 
   useEffect(() => {
-    changeHandlred("colleagues", personName);
+    changeHandlred("merits", personName);
   }, [personName]);
 
   return (
     <div className="grow-1 w-100 mt-2">
       <FormControl className="rtl-input w-100" variant="standard">
-        <InputLabel id="okr-colleagues-label">{"همکاران"}</InputLabel>
+        <InputLabel id="admiration-colleaguesaaaa-label">{"ارزش ها"}</InputLabel>
         <Select
-          labelId="okr-colleagues-label"
-          id="okr-colleagues"
+          labelId="admiration-colleaguesaaaa-label"
+          id="admiration-colleaguesaaaa"
           className=" "
           multiple
           value={personName}
           onChange={handleChange}
-          input={<Input className="w-100" label={"همکاران"} />}
+          input={<Input className="w-100" label={"ارزش ها"} />}
           renderValue={(selected) => {
             return selected
-              .map((i) => workspaceUsers.find((v) => v.id === i).fullName)
+              .map((i) => workspaceUsers.find((v) => v.id === i).title)
               .join(", ");
           }}
           MenuProps={MenuProps}>
           {workspaceUsers.map((user, i) => (
             <MenuItem key={user.id} value={user.id}>
               <Checkbox checked={personName.indexOf(user.id) > -1} />
-              <ListItemText primary={user.fullName} />
+              <ListItemText primary={user.title} />
             </MenuItem>
           ))}
         </Select>

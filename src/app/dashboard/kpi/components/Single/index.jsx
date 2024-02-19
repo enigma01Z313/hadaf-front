@@ -300,7 +300,7 @@ export default function Single({
             <AccordionDetails>
               <Colleages
                 values={theKPI?.colleagues}
-                workspaceUsers={theUsers?.data?.map((item) => item.id) ?? []}
+                workspaceUsers={theUsers?.data ?? []}
                 changeHandlred={changeHandlred}
               />
               <Devider line={false} spacing={2} />

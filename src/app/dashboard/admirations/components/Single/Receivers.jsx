@@ -17,11 +17,10 @@ const MenuProps = {
   },
 };
 
-export default function Colleages({
+export default function Receivers({
   workspaceUsers,
   values,
   changeHandlred,
-  label,
 }) {
   const [personName, setPersonName] = useState(values ?? []);
 
@@ -39,21 +38,21 @@ export default function Colleages({
   }, [values]);
 
   useEffect(() => {
-    changeHandlred("colleagues", personName);
+    changeHandlred("receivers", personName);
   }, [personName]);
 
   return (
     <div className="grow-1 w-100 mt-2">
       <FormControl className="rtl-input w-100" variant="standard">
-        <InputLabel id="okr-colleagues-label">{"همکاران"}</InputLabel>
+        <InputLabel id="admiration-colleaguesaaaa-label">{"به"}</InputLabel>
         <Select
-          labelId="okr-colleagues-label"
-          id="okr-colleagues"
+          labelId="admiration-colleaguesaaaa-label"
+          id="admiration-colleaguesaaaa"
           className=" "
           multiple
           value={personName}
           onChange={handleChange}
-          input={<Input className="w-100" label={"همکاران"} />}
+          input={<Input className="w-100" label={"به"} />}
           renderValue={(selected) => {
             return selected
               .map((i) => workspaceUsers.find((v) => v.id === i).fullName)
