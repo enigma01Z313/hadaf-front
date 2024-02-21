@@ -950,6 +950,7 @@ body {
 .MuiAccordion-root.bg-trans {
   background: transparent !important;
 }
+.MuiPickersArrowSwitcher-root button{transform: rotate(180deg) !important;}
 /* mui end*************************************/
 #tasks-row-view-wrapper {
   margin: 0 -16px;

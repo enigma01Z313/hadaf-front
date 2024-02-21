@@ -40,6 +40,8 @@ export default function Single({
   setSingleKpi,
   setReloadList,
 }) {
+  const { theUsers, setTheUsers, theWorkspace } = useContext(workspaceContext);
+
   const [thresholdsErrors, setThreshholdsErrors] = useState([]);
   const [loading, setLoading] = useState(false);
   const [theKPI, setTheKPI] = useState({
@@ -50,7 +52,7 @@ export default function Single({
     thresholdsTwo: "",
     thresholdsThree: "",
     thresholdsFour: "",
-    assignee: { id: undefined },
+    assignee: { id: theUsers?.data?.[0]?.id },
     direction: { code: 0 },
     continuous: { code: 0 },
     colleagues: [],
@@ -66,7 +68,6 @@ export default function Single({
       { name: "جمعه", status: true },
     ],
   });
-  const { theUsers, setTheUsers, theWorkspace } = useContext(workspaceContext);
 
   const meta = JSON.parse(localStorage.getItem("meta"));
   const continuousList = meta.continuous;
@@ -131,7 +132,7 @@ export default function Single({
     // setLoading(true);
     const newKPI = await updateKpi(theWorkspace, theKPI.id, {
       ...theKPI,
-      assignee: theKPI.assignee.id,
+      assignee: theKPI.assignee.id ?? theUsers?.data?.[0]?.id,
       continuous: theKPI.continuous.code,
       direction: theKPI.direction.code,
       validDays:
@@ -229,6 +230,18 @@ export default function Single({
     setThreshholdsErrors(tmpErrors);
     return;
   };
+
+  // console.log("a------------------------");
+  // console.log((theKPI?.name ?? "") === "");
+  // console.log((theKPI?.assignee?.id ?? "") === "");
+  // console.log(!isDirectionTresholdsValid(theKPI));
+  // console.log("b------------------------");
+  // console.log(
+  //   (theKPI?.name ?? "") === "" ||
+  //     (theKPI?.assignee?.id ?? "") === "" ||
+  //     !isDirectionTresholdsValid(theKPI)
+  // );
+  // console.log("c------------------------");
 
   return (
     <Dialog

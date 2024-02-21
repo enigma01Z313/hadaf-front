@@ -1,11 +1,11 @@
 import requests from "../../request";
 
 const getAmounts = async (kpiId) => {
-    const url = `kpis/${kpiId}/amounts`;
+  const url = `kpis/${kpiId}/amounts`;
 
-    const items = await requests.get(url)
+  const items = await requests.get(url);
 
-    return items
-}
+  return items;
+};
 
-export default getAmounts
+export default getAmounts;

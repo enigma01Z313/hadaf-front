@@ -90,6 +90,10 @@ export default function Single({
     theTaskDispatch({ type: "SET_COLLEAGES", payload: colleages });
   };
 
+  const handleDueDateChange = (date) => {
+    theTaskDispatch({ type: "SET_DUE_DATE", payload: date });
+  };
+
   const handleTaskSave = async () => {
     const newData = {
       title: theTask.title,
@@ -98,6 +102,7 @@ export default function Single({
       assignee: theTask?.assignee?.id,
       progress: theTask?.progress,
       colleagues: theTask.colleagues.map((item) => item.id),
+      dueDate: theTask.dueDate,
     };
 
     setLoading(true);
@@ -202,9 +207,11 @@ export default function Single({
             handleDescriptionChange={handleDescriptionChange}
           />
           <Left
+            dueDate={theTask?.dueDate ?? ""}
             assignee={theTask?.assignee ?? ""}
             progress={theTask?.progress ?? ""}
             colleages={theTask?.colleagues ?? []}
+            handleDueDateChange={handleDueDateChange}
             handleassigneeChange={handleassigneeChange}
             handleProgressChange={handleProgressChange}
             handleColleagesChange={handleColleagesChange}

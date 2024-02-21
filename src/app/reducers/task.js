@@ -17,6 +17,9 @@ const taskReducer = (state, action) => {
   if (action.type === "SET_COLLEAGES")
     return { ...state, colleagues: action.payload };
 
+  if (action.type === "SET_DUE_DATE")
+    return { ...state, dueDate: action.payload };
+
   return state;
 };
 
