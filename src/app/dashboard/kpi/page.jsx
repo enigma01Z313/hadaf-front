@@ -41,12 +41,6 @@ export default function KPI() {
 
   const closePopup = () => setSingleKpi("");
 
-  // const saveCurrentKPI = async (id, data) =>
-  //   new Promise(async (resolve, reject) => {
-  //     const updatedData = await updateOkr(theWorkspace, id, data);
-  //     resolve();
-  //   });
-
   return (
     <>
       <div>
@@ -58,7 +52,7 @@ export default function KPI() {
           timeframes={timeframes}
           setSingleKpi={setSingleKpi}
         />
-        <div className="wrapper-box">
+        <div className="wrapper-box pl-1">
           <KpisList
             setSingleKpi={setSingleKpi}
             reloadList={reloadList}

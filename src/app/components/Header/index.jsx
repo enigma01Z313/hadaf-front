@@ -4,6 +4,7 @@ import styles from "./style.module.css";
 import FullpageTrigger from "./FullpageTrigger";
 import Profile from "./Profile";
 import UserWorkspaces from "./UserWorkspaces";
+import Notifications from "./Notifications";
 
 export default function Header() {
   return (
@@ -12,6 +13,7 @@ export default function Header() {
         ${styles["header"]}`}>
       <UserWorkspaces />
       <FullpageTrigger className="ml-2" />
+      <Notifications />
       <Profile />
     </header>
   );

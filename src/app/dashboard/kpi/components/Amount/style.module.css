@@ -1,0 +1,7 @@
+.amount-col {
+}
+
+.amount-col.active-col,
+.col-info {
+  background: rgb(164, 239, 208);
+}

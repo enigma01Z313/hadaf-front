@@ -35,7 +35,7 @@ export default function ColoredThreshholds({
                 onChange={(e) =>
                   changeHandlred(
                     key,
-                    isNaN(+e.target.value) ? "" : +e.target.value
+                    isNaN(+e.target.value.replace(/\D/g, "")) ? "" : +e.target.value.replace(/\D/g, "")
                   )
                 }
                 inputProps={{ className: "text-h6 py-1" }}

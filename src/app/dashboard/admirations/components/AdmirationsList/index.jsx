@@ -7,6 +7,7 @@ export default function AdmirationsList({
   loading,
   admirations,
   handleAdmirationDelete,
+  admirationCat,
 }) {
   return (
     <>
@@ -19,6 +20,7 @@ export default function AdmirationsList({
             admiration={admiration}
             setSingleAdmiration={setSingleAdmiration}
             handleAdmirationDelete={handleAdmirationDelete}
+            admirationCat={admirationCat}
           />
         ))}
     </>

@@ -11,7 +11,7 @@ export default function TargetValue({ value, changeHandlred }) {
         variant="standard"
         placeholder="مقدار هدف"
         inputProps={{ className: "text-h6 py-0-5" }}
-        onChange={(e) => changeHandlred("targetValue", +e.target.value)}
+        onChange={(e) => changeHandlred("targetValue", +e.target.value.replace(/\D/g, ""))}
         value={value}
         rows={2}
       />

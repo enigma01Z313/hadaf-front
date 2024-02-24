@@ -195,6 +195,9 @@ a {
 .justify-start {
   justify-content: flex-start !important;
 }
+.justify-around{
+  justify-content: space-around !important;
+}
 .align-center {
   align-items: center !important;
 }
@@ -958,3 +961,22 @@ body {
 #tasks-row-view-wrapper .ps__rail-x {
   display: none !important;
 }
+
+.standard-input{
+  outline: none;
+  border-width: 0;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+}
+.standard-input:focus{
+  border-bottom-color: #333;
+}
+
+.border-red,
+.border-orange,
+.border-green{outline: none;}
+.border-red{border-color: red !important;}
+.border-orange{border-color: orange !important;}
+.border-green{border-color: green !important;}
+.color-red{color: red;}
+.color-green{color: green}

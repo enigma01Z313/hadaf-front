@@ -8,36 +8,38 @@ import {
   DialogTitle,
 } from "@mui/material";
 import {
-  newDate,
   startOfYear,
-  getQuarter,
-  eachDayOfInterval,
-  eachWeekOfInterval,
-  eachMonthOfInterval,
-  eachQuarterOfInterval,
-  eachYearOfInterval,
   startOfWeek,
   endOfWeek,
   addDays,
   format,
 } from "date-fns-jalali-3";
 
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import TexedError from "@/app/components/Button/TextedError";
 import Devider from "@/app/components/Devider";
 import Nav from "./Nav";
-import ContainedInheritText from "@/app/components/Button/ContainedInheritText";
-import TexedInherit from "@/app/components/Button/TexedInherit";
+import AmountCol from "./AmountCol";
+import ColInfo from "./ColInfo";
 
 import getAmounts from "@/app/lib/kpi/amounts/list";
 import createAmount from "@/app/lib/kpi/amounts/create";
 import updateAmount from "@/app/lib/kpi/amounts/update";
 
-const startOfHistory = newDate(1400, 0, 1);
+import { startOfHistory } from "@/app/configs";
+import calcCurrentorder from "../KpiItem/calcCurrentorder";
 
-export default function Amount({ setOpenAmount, kpiId, title, continuous }) {
+export default function Amount({
+  setOpenAmount,
+  kpiId,
+  title,
+  continuous,
+  setReloadList,
+  threshholds,
+  direction,
+  validDays,
+}) {
   const startDate = startOfYear(startOfHistory);
+  const [activeOrder, setActiveOrder] = useState();
   const [loading, setLoading] = useState(true);
   const [enteredAmounts, setEnteredAmounts] = useState([]);
   const [amounts, setAmounts] = useState({});
@@ -51,41 +53,12 @@ export default function Amount({ setOpenAmount, kpiId, title, continuous }) {
     (async function () {
       const amounts = await getAmounts(kpiId);
       setEnteredAmounts(amounts.data);
-      // setEnteredAmounts(amounts?.data ?? []);
 
-      const ordersMethods = {
-        daily: () =>
-          eachDayOfInterval({
-            start: startOfHistory,
-            end: new Date(),
-          }),
-        weekly: () =>
-          eachWeekOfInterval({
-            start: startOfHistory,
-            end: new Date(),
-          }),
-        monthly: () =>
-          eachMonthOfInterval({
-            start: startOfHistory,
-            end: new Date(),
-          }),
-        seasonal: () =>
-          eachQuarterOfInterval({
-            start: startOfHistory,
-            end: new Date(),
-          }),
-        yearly: () =>
-          eachYearOfInterval({
-            start: startOfHistory,
-            end: new Date(),
-          }),
-      };
-
-      const tmpArr = ordersMethods[continuous]();
-      const currentPatchIndex = Math.floor(tmpArr.length / 5);
+      const currentOrder = calcCurrentorder(continuous);
+      const currentPatchIndex = Math.floor(currentOrder / 5);
 
       setPatchIndex(currentPatchIndex);
-      setLoading(false)
+      setLoading(false);
     })();
   }, []);
 
@@ -95,6 +68,7 @@ export default function Amount({ setOpenAmount, kpiId, title, continuous }) {
       realAmount: "",
       expAmount: "",
       changePercent: "",
+      description: "",
       id: -1,
     };
 
@@ -219,6 +193,7 @@ export default function Amount({ setOpenAmount, kpiId, title, continuous }) {
         amountsCp[item.order].id = item.id;
         amountsCp[item.order].realAmount = item.realAmount;
         amountsCp[item.order].expAmount = item.targetAmount;
+        amountsCp[item.order].description = item.description ?? "";
       } else {
         console.log("22222222222222");
       }
@@ -229,9 +204,11 @@ export default function Amount({ setOpenAmount, kpiId, title, continuous }) {
 
   const isPrevNavDisable = () => patchIndex === 0;
 
-  const handleChange = (key, subKey, e) => {
+  const handleChange = (key, subKey, e, isNumber = false) => {
     const amountsCp = JSON.parse(JSON.stringify(amounts));
-    amountsCp[key][subKey] = e.target.value;
+    amountsCp[key][subKey] = isNumber
+      ? e.target.value.replace(/\D/g, "")
+      : e.target.value;
 
     setAmounts(amountsCp);
   };
@@ -241,8 +218,6 @@ export default function Amount({ setOpenAmount, kpiId, title, continuous }) {
 
     setLoading(true);
     if (targetAmount.id === -1) {
-      // console.log("create new amount");
-
       const newAmoun = await createAmount(kpiId, {
         realAmount: +targetAmount.realAmount,
         targetAmount: +targetAmount.expAmount,
@@ -256,13 +231,34 @@ export default function Amount({ setOpenAmount, kpiId, title, continuous }) {
 
       setAmounts(amountsCp);
     } else {
-      // console.log("update amount");
-
       const uppedAmount = await updateAmount(kpiId, targetAmount.id, {
         realAmount: +targetAmount.realAmount,
         targetAmount: +targetAmount.expAmount,
       });
     }
+    setLoading(false);
+    setReloadList((state) => !state);
+  };
+
+  const handleDescriptionUpdate = async (value, amountId, order) => {
+    setLoading(true);
+    const amountsCp = JSON.parse(JSON.stringify(amounts));
+
+    if (amountId === -1) {
+      const newAmoun = await createAmount(kpiId, {
+        description: value,
+        order,
+      });
+
+      amountsCp[order].id = newAmoun.id;
+    } else {
+      await updateAmount(kpiId, amountId, {
+        description: value,
+      });
+    }
+    amountsCp[order].description = value;
+
+    setAmounts(amountsCp);
     setLoading(false);
   };
 
@@ -288,8 +284,8 @@ export default function Amount({ setOpenAmount, kpiId, title, continuous }) {
 
         <div className="d-flex no-wrap">
           <div className="d-flex direction-column mt-4 ml-2">
-            <div>واقعی</div>
-            <div>هدف</div>
+            <div style={{ marginBottom: "10px" }}>واقعی</div>
+            <div style={{ marginBottom: "10px" }}>هدف</div>
             <div>تغییرات(٪)</div>
           </div>
           {Object.values(amounts)
@@ -298,35 +294,31 @@ export default function Amount({ setOpenAmount, kpiId, title, continuous }) {
 
               return orderFifth >= patchIndex && orderFifth < patchIndex + 1;
             })
-            .map((amount) => (
-              <div
-                className="d-flex direction-column grow-1 ml-1"
-                key={amount.order}>
-                <div className="w-100 text-center text-body-2">
-                  {amount.label}
-                  <br />
-                  <span style={{ fontSize: "12px" }}>{amount.label2}</span>
-                </div>
-                <input
-                  type="text"
-                  className="text-center"
-                  style={{ maxWidth: "85px" }}
-                  value={amounts[amount.order].realAmount}
-                  onChange={(e) => handleChange(amount.order, "realAmount", e)}
-                  onBlur={() => handleAmountUpdate(amount.order)}
+            .map((amount) => {
+              return (
+                <AmountCol
+                  key={amount.order}
+                  activeOrder={activeOrder}
+                  amounts={amounts}
+                  amount={amount}
+                  threshholds={threshholds}
+                  direction={direction}
+                  order={amount.order}
+                  setActiveOrder={setActiveOrder}
+                  handleChange={handleChange}
+                  handleAmountUpdate={handleAmountUpdate}
                 />
-                <input
-                  type="text"
-                  className="text-center"
-                  style={{ maxWidth: "85px" }}
-                  value={amounts[amount.order].expAmount}
-                  onChange={(e) => handleChange(amount.order, "expAmount", e)}
-                  onBlur={() => handleAmountUpdate(amount.order)}
-                />
-                {/* <span className="w-100 text-center"></span> */}
-              </div>
-            ))}
+              );
+            })}
         </div>
+        {activeOrder && (
+          <ColInfo
+            activeOrder={activeOrder}
+            amountId={amounts[activeOrder].id}
+            description={amounts[activeOrder].description}
+            handleDescriptionUpdate={handleDescriptionUpdate}
+          />
+        )}
       </DialogContent>
 
       <DialogActions>

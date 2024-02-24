@@ -1,3 +1,31 @@
-.header{
-    background: #fff;
+.header {
+  background: #fff;
+}
+
+.notif-count {
+  position: absolute;
+  bottom: -10px;
+  right: -10px;
+  background: red;
+  color: #fff;
+  color: 0;
+  font-size: 12px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notifs-list{
+  position: absolute;
+  top: 50px;
+  left: 0;
+  width: 350px;
+  z-index: 10;
+}
+
+.read{
+  opacity: 0.2;
 }

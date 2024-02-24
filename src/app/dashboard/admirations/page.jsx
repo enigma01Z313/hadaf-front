@@ -9,17 +9,18 @@ import AdmirationsList from "./components/AdmirationsList";
 
 import getAdmirationsList from "@/app/lib/admiration/list";
 import deleteAdmiration from "@/app/lib/admiration/delete";
+import { th } from "date-fns-jalali/locale";
 
 export default function Admirations() {
   const admirationCats = [
-    { label: "دریافت شده", icon: () => {}, slug: "receiver" },
-    { label: "ارسال شده", icon: () => {}, slug: "sender" },
+    { label: "دریافت شده", icon: () => {}, slug: "received" },
+    { label: "ارسال شده", icon: () => {}, slug: "sent" },
   ];
   const { theWorkspace, theWorkspaceTimeframes, setTheWorkspaceTimeframes } =
     useContext(workspaceContext);
 
   const [loading, setLoading] = useState(true);
-  const [admirationCat, setAdmirationCat] = useState("receiver");
+  const [admirationCat, setAdmirationCat] = useState("received");
   const [activeTimeframe, setActiveTimeframe] = useState();
   const [admirations, setAdmirations] = useState({ data: [] });
   const [singleAdmiration, setSingleAdmiration] = useState("");
@@ -29,13 +30,15 @@ export default function Admirations() {
   useEffect(() => {
     (async function () {
       setLoading(true);
-      const admirationsList = await getAdmirationsList(
-        theWorkspace,
-        admirationCat
-      );
+      if (theWorkspace) {
+        const admirationsList = await getAdmirationsList(
+          theWorkspace,
+          admirationCat
+        );
 
-      setLoading(false);
-      setAdmirations(admirationsList);
+        setLoading(false);
+        setAdmirations(admirationsList);
+      }
     })();
   }, [reloadList, theWorkspace, admirationCat]);
 
@@ -46,7 +49,7 @@ export default function Admirations() {
     await deleteAdmiration(theWorkspace, admirationId);
     setLoading(false);
     setReloadList((state) => !state);
-  }
+  };
 
   return (
     <>
@@ -64,6 +67,7 @@ export default function Admirations() {
             reloadList={reloadList}
             setReloadList={setReloadList}
             handleAdmirationDelete={handleAdmirationDelete}
+            admirationCat={admirationCat}
           />
         </div>
       </div>

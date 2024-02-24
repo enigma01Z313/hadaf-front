@@ -27,18 +27,18 @@ const menuItems = [
     disabled: true,
   },
   {
-    id: 30,
-    title: "کاربران",
-    slug: "users",
-    link: "/dashboard/users",
-    icon: PersonIcon,
-  },
-  {
     id: 40,
     title: "فضاهای کاری",
     slug: "workspaces",
     link: "/dashboard/workspaces",
     icon: ApartmentIcon,
+  },
+  {
+    id: 30,
+    title: "کاربران",
+    slug: "users",
+    link: "/dashboard/users",
+    icon: PersonIcon,
   },
   {
     id: 50,
@@ -88,9 +88,9 @@ const menuItems = [
     id: 110,
     title: "ارتباط با ما",
     slug: "contactus",
-    link: "/dashboard/contactus",
+    link: "mailto:f.ahmadyf94@gmail.com",
+    // link: "/dashboard/contactus",
     icon: ContactSupportIcon,
-    disabled: true,
   },
 ];
 

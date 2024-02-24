@@ -27,12 +27,14 @@ import TargetValue from "./TargetValue";
 import Description from "./Description";
 import Calculation from "./Calculation";
 import ColoredThreshholds from "./ColoredThreshholds";
-import Colleages from "@/app/dashboard/okr/components/Single/moreInfo/Colleages";
+// import Colleages from "@/app/dashboard/okr/components/Single/moreInfo/Colleages";
+import Colleages from "./Colleages";
 
 import getKpi from "@/app/lib/kpi/get";
 import createKPI from "@/app/lib/kpi/create";
 import updateKpi from "@/app/lib/kpi/update";
 import getUsersList from "@/app/lib/users/list";
+import listTags from "@/app/lib/tags/list";
 
 export default function Single({
   closePopup,
@@ -58,16 +60,9 @@ export default function Single({
     colleagues: [],
     tags: [],
     calculationMethod: 0,
-    validDays: [
-      { name: "شنبه", status: true },
-      { name: "یک شنبه", status: true },
-      { name: "دو شنبه", status: true },
-      { name: "سه شنبه", status: true },
-      { name: "چهار شنبه", status: true },
-      { name: "پنج شنبه", status: true },
-      { name: "جمعه", status: true },
-    ],
+    validDays: [1, 2, 3, 4, 5, 6, 7],
   });
+  const [theTags, setTheTags] = useState([]);
 
   const meta = JSON.parse(localStorage.getItem("meta"));
   const continuousList = meta.continuous;
@@ -80,7 +75,12 @@ export default function Single({
         setLoading(true);
         const kpiData = await getKpi(theWorkspace, singleKpi);
 
-        setTheKPI({ ...kpiData });
+        setTheKPI({
+          ...kpiData,
+          colleagues: kpiData.colleagues?.map((item) => item.id),
+          tags: kpiData.tags?.map((item) => item.id),
+          validDays: kpiData.validDays.map((item) => item.code),
+        });
         setLoading(false);
       }
     })();
@@ -96,6 +96,11 @@ export default function Single({
         usersList = await getUsersList(theWorkspace);
         setTheUsers(usersList);
       }
+
+      if (theWorkspace) {
+        const tagsList = await listTags({ workspaceId: theWorkspace });
+        setTheTags(tagsList.data);
+      }
     })();
   }, [theWorkspace]);
 
@@ -110,7 +115,24 @@ export default function Single({
       assignee: theKPI.assignee.id,
       continuous: theKPI.continuous.code,
       direction: theKPI.direction.code,
-      targetValue: theKPI.targetValue === "" ? undefined : targetValue,
+      targetValue: theKPI.targetValue === "" ? undefined : theKPI.targetValue,
+      calculationMethod: theKPI.calculationMethod.code,
+    });
+
+    setSingleKpi("");
+    setLoading(false);
+    setReloadList((state) => !state);
+  };
+
+  const handleSingleSave = async () => {
+    setLoading(true);
+    const newKPI = await updateKpi(theWorkspace, theKPI.id, {
+      ...theKPI,
+      assignee: theKPI.assignee.id ?? theUsers?.data?.[0]?.id,
+      continuous: theKPI.continuous.code,
+      direction: theKPI.direction.code,
+      calculationMethod: theKPI.calculationMethod.code,
+      status: theKPI.status.code,
       validDays:
         theKPI.continuous.code === 0
           ? theKPI.validDays.reduce((acc, cur, index) => {
@@ -125,30 +147,6 @@ export default function Single({
     setSingleKpi("");
     setLoading(false);
     setReloadList((state) => !state);
-  };
-
-  const handleSingleSave = async () => {
-    console.log(theKPI);
-    // setLoading(true);
-    const newKPI = await updateKpi(theWorkspace, theKPI.id, {
-      ...theKPI,
-      assignee: theKPI.assignee.id ?? theUsers?.data?.[0]?.id,
-      continuous: theKPI.continuous.code,
-      direction: theKPI.direction.code,
-      validDays:
-        theKPI.continuous.code === 0
-          ? theKPI.validDays.reduce((acc, cur, index) => {
-              if (cur.status) {
-                acc.push(index);
-              }
-              return acc;
-            }, [])
-          : undefined,
-    });
-
-    // setSingleKpi("");
-    // setLoading(false);
-    // setReloadList(state => !state)
   };
 
   const isDirectionTresholdsValid = (theKPI) => {
@@ -231,18 +229,6 @@ export default function Single({
     return;
   };
 
-  // console.log("a------------------------");
-  // console.log((theKPI?.name ?? "") === "");
-  // console.log((theKPI?.assignee?.id ?? "") === "");
-  // console.log(!isDirectionTresholdsValid(theKPI));
-  // console.log("b------------------------");
-  // console.log(
-  //   (theKPI?.name ?? "") === "" ||
-  //     (theKPI?.assignee?.id ?? "") === "" ||
-  //     !isDirectionTresholdsValid(theKPI)
-  // );
-  // console.log("c------------------------");
-
   return (
     <Dialog
       maxWidth="sm"
@@ -302,7 +288,7 @@ export default function Single({
             direction={theKPI?.direction?.code}
           />
 
-          <Accordion className="mt-2">
+          <Accordion className="mt-2" expanded={true}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1-content"
@@ -317,7 +303,11 @@ export default function Single({
                 changeHandlred={changeHandlred}
               />
               <Devider line={false} spacing={2} />
-              <Tags value={theKPI?.tags} />
+              <Tags
+                values={theKPI?.tags ?? []}
+                workspaceTags={theTags ?? []}
+                changeHandlred={changeHandlred}
+              />
               <Devider line={false} spacing={2} />
               <Calculation
                 value={theKPI?.calculationMethod?.code ?? 0}
