@@ -51,11 +51,37 @@ export default function Amount({
 
   useEffect(() => {
     (async function () {
+      const validDaysArr = validDays.map((item) => item.code);
+      let currentPatchIndex;
       const amounts = await getAmounts(kpiId);
       setEnteredAmounts(amounts.data);
 
       const currentOrder = calcCurrentorder(continuous);
-      const currentPatchIndex = Math.floor(currentOrder / 5);
+
+      console.log("1--------------------");
+      console.log(validDaysArr);
+      if (validDays) {
+        const rounDays = Math.floor(currentOrder / 7) * 7;
+        const availableDaysCount = (rounDays / 7) * validDays.length;
+        let reamainDays = currentOrder - rounDays;
+
+        for (let i of validDaysArr)
+          reamainDays = reamainDays === 0 ? 0 : reamainDays - 1;
+
+        const newPatchIndex = Math.floor(
+          (availableDaysCount + reamainDays) / 5
+        );
+
+        console.log(currentOrder);
+        console.log(rounDays);
+        console.log(availableDaysCount);
+        console.log(reamainDays);
+        console.log(newPatchIndex);
+
+        currentPatchIndex = Math.floor(currentOrder / 5);
+      } else {
+        currentPatchIndex = Math.floor(currentOrder / 5);
+      }
 
       setPatchIndex(currentPatchIndex);
       setLoading(false);

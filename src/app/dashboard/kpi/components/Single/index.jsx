@@ -314,12 +314,12 @@ export default function Single({
                 calculationMethods={calculationMethods}
                 changeHandlred={changeHandlred}
               />
-              {theKPI.continuous.code === 0 && (
+              {/* {theKPI.continuous.code === 0 && (
                 <ValidDays
                   value={theKPI?.validDays}
                   changeHandlred={changeHandlred}
                 />
-              )}
+              )} */}
             </AccordionDetails>
           </Accordion>
         </DialogContent>
