@@ -1,5 +1,7 @@
 import React from "react";
 
+import TexedBase from "./Layout/Texted";
+
 export default function TexedInheritText({
   children,
   className,
