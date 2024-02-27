@@ -6,10 +6,10 @@ import workspaceContext from "@/app/context/workspaceContext";
 import Header from "./components/Header";
 import OkrsList from "./components/OkrsList";
 
-import listTimeframes from "@/app/lib/timeframes/list";
 import Single from "./components/Single";
 
 import updateOkr from "@/app/lib/okr/update";
+import listTimeframes from "@/app/lib/timeframes/list";
 
 export default function Okr() {
   const { theWorkspace, theWorkspaceTimeframes, setTheWorkspaceTimeframes } =

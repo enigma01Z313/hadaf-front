@@ -1,11 +1,16 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function Dashboard() {
-  return <>
-    {/* <aside>aaaaaa</aside>
-    <main>bbbb</main> */}
-    داشبورد کاربری
-  </>;
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    (async function () {
+      setLoading(true);
+      // const okrDashboardData = await getOkrDashboard()
+    })();
+  }, []);
+
+  return <>Dashboard</>;
 }

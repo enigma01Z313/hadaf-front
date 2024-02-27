@@ -1,7 +1,10 @@
 import React from "react";
 import Link from "next/link";
 
-export default function MenuItem({ item, disabled, ...rest }) {
+import SubMenuItem from "./SubMenuItem";
+import styles from "./style.module.css";
+
+export default function MenuItem({ item, disabled, subMenu, ...rest }) {
   return (
     <li {...rest}>
       {(disabled && (
@@ -21,6 +24,14 @@ export default function MenuItem({ item, disabled, ...rest }) {
           )}
           <span>{item.title}</span>
         </Link>
+      )}
+
+      {subMenu && (
+        <div className={styles["sub-menu"]}>
+          {subMenu.map((item, index) => (
+            <SubMenuItem key={index} item={item} />
+          ))}
+        </div>
       )}
     </li>
   );

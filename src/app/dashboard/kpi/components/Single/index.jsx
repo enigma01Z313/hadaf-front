@@ -288,7 +288,7 @@ export default function Single({
             direction={theKPI?.direction?.code}
           />
 
-          <Accordion className="mt-2" expanded={true}>
+          <Accordion className="mt-2">
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1-content"

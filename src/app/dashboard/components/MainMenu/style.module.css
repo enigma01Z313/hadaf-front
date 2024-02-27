@@ -3,7 +3,7 @@
   transition: all .35s;
 }
 
-.main-menu li:hover  a{
+.main-menu li:not(.active):hover > a{
   background: rgb(232, 235, 236);
 }
 
@@ -17,4 +17,26 @@
 }
 .main-menu li svg{
   font-size: 26px;
+}
+
+.sub-menu{
+  position: absolute;
+  right: 100%;
+  top: 0;
+  z-index: 10;
+  width: 120px;
+  background: #fff;
+  box-shadow: 0 0 10px #ccc;
+  visibility: hidden;
+  opacity: 0;
+}
+.sub-menu span{
+  display: block !important;
+}
+.sub-menu-item:hover > a{
+  background: rgb(232, 235, 236);
+}
+.main-menu li:hover .sub-menu{
+  opacity: 1;
+  visibility: visible;
 }

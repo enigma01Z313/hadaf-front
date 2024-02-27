@@ -17,6 +17,22 @@ const menuItems = [
     slug: "dashboard",
     link: "/dashboard",
     icon: GridViewIcon,
+    subMenu: [
+      {
+        id: 100,
+        title: "اهداف",
+        slug: "okrs-dashboard",
+        link: "/dashboard/okrsDashboard",
+        icon: CrisisAlertIcon,
+      },
+      {
+        id: 150,
+        title: "وظایف",
+        slug: "tasks-dashboard",
+        link: "/dashboard/tasksDashboard",
+        icon: PlaylistAddCheckIcon,
+      },
+    ],
   },
   {
     id: 20,

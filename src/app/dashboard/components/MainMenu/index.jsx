@@ -20,12 +20,13 @@ export default function MainMenu({ smallMode, ...rest }) {
 
           return (
             <MenuItem
-              className={`
+              className={`p-relative 
                 ${activeMenu === item.slug ? styles.active : ""}`}
               key={item.id}
               item={item}
               onClick={() => !isDisabled && menuItemClicked(item.slug)}
               disabled={isDisabled}
+              subMenu={item.subMenu}
             />
           );
         })}

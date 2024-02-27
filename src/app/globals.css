@@ -162,8 +162,12 @@ a {
   color: #1976d2;
 }
 /****************************************/
-.no-shadow{box-shadow: none !important;}
-.radius-circle{border-radius: 100px !important;}
+.no-shadow {
+  box-shadow: none !important;
+}
+.radius-circle {
+  border-radius: 100px !important;
+}
 .p-relative {
   position: relative;
 }
@@ -195,7 +199,7 @@ a {
 .justify-start {
   justify-content: flex-start !important;
 }
-.justify-around{
+.justify-around {
   justify-content: space-around !important;
 }
 .align-center {
@@ -212,6 +216,9 @@ a {
 }
 .grow-1 {
   flex-grow: 1;
+}
+.clear-both {
+  clear: both;
 }
 
 /* typography ***********************/
@@ -755,10 +762,18 @@ a {
 .mb-auto {
   margin-bottom: auto;
 }
-.mr-auto{margin-right: auto;}
-.ml-auto{margin-left: auto;}
-.mt-auto{margin-top: auto;}
-.mb-auto{margin-bottom: auto;}
+.mr-auto {
+  margin-right: auto;
+}
+.ml-auto {
+  margin-left: auto;
+}
+.mt-auto {
+  margin-top: auto;
+}
+.mb-auto {
+  margin-bottom: auto;
+}
 
 .w-100 {
   width: 100%;
@@ -876,7 +891,7 @@ body {
 }
 #select-user + input + svg,
 #timeframe-select + input + svg,
-.MuiFormControl-root.rtl-input .MuiSelect-select + input + svg{
+.MuiFormControl-root.rtl-input .MuiSelect-select + input + svg {
   left: 0 !important;
   right: auto !important;
 }
@@ -953,7 +968,9 @@ body {
 .MuiAccordion-root.bg-trans {
   background: transparent !important;
 }
-.MuiPickersArrowSwitcher-root button{transform: rotate(180deg) !important;}
+.MuiPickersArrowSwitcher-root button {
+  transform: rotate(180deg) !important;
+}
 /* mui end*************************************/
 #tasks-row-view-wrapper {
   margin: 0 -16px;
@@ -962,21 +979,33 @@ body {
   display: none !important;
 }
 
-.standard-input{
+.standard-input {
   outline: none;
   border-width: 0;
   border-bottom: 1px solid #ccc;
   text-align: center;
 }
-.standard-input:focus{
+.standard-input:focus {
   border-bottom-color: #333;
 }
 
 .border-red,
 .border-orange,
-.border-green{outline: none;}
-.border-red{border-color: red !important;}
-.border-orange{border-color: orange !important;}
-.border-green{border-color: green !important;}
-.color-red{color: red;}
-.color-green{color: green}
+.border-green {
+  outline: none;
+}
+.border-red {
+  border-color: red !important;
+}
+.border-orange {
+  border-color: orange !important;
+}
+.border-green {
+  border-color: green !important;
+}
+.color-red {
+  color: red;
+}
+.color-green {
+  color: green;
+}
