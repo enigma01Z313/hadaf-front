@@ -24,9 +24,11 @@ const Column = ({
   cancelAdd,
   addNewTask,
   setSingleTask,
+  filteredMeMode,
 }) => {
   const [loading, setLoading] = useState(false);
   const newTaskRef = useRef();
+  const theUser = JSON.parse(localStorage.getItem("user"));
 
   const handleNewTaskAdd = async () => {
     setLoading(true);
@@ -63,7 +65,17 @@ const Column = ({
                   {(draggableProvided, draggableSnapshot) => (
                     <div
                       onClick={() => setSingleTask(task.id)}
-                      className={`p-1 mb-1 ${styles["task-item"]}`}
+                      className={`p-1 mb-1 ${styles["task-item"]}
+                        ${
+                          filteredMeMode &&
+                          !(
+                            theUser.id === task?.assignee?.id ||
+                            task.colleagues
+                              ?.map((item) => item.id)
+                              .includes(theUser.id)
+                          ) &&
+                          "d-none"
+                        }`}
                       ref={draggableProvided.innerRef}
                       {...draggableProvided.draggableProps}
                       {...draggableProvided.dragHandleProps}>
@@ -92,7 +104,7 @@ const Column = ({
           <div className="d-flex no-wrap align-center">
             <TextField
               className={styles["add-task-field"]}
-              placeholder="افزودن وظیفه جدید"
+              placeholder="افزودن اقدامک جدید"
               value={newTaskTitle}
               onChange={(e) => setNewTaskTitle(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleNewTaskAdd()}

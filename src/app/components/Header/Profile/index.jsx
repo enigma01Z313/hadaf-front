@@ -52,6 +52,14 @@ export default function Profile() {
               </Link>
             </li>
             <li className="px-1">
+              <Link href={`/dashboard/users/${theUser?.id}/edit-password`}>
+                <TexedInherit className="w-100 px-1 py-1 d-flex" href="">
+                  <PersonIcon className="ml-1" />
+                  تغییر رمز عبور
+                </TexedInherit>
+              </Link>
+            </li>
+            <li className="px-1">
               <Link href={`/dashboard/workspaces/${theWorkspace}`}>
                 <TexedInherit className="w-100 px-1 py-1 d-flex" href="">
                   <SettingsIcon className="ml-1" />

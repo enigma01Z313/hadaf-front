@@ -10,7 +10,7 @@ import UserCreate from "@/app/dashboard/users/create/page";
 import AddUserToWorkspace from "../AddUserToWorkspace";
 import permissionChec from "@/app/utils/permissionCheck";
 
-export default function Create({ open, setMode, setRealoadList }) {
+export default function Create({ open, mode, setMode, setRealoadList }) {
   const [loading, setLoading] = useState(false);
 
   const handleClose = () => {
@@ -30,7 +30,7 @@ export default function Create({ open, setMode, setRealoadList }) {
       <PerfectScrollbar>
         <DialogTitle>افزودن کاربر جدید</DialogTitle>
         <DialogContent>
-          {((isSuperAdmin || isAdmin) && (
+          {(mode === "create" && (
             <UserCreate
               modal={true}
               modalClose={handleClose}
@@ -38,7 +38,7 @@ export default function Create({ open, setMode, setRealoadList }) {
               setRealoadList={setRealoadList}
             />
           )) ||
-            (isStandardUser && (
+            (mode === "addUserToWS" && (
               <AddUserToWorkspace
                 modalClose={handleClose}
                 modalLoading={setLoading}

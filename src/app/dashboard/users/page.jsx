@@ -12,9 +12,10 @@ export default function Users() {
   return (
     <NoSSR>
       <ListTable setMode={setMode} reloadList={reloadList} />
-      {mode === "create" && (
+      {(mode === "create" || mode === "addUserToWS") && (
         <Create
-          open={mode === "create"}
+          open={mode === "create" || mode === "addUserToWS"}
+          mode={mode}
           setMode={setMode}
           setRealoadList={setRealoadList}
         />

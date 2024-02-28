@@ -161,7 +161,7 @@ export default function Single({
               className="text-h5 py-1"
               value={theTask?.title ?? ""}
               onChange={handleTitleChange}
-              placeholder="عنوان وظیفه..."
+              placeholder="عنوان اقدامک..."
               inputRef={taskTitleRef}
             />
           </FormControl>

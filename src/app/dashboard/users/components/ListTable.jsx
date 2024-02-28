@@ -1,15 +1,20 @@
 import React, { useEffect, useState, useContext } from "react";
 import { DataGrid } from "@mui/x-data-grid";
+import { Checkbox, FormControlLabel } from "@mui/material";
 
-import ContainedPrimary from "@/app/components/Button/ContainedPrimary";
-import getUsersList from "@/app/lib/users/list";
 import workspaceContext from "@/app/context/workspaceContext";
 
+import ContainedPrimary from "@/app/components/Button/ContainedPrimary";
+import TexedPrimary from "@/app/components/Button/TexedPrimary";
+import getUsersList from "@/app/lib/users/list";
 import listColumns from "./listColumns";
+
+import permissionChec from "@/app/utils/permissionCheck";
 
 export default function ListTable({ setMode, reloadList }) {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [allUsers, setAllUsers] = useState(false);
 
   const { theWorkspace, theUsers, setTheUsers } = useContext(workspaceContext);
   const columns = listColumns();
@@ -19,7 +24,10 @@ export default function ListTable({ setMode, reloadList }) {
       let usersList;
 
       // if (theUsers.total === 0) {
-      usersList = theWorkspace ? await getUsersList(theWorkspace) : [];
+      setLoading(true);
+      usersList = theWorkspace
+        ? await getUsersList(theWorkspace, allUsers)
+        : [];
       setTheUsers(usersList);
       // } else usersList = theUsers;
 
@@ -27,17 +35,46 @@ export default function ListTable({ setMode, reloadList }) {
       setUsers(usersList.data);
     })();
     // }, []);
-  }, [reloadList, theWorkspace]);
+  }, [reloadList, theWorkspace, allUsers]);
+
+  const isSuperAdmin = permissionChec("SUPER_USER");
+  const isAdmin = permissionChec("ADMIN");
 
   return (
     <div
       className={`p-2 wrapper-box
       ${loading ? "loading" : ""}`}>
       <div className="d-flex justify-between align-center mb-2">
-        <h3 className="">لیست کاربران</h3>
-        <ContainedPrimary onClick={() => setMode("create")}>
-          افزودن کاربر جدید
-        </ContainedPrimary>
+        <div className="d-flex align-center">
+          <h3 className="">لیست کاربران</h3>
+
+          {(isAdmin || isSuperAdmin) && (
+            <FormControlLabel
+              className="mr-2"
+              onClick={() => setAllUsers((state) => !state)}
+              control={<Checkbox checked={allUsers} />}
+              label="نمایش همه کاربران"
+            />
+          )}
+        </div>
+
+        <div>
+          {(isSuperAdmin || isAdmin) && (
+            <TexedPrimary
+              className="ml-2"
+              onClick={() => setMode("addUserToWS")}
+              addUserToWorkspace={true}>
+              افزودن کاربر به فضای کاری
+            </TexedPrimary>
+          )}
+
+          <ContainedPrimary
+            onClick={() =>
+              setMode(isSuperAdmin || isAdmin ? "create" : "addUserToWS")
+            }>
+            افزودن کاربر جدید
+          </ContainedPrimary>
+        </div>
       </div>
       <DataGrid
         rows={users}

@@ -162,6 +162,7 @@ a {
   color: #1976d2;
 }
 /****************************************/
+.d-none{display: none;}
 .no-shadow {
   box-shadow: none !important;
 }

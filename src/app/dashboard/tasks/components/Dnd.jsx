@@ -10,7 +10,7 @@ import workspaceContext from "@/app/context/workspaceContext";
 
 const Column = dynamic(() => import("./Column"), { ssr: false });
 
-const reorderColumnList = (sourceCol, startIndex, endIndex) => {
+const reorderColumnList = (sourceCol, startIndex, endIndex,) => {
   const newTaskIds = Array.from(sourceCol.taskIds);
   const [removed] = newTaskIds.splice(startIndex, 1);
   newTaskIds.splice(endIndex, 0, removed);
@@ -34,6 +34,7 @@ export default function Dnd({
   setTasks,
   setSingleTask,
   setRealoadList,
+  filteredMeMode,
 }) {
   const { theWorkspace } = useContext(workspaceContext);
 
@@ -143,6 +144,7 @@ export default function Dnd({
               cancelAdd={cancelAdd}
               addNewTask={addNewTask}
               setSingleTask={setSingleTask}
+              filteredMeMode={filteredMeMode}
             />
           );
         })}

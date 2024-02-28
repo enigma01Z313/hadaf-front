@@ -21,6 +21,7 @@ export default function ListTable({
   const [newTaskTitle, setNewTaskTitle] = useState("");
   const [viewMode, setViewMode] = useState("column");
   const [filteredUser, setFilteredUser] = useState("all");
+  const [filteredMeMode, setFilteredMeMode] = useState(false)
 
   const { theWorkspace } = useContext(workspaceContext);
 
@@ -65,6 +66,8 @@ export default function ListTable({
         setViewMode={setViewMode}
         filteredUser={filteredUser}
         setFilteredUser={setFilteredUser}
+        filteredMeMode={filteredMeMode}
+        setFilteredMeMode={setFilteredMeMode}
       />
       {(viewMode === "column" && (
         <div
@@ -84,6 +87,7 @@ export default function ListTable({
               setTasks={setTasks}
               setSingleTask={setSingleTask}
               setRealoadList={setRealoadList}
+              filteredMeMode={filteredMeMode}
             />
           )}
         </div>

@@ -27,7 +27,7 @@ const menuItems = [
       },
       {
         id: 150,
-        title: "وظایف",
+        title: "اقدامک ها",
         slug: "tasks-dashboard",
         link: "/dashboard/tasksDashboard",
         icon: PlaylistAddCheckIcon,
@@ -66,7 +66,7 @@ const menuItems = [
   },
   {
     id: 60,
-    title: "وظایف",
+    title: "اقدامک ها",
     slug: "tasks",
     link: "/dashboard/tasks",
     icon: PlaylistAddCheckIcon,

@@ -1,14 +1,16 @@
 import requests from "../request";
 import permissionChec from "@/app/utils/permissionCheck";
 
-const getUsersList = async (workspaceId) => {
+const getUsersList = async (workspaceId, allUsers) => {
   const isSuperAdmin = permissionChec("SUPER_USER");
   const isAdmin = permissionChec("ADMIN");
   const isStandard = permissionChec("STANDARD");
 
-  const usersGetUrl =
-    ((isSuperAdmin || isAdmin) && "users") ||
-    (isStandard && `workspaces/${workspaceId}/users`);
+  let usersGetUrl;
+  if (isSuperAdmin || isAdmin) {
+    if (allUsers) usersGetUrl = "users";
+    else usersGetUrl = `workspaces/${workspaceId}/users`;
+  } else usersGetUrl = `workspaces/${workspaceId}/users`;
 
   if (isStandard && !workspaceId) return [];
 

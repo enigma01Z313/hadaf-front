@@ -44,7 +44,7 @@ function Header({ year, setYear, targetMember, setTargetMember }) {
           value={targetMember}
           variant="standard"
           onChange={(e) => setTargetMember(e.target.value)}>
-          <MenuItem value={"all"}>کل فضای کاری</MenuItem>
+          <MenuItem value={"all"}>همه</MenuItem>
           {workspaceUsers.map((item) => (
             <MenuItem key={item.id} value={item.id}>
               {item.fullName}
@@ -88,18 +88,18 @@ export default function Charts({
         label: "تعداد",
         data: Object.values(data).map((item) => item.count),
         backgroundColor: [
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
+          "rgb(57, 218, 138)",
+          "rgb(253, 172, 65)",
+          "rgb(255, 91, 92)",
+          "rgb(139, 147, 166)",
           "rgba(153, 102, 255, 0.2)",
           "rgba(255, 159, 64, 0.2)",
         ],
         borderColor: [
-          "rgba(75, 192, 192, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
+          "rgb(57, 218, 138)",
+          "rgb(253, 172, 65)",
+          "rgb(255, 91, 92)",
+          "rgb(139, 147, 166)",
           "rgba(153, 102, 255, 1)",
           "rgba(255, 159, 64, 1)",
         ],
@@ -110,7 +110,6 @@ export default function Charts({
 
   const options = {
     responsive: true,
-    // maintainAspectRatio: false,
     plugins: {
       legend: {
         display: true,
@@ -130,6 +129,7 @@ export default function Charts({
         position: "right",
       },
     },
+    cutout: "78%",
   };
 
   return (
@@ -147,17 +147,21 @@ export default function Charts({
           style={{ width: "49%", float: "right" }}>
           {(total === 0 && (
             <div className="d-flex align-center">هدفی وجود ندارد</div>
-          )) || <Doughnut data={chartData} options={options} />}
+          )) || (
+            <div className="d-flex align-center" style={{ width: "340px" }}>
+              <Doughnut data={chartData} options={options} />
+            </div>
+          )}
         </div>
         <div
           className="grow-1 d-flex justify-center align-center"
           style={{ width: "49%", float: "right" }}>
           <Gauge
-            value={okrProgress}
-            size={"300px"}
+            value={Math.floor(okrProgress * 100) / 100}
+            size={"200px"}
             label="پیشرفت"
             textClass="text-h5"
-            borderSize={27}
+            borderSize={18}
           />
         </div>
         <div className="clear-both"></div>
