@@ -41,10 +41,6 @@ export default function OkrsList({
     setLoading(false);
   };
 
-  const updateTheOkr = (id) => {
-    
-  }
-
   return (
     <div
       className={`${styles["okr-list-wrapper"]} ${loading ? "loading" : ""}`}>

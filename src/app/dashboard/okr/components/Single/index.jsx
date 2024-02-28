@@ -117,11 +117,9 @@ export default function Single({
     setLoading(true);
     await saveCurrentOkr(singleOkr, theOkr);
     setLoading(false);
+    setReloadList((state) => !state);
     toast.success("ویرایش با موفقیت انجام شد");
   };
-
-  console.log('1-1-1-----------------------');
-  console.log(theOkr.colleagues);
 
   return (
     <Dialog
@@ -143,19 +141,13 @@ export default function Single({
               value={theOkr?.assignee}
               changeHandlred={changeHandlred}
             />
-
+            
             <Status
               okrStatuses={okrStatuses}
               value={theOkr?.status}
               changeHandlred={changeHandlred}
             />
 
-            <OkrFrom
-              value={theOkr?.from ?? ""}
-              changeHandlred={changeHandlred}
-            />
-
-            <OkrTo value={theOkr?.to ?? ""} changeHandlred={changeHandlred} />
 
             <Weight
               value={theOkr?.weight ?? ""}
@@ -163,6 +155,14 @@ export default function Single({
             />
 
             <Gauge value={theOkr.progress} />
+          </div>
+          <div className="d-flex justify-start">
+            <OkrFrom
+              value={theOkr?.from ?? ""}
+              changeHandlred={changeHandlred}
+            />
+
+            <OkrTo value={theOkr?.to ?? ""} changeHandlred={changeHandlred} />
           </div>
         </DialogTitle>
 

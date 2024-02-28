@@ -98,6 +98,7 @@ const menuItems = [
     slug: "upgrade",
     link: "/dashboard/upgrade",
     icon: UpgradeIcon,
+    // image: 'plan',
     disabled: true,
   },
   {
@@ -105,8 +106,8 @@ const menuItems = [
     title: "ارتباط با ما",
     slug: "contactus",
     link: "mailto:f.ahmadyf94@gmail.com",
-    // link: "/dashboard/contactus",
     icon: ContactSupportIcon,
+    // image: 'support'
   },
 ];
 

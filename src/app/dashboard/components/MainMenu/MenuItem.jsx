@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 import SubMenuItem from "./SubMenuItem";
 import styles from "./style.module.css";
@@ -12,6 +13,16 @@ export default function MenuItem({ item, disabled, subMenu, ...rest }) {
           {item.icon && (
             <item.icon className="ml-1" style={{ marginRight: "7px" }} />
           )}
+          {item.image && (
+            <Image
+              className="ml-1"
+              src={`/${item.image}.svg`}
+              width={22}
+              height={22}
+              alt={item.title}
+              style={{ marginRight: "7px" }}
+            />
+          )}
           <span>{item.title}</span>
         </span>
       )) || (
@@ -21,6 +32,16 @@ export default function MenuItem({ item, disabled, subMenu, ...rest }) {
           alt={item.slug}>
           {item.icon && (
             <item.icon className="ml-1" style={{ marginRight: "7px" }} />
+          )}
+          {item.image && (
+            <Image
+              className="ml-1"
+              src={`/${item.image}.svg`}
+              width={22}
+              height={22}
+              alt={item.title}
+              style={{ marginRight: "7px" }}
+            />
           )}
           <span>{item.title}</span>
         </Link>

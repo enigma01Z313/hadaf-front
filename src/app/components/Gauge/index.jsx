@@ -1,6 +1,6 @@
 import React from "react";
 
-import CircularProgress from "@mui/material/CircularProgress";
+import { CircularProgress } from "@mui/material";
 import styles from "./style.module.css";
 
 export default function Gauge(params) {

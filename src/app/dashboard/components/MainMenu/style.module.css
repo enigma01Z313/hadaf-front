@@ -5,10 +5,12 @@
 
 .main-menu li:not(.active):hover > a{
   background: rgb(232, 235, 236);
+  color: #1A233A
 }
 
 .main-menu li.active {
   background: rgb(214, 219, 220);
+  color: #1A233A
 }
 
 .main-menu li > span{
@@ -32,6 +34,9 @@
 }
 .sub-menu span{
   display: block !important;
+}
+.sub-menu a{
+  color: #1A233A
 }
 .sub-menu-item:hover > a{
   background: rgb(232, 235, 236);

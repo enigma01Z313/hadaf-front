@@ -74,7 +74,7 @@ function Header({ year, setYear, targetMember, setTargetMember }) {
 
 export default function Charts({
   data,
-  okrProgress,
+  taskProgress,
   year,
   setYear,
   targetMember,
@@ -82,7 +82,7 @@ export default function Charts({
 }) {
   const total = Object.values(data).reduce((acc, cur) => acc + cur.count, 0);
   const chartData = {
-    labels: Object.values(data).map((item) => item.data.label),
+    labels: ["شروع نشده", "در حال انجام", "انجام شده", "متوقف شده"],
     datasets: [
       {
         label: "تعداد",
@@ -146,14 +146,14 @@ export default function Charts({
           className="grow-1 d-flex justify-center px-5"
           style={{ width: "49%", float: "right" }}>
           {(total === 0 && (
-            <div className="d-flex align-center">هدفی وجود ندارد</div>
+            <div className="d-flex align-center">وظیفه ای وجود ندارد</div>
           )) || <Doughnut data={chartData} options={options} />}
         </div>
         <div
           className="grow-1 d-flex justify-center align-center"
           style={{ width: "49%", float: "right" }}>
           <Gauge
-            value={okrProgress}
+            value={taskProgress}
             size={"300px"}
             label="پیشرفت"
             textClass="text-h5"

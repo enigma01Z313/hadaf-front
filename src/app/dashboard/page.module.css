@@ -13,7 +13,8 @@
 
 .menu-side {
   width: var(--menu-width);
-  background: #fff; 
+  background: #1A233A; 
+  color: #eee;
   border-left: 1px solid #0000003b;
 }
 

@@ -1,11 +1,3 @@
-"use client"
-
-import React from "react";
-
-// import "boxicons";
-
-import OkrDetailItem from "./OkrDetailItem";
-
 const OkrDetailItemConfigs = [
   {
     icon: "user-x",
@@ -33,23 +25,4 @@ const OkrDetailItemConfigs = [
   },
 ];
 
-export default function OkrDetail({ data }) {
-  return (
-    <>
-      {data && (
-        <section className="d-flex mt-2">
-          {OkrDetailItemConfigs.map((config, index) => (
-            <OkrDetailItem
-              key={index}
-              index={index}
-              title={config.title}
-              value={data[config.value]}
-              icon={config.icon}
-              color={config.color}
-            />
-          ))}
-        </section>
-      )}
-    </>
-  );
-}
+export default OkrDetailItemConfigs;

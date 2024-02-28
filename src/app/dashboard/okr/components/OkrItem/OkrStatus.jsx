@@ -16,7 +16,7 @@ export default function OkrStatus({
   const okrStatuses = JSON.parse(localStorage.getItem("meta")).okrStatus;
 
   return (
-    <div className={className} style={{ maxWidth: "180px" }}>
+    <div className={className} style={{ maxWidth: "150px" }}>
       <FormControl
         id="okr-wrap-stataus"
         fullWidth

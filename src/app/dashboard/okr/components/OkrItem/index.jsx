@@ -7,6 +7,8 @@ import OkrActions from "./OkrActions";
 import OkrAssignee from "./OkrAssignee";
 import OkrStatus from "./OkrStatus";
 import OkrTitle from "./OkrTitle";
+import OkrFrom from "./OkrFrom";
+import OkrTo from "./OkrTo";
 
 import Gauge from "@/app/components/Gauge";
 
@@ -19,6 +21,10 @@ export default function OkrItem({
   saveCurrentOkr,
 }) {
   const [theOrk, setTheOrk] = useState(okr);
+
+  useEffect(() => {
+    setTheOrk(okr)
+  }, [okr])
 
   const changeHandler = (key, value) =>
     setTheOrk((state) => {
@@ -67,6 +73,20 @@ export default function OkrItem({
       <OkrTitle
         className="ml-1 grow-1"
         value={theOrk.title}
+        changeHandler={changeHandler}
+        saveCurrentOkr={saveCurrentOkrClousure}
+      />
+
+      <OkrFrom
+        className="ml-1 grow-1"
+        value={theOrk?.from ?? ""}
+        changeHandler={changeHandler}
+        saveCurrentOkr={saveCurrentOkrClousure}
+      />
+
+      <OkrTo
+        className="ml-0-5 grow-1"
+        value={theOrk?.to ?? ""}
         changeHandler={changeHandler}
         saveCurrentOkr={saveCurrentOkrClousure}
       />

@@ -873,6 +873,180 @@ body {
 }
 
 /***************************************/
+.progress-bar {
+  --stripe-length: 30px;
+
+  background: linear-gradient(
+      to left,
+      transparent calc(var(--fill-width) - 3px),
+      var(--color-tip) calc(var(--fill-width) - 3px),
+      var(--color-tip) var(--fill-width),
+      var(--color-empty) var(--fill-width),
+      var(--color-empty) 100%
+    ),
+    linear-gradient(
+      45deg,
+      var(--color-stripe2) 0px,
+      var(--color-stripe2) calc(1 * var(--stripe-length)),
+      var(--color-stripe1) calc(1 * var(--stripe-length)),
+      var(--color-stripe1) calc(2 * var(--stripe-length)),
+      var(--color-stripe2) calc(2 * var(--stripe-length)),
+      var(--color-stripe2) calc(3 * var(--stripe-length)),
+      var(--color-stripe1) calc(3 * var(--stripe-length)),
+      var(--color-stripe1) calc(4 * var(--stripe-length)),
+      var(--color-stripe2) calc(4 * var(--stripe-length)),
+      var(--color-stripe2) calc(5 * var(--stripe-length)),
+      var(--color-stripe1) calc(5 * var(--stripe-length)),
+      var(--color-stripe1) calc(6 * var(--stripe-length)),
+      var(--color-stripe2) calc(6 * var(--stripe-length)),
+      var(--color-stripe2) calc(7 * var(--stripe-length)),
+      var(--color-stripe1) calc(7 * var(--stripe-length)),
+      var(--color-stripe1) calc(8 * var(--stripe-length)),
+      var(--color-stripe2) calc(8 * var(--stripe-length)),
+      var(--color-stripe2) calc(9 * var(--stripe-length)),
+      var(--color-stripe1) calc(9 * var(--stripe-length)),
+      var(--color-stripe1) calc(10 * var(--stripe-length)),
+      var(--color-stripe2) calc(10 * var(--stripe-length)),
+      var(--color-stripe2) calc(11 * var(--stripe-length)),
+      var(--color-stripe1) calc(11 * var(--stripe-length)),
+      var(--color-stripe1) calc(12 * var(--stripe-length)),
+      var(--color-stripe2) calc(12 * var(--stripe-length)),
+      var(--color-stripe2) calc(13 * var(--stripe-length)),
+      var(--color-stripe1) calc(13 * var(--stripe-length)),
+      var(--color-stripe1) calc(14 * var(--stripe-length)),
+      var(--color-stripe2) calc(14 * var(--stripe-length)),
+      var(--color-stripe2) calc(15 * var(--stripe-length)),
+      var(--color-stripe1) calc(15 * var(--stripe-length)),
+      var(--color-stripe1) calc(16 * var(--stripe-length)),
+      var(--color-stripe2) calc(16 * var(--stripe-length)),
+      var(--color-stripe2) calc(17 * var(--stripe-length)),
+      var(--color-stripe1) calc(17 * var(--stripe-length)),
+      var(--color-stripe1) calc(18 * var(--stripe-length)),
+      var(--color-stripe2) calc(18 * var(--stripe-length)),
+      var(--color-stripe2) calc(19 * var(--stripe-length)),
+      var(--color-stripe1) calc(19 * var(--stripe-length)),
+      var(--color-stripe1) calc(20 * var(--stripe-length)),
+      var(--color-stripe2) calc(20 * var(--stripe-length)),
+      var(--color-stripe2) calc(21 * var(--stripe-length)),
+      var(--color-stripe1) calc(21 * var(--stripe-length)),
+      var(--color-stripe1) calc(22 * var(--stripe-length)),
+      var(--color-stripe2) calc(22 * var(--stripe-length)),
+      var(--color-stripe2) calc(23 * var(--stripe-length)),
+      var(--color-stripe1) calc(23 * var(--stripe-length)),
+      var(--color-stripe1) calc(24 * var(--stripe-length)),
+      var(--color-stripe2) calc(24 * var(--stripe-length)),
+      var(--color-stripe2) calc(25 * var(--stripe-length)),
+      var(--color-stripe1) calc(25 * var(--stripe-length)),
+      var(--color-stripe1) calc(26 * var(--stripe-length)),
+      var(--color-stripe2) calc(26 * var(--stripe-length)),
+      var(--color-stripe2) calc(27 * var(--stripe-length)),
+      var(--color-stripe1) calc(27 * var(--stripe-length)),
+      var(--color-stripe1) calc(28 * var(--stripe-length)),
+      var(--color-stripe2) calc(28 * var(--stripe-length)),
+      var(--color-stripe2) calc(29 * var(--stripe-length)),
+      var(--color-stripe1) calc(29 * var(--stripe-length)),
+      var(--color-stripe1) calc(30 * var(--stripe-length)),
+      var(--color-stripe2) calc(30 * var(--stripe-length)),
+      var(--color-stripe2) calc(31 * var(--stripe-length)),
+      var(--color-stripe1) calc(31 * var(--stripe-length)),
+      var(--color-stripe1) calc(32 * var(--stripe-length)),
+      var(--color-stripe2) calc(32 * var(--stripe-length)),
+      var(--color-stripe2) calc(33 * var(--stripe-length)),
+      var(--color-stripe1) calc(33 * var(--stripe-length)),
+      var(--color-stripe1) calc(34 * var(--stripe-length)),
+      var(--color-stripe2) calc(34 * var(--stripe-length)),
+      var(--color-stripe2) calc(35 * var(--stripe-length)),
+      var(--color-stripe1) calc(35 * var(--stripe-length)),
+      var(--color-stripe1) calc(36 * var(--stripe-length)),
+      var(--color-stripe2) calc(36 * var(--stripe-length)),
+      var(--color-stripe2) calc(37 * var(--stripe-length)),
+      var(--color-stripe1) calc(37 * var(--stripe-length)),
+      var(--color-stripe1) calc(38 * var(--stripe-length)),
+      var(--color-stripe2) calc(38 * var(--stripe-length)),
+      var(--color-stripe2) calc(39 * var(--stripe-length)),
+      var(--color-stripe1) calc(39 * var(--stripe-length)),
+      var(--color-stripe1) calc(40 * var(--stripe-length)),
+      var(--color-stripe2) calc(40 * var(--stripe-length)),
+      var(--color-stripe2) calc(41 * var(--stripe-length)),
+      var(--color-stripe1) calc(41 * var(--stripe-length)),
+      var(--color-stripe1) calc(42 * var(--stripe-length)),
+      var(--color-stripe2) calc(42 * var(--stripe-length)),
+      var(--color-stripe2) calc(43 * var(--stripe-length)),
+      var(--color-stripe1) calc(43 * var(--stripe-length)),
+      var(--color-stripe1) calc(44 * var(--stripe-length)),
+      var(--color-stripe2) calc(44 * var(--stripe-length)),
+      var(--color-stripe2) calc(45 * var(--stripe-length)),
+      var(--color-stripe1) calc(45 * var(--stripe-length)),
+      var(--color-stripe1) calc(46 * var(--stripe-length)),
+      var(--color-stripe2) calc(46 * var(--stripe-length)),
+      var(--color-stripe2) calc(47 * var(--stripe-length)),
+      var(--color-stripe1) calc(47 * var(--stripe-length)),
+      var(--color-stripe1) calc(48 * var(--stripe-length)),
+      var(--color-stripe2) calc(48 * var(--stripe-length)),
+      var(--color-stripe2) calc(49 * var(--stripe-length)),
+      var(--color-stripe1) calc(49 * var(--stripe-length)),
+      var(--color-stripe1) calc(50 * var(--stripe-length)),
+      var(--color-stripe2) calc(50 * var(--stripe-length)),
+      var(--color-stripe2) calc(51 * var(--stripe-length)),
+      var(--color-stripe1) calc(51 * var(--stripe-length)),
+      var(--color-stripe1) calc(52 * var(--stripe-length)),
+      var(--color-stripe2) calc(52 * var(--stripe-length)),
+      var(--color-stripe2) calc(53 * var(--stripe-length)),
+      var(--color-stripe1) calc(53 * var(--stripe-length)),
+      var(--color-stripe1) calc(54 * var(--stripe-length)),
+      var(--color-stripe2) calc(54 * var(--stripe-length)),
+      var(--color-stripe2) calc(55 * var(--stripe-length)),
+      var(--color-stripe1) calc(55 * var(--stripe-length)),
+      var(--color-stripe1) calc(56 * var(--stripe-length)),
+      var(--color-stripe2) calc(56 * var(--stripe-length)),
+      var(--color-stripe2) calc(57 * var(--stripe-length)),
+      var(--color-stripe1) calc(57 * var(--stripe-length)),
+      var(--color-stripe1) calc(58 * var(--stripe-length)),
+      var(--color-stripe2) calc(58 * var(--stripe-length)),
+      var(--color-stripe2) calc(59 * var(--stripe-length)),
+      var(--color-stripe1) calc(59 * var(--stripe-length)),
+      var(--color-stripe1) calc(60 * var(--stripe-length)),
+      var(--color-stripe2) calc(60 * var(--stripe-length)),
+      var(--color-stripe2) calc(61 * var(--stripe-length)),
+      var(--color-stripe1) calc(61 * var(--stripe-length)),
+      var(--color-stripe1) calc(62 * var(--stripe-length)),
+      var(--color-stripe2) calc(62 * var(--stripe-length)),
+      var(--color-stripe2) calc(63 * var(--stripe-length)),
+      var(--color-stripe1) calc(63 * var(--stripe-length)),
+      var(--color-stripe1) calc(64 * var(--stripe-length)),
+      var(--color-stripe2) calc(64 * var(--stripe-length)),
+      var(--color-stripe2) calc(65 * var(--stripe-length)),
+      var(--color-stripe1) calc(65 * var(--stripe-length)),
+      var(--color-stripe1) calc(66 * var(--stripe-length)),
+      var(--color-stripe2) calc(66 * var(--stripe-length)),
+      var(--color-stripe2) calc(67 * var(--stripe-length)),
+      var(--color-stripe1) calc(67 * var(--stripe-length))
+    );
+}
+
+.progress-bar.error {
+  --color-tip: #ff7043;
+  --color-stripe1: #f7d3c7;
+  --color-stripe2: #f1c9bb;
+  --color-empty: #fafafa;
+}
+
+.progress-bar.warning {
+  --color-tip: #edaa3d;
+  --color-stripe1: #f7e7c7;
+  --color-stripe2: #f1dfb9;
+  --color-empty: #fafafa;
+}
+
+.progress-bar.success{
+  --color-tip: #5eda50;
+  --color-stripe1: #c7f7c8;
+  --color-stripe2: #b5f3bd;
+  --color-empty: #fafafa;
+}
+
+/***************************************/
+
 #task-stataus-select {
   padding: 3px 0 3px 24px !important;
 }
