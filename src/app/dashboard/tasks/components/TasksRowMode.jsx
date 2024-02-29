@@ -6,7 +6,7 @@ import styles from "./style.module.css";
 import Devider from "@/app/components/Devider";
 import { Input } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import IOSSlider from "@/app/components/Shared/I|OSSlider";
+import IOSSlider from "@/app/components/Shared/IOSSlider";
 import PerfectScrollbar from "react-perfect-scrollbar";
 
 import workspaceContext from "@/app/context/workspaceContext";

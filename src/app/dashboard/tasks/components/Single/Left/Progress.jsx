@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import Box from "@mui/material/Box";
 import TexedInherit from "@/app/components/Button/TexedInherit";
-import IOSSlider from "@/app/components/Shared/I|OSSlider";
+import IOSSlider from "@/app/components/Shared/IOSSlider";
 
 import styles from "./style.module.css";
 
