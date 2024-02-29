@@ -1,0 +1,37 @@
+.comment-item {
+  --bg-color: #ddd;
+  --txt-color: #000;
+
+  border-radius: 4px;
+  border-bottom-right-radius: 0;
+  background: var(--bg-color);
+  color: var(--txt-color);
+  position: relative;
+}
+
+.comment-item.own-comment {
+  --bg-color: #1a233a;
+  --txt-color: #ddd;
+}
+
+.comment-item:before,
+.comment-item:after {
+  --size: 20px;
+
+  content: "";
+  display: block;
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  right: calc(-1 * var(--size));
+  bottom: 0;
+}
+
+.comment-item:before {
+  background: var(--bg-color);
+}
+
+.comment-item:after {
+  background: #fff;
+  border-bottom-left-radius: var(--size);
+}

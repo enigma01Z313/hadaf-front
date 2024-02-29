@@ -5,10 +5,9 @@ import Typography from "@mui/material/Typography";
 
 import Tasks from "./Tasks";
 import Logs from "./Logs";
-import Details from "./Details"
-import Comments from './Comments'
+import Details from "./Details";
+import Comments from "./Comments";
 import Point from "./Point";
-
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -19,7 +18,8 @@ function CustomTabPanel(props) {
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
-      {...other}>
+      {...other}
+    >
       {value === index && (
         <Box className="pt-2">
           <Typography>{children}</Typography>
@@ -42,7 +42,17 @@ function a11yProps(index) {
   };
 }
 
-export default function TabsInfo() {
+export default function TabsInfo({
+  okrId,
+  keyResults,
+  description,
+  workspaceUsers,
+  changeHandlred,
+  timeFrame,
+  targetParent,
+  access,
+  colleagues,
+}) {
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -55,7 +65,8 @@ export default function TabsInfo() {
         <Tabs
           value={value}
           onChange={handleChange}
-          aria-label="basic tabs example">
+          aria-label="basic tabs example"
+        >
           <Tab label="اقدامک ها" {...a11yProps(0)} />
           <Tab label="کامنت" {...a11yProps(1)} />
           <Tab label="نکات(توضیحات)" {...a11yProps(2)} />
@@ -64,19 +75,26 @@ export default function TabsInfo() {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <Tasks />
+        <Tasks okrId={okrId} keyResults={keyResults} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <Comments />
+        <Comments okrId={okrId} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        <Point />
+        <Point okrId={okrId} description={description} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
-        <Logs />
+        <Logs okrId={okrId} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={4}>
-        <Details />
+        <Details
+          workspaceUsers={workspaceUsers}
+          changeHandlred={changeHandlred}
+          timeFrame={timeFrame}
+          targetParent={targetParent}
+          access={access}
+          colleagues={colleagues}
+        />
       </CustomTabPanel>
     </section>
   );

@@ -188,6 +188,9 @@ a {
 .direction-row {
   flex-direction: row !important;
 }
+.direction-row-reverse{
+  flex-direction: row-reverse !important;
+}
 .justify-center {
   justify-content: center !important;
 }

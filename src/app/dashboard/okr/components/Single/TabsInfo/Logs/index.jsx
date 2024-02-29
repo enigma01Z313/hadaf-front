@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect, useContext } from "react";
 
-export default function Logs() {
+import List from "./List";
+
+export default function Logs({okrId}) {
   return (
-    <div>Logs</div>
+    <div><List okrId={okrId} /></div>
   )
 }

@@ -128,7 +128,8 @@ export default function Single({
       fullWidth={true}
       open={true}
       onClose={closePopup}
-      PaperProps={{ classes: { root: loading ? "loading" : "over-visible" } }}>
+      PaperProps={{ classes: { root: loading ? "loading" : "over-visible" } }}
+    >
       <PerfectScrollbar>
         <DialogTitle>
           <div className="d-flex no-wrap">
@@ -142,13 +143,12 @@ export default function Single({
               value={theOkr?.assignee}
               changeHandlred={changeHandlred}
             />
-            
+
             <Status
               okrStatuses={okrStatuses}
               value={theOkr?.status}
               changeHandlred={changeHandlred}
             />
-
 
             <Weight
               value={theOkr?.weight ?? ""}
@@ -182,31 +182,44 @@ export default function Single({
 
           <Devider line={true} spacing={2} />
 
-          <div className="d-flex">
-            <Timeframe
-              value={theOkr.timeFrame}
-              changeHandlred={changeHandlred}
-            />
+          {singleOkr === "create" && (
+            <div className="d-flex">
+              <Timeframe
+                value={theOkr.timeFrame}
+                changeHandlred={changeHandlred}
+              />
 
-            <ParentOkr
-              value={theOkr.targetParent}
-              changeHandlred={changeHandlred}
-              // okrs={okrs}
-            />
+              <ParentOkr
+                value={theOkr.targetParent}
+                changeHandlred={changeHandlred}
+              />
 
-            <Accesslevel
-              value={theOkr.access}
-              changeHandlred={changeHandlred}
-            />
+              <Accesslevel
+                value={theOkr.access}
+                changeHandlred={changeHandlred}
+              />
 
-            <Colleages
+              <Colleages
+                workspaceUsers={workspaceUsers}
+                values={theOkr.colleagues}
+                changeHandlred={changeHandlred}
+              />
+            </div>
+          )}
+
+          {singleOkr !== "create" && (
+            <TabsInfo
+              okrId={singleOkr}
+              keyResults={theOkr.keyResults}
+              description={theOkr.description}
               workspaceUsers={workspaceUsers}
-              values={theOkr.colleagues}
               changeHandlred={changeHandlred}
+              timeFrame={theOkr.timeFrame}
+              targetParent={theOkr.targetParent}
+              access={theOkr.access}
+              colleagues={theOkr.colleagues}
             />
-          </div>
-
-          {singleOkr !== 'create' && <TabsInfo />}
+          )}
         </DialogContent>
 
         <Devider line={true} spacing={0} />
@@ -225,7 +238,8 @@ export default function Single({
                 disabled={
                   theOkr.title.length === 0 || theOkr.keyResults.length === 0
                 }
-                onClick={handleOkrCreate}>
+                onClick={handleOkrCreate}
+              >
                 افزودن
               </TexedPrimary>
             </>
