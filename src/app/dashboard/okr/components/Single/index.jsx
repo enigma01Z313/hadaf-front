@@ -25,6 +25,7 @@ import Timeframe from "./moreInfo/Timeframe";
 import ParentOkr from "./moreInfo/ParentOkr";
 import Accesslevel from "./moreInfo/Accesslevel";
 import Colleages from "./moreInfo/Colleages";
+import TabsInfo from "./TabsInfo";
 
 import createOkr from "@/app/lib/okr/create";
 import Gauge from "@/app/components/Gauge";
@@ -204,6 +205,8 @@ export default function Single({
               changeHandlred={changeHandlred}
             />
           </div>
+
+          {singleOkr !== 'create' && <TabsInfo />}
         </DialogContent>
 
         <Devider line={true} spacing={0} />
