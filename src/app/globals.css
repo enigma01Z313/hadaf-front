@@ -162,7 +162,9 @@ a {
   color: #1976d2;
 }
 /****************************************/
-.d-none{display: none;}
+.d-none {
+  display: none;
+}
 .no-shadow {
   box-shadow: none !important;
 }
@@ -188,7 +190,7 @@ a {
 .direction-row {
   flex-direction: row !important;
 }
-.direction-row-reverse{
+.direction-row-reverse {
   flex-direction: row-reverse !important;
 }
 .justify-center {
@@ -877,6 +879,13 @@ body {
 }
 
 /***************************************/
+.tag-line {
+  height: 25px;
+  width: 3px;
+  background: var(--bg-color);
+  margin-left: 2px;
+}
+
 .progress-bar {
   --stripe-length: 30px;
 
@@ -1042,7 +1051,7 @@ body {
   --color-empty: #fafafa;
 }
 
-.progress-bar.success{
+.progress-bar.success {
   --color-tip: #5eda50;
   --color-stripe1: #c7f7c8;
   --color-stripe2: #b5f3bd;

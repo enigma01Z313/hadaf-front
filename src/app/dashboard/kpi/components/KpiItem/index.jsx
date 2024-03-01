@@ -27,7 +27,18 @@ export default function KpiItem({
       : kpi.realAmounts.current.order;
 
   return (
-    <div className={`d-flex align-center  text-body-2`}>
+    <div className={`d-flex align-center py-1 text-body-2`}>
+      {kpi.tags && (
+        <div className="tag-lines">
+          {kpi.tags.map((tag) => (
+            <div
+              key={tag.id}
+              className="tag-line"
+              style={{ "--bg-color": tag.color ?? "#ccc" }}
+            ></div>
+          ))}
+        </div>
+      )}
       <div style={{ width: "50px" }}>{rowNum}.</div>
       <div className="grow-1">{kpi.name}</div>
       <div className="text-center" style={{ width: "100px" }}>
@@ -35,18 +46,21 @@ export default function KpiItem({
       </div>
       <div
         style={{ width: "110px" }}
-        className="text-center d-flex justify-center">
+        className="text-center d-flex justify-center"
+      >
         <div
           style={{
             width: "30px",
             height: "30px",
             borderRadius: "50%",
             background: kpi.sevenPreviousCourses.bg,
-          }}></div>
+          }}
+        ></div>
       </div>
       <div
         style={{ width: "120px" }}
-        className="text-center d-flex justify-center">
+        className="text-center d-flex justify-center"
+      >
         <div
           style={{
             width: "30px",
@@ -54,14 +68,16 @@ export default function KpiItem({
             borderRadius: "50%",
             background: kpi.updateStatus.bg,
           }}
-          title={kpi.updateStatus.label}></div>
+          title={kpi.updateStatus.label}
+        ></div>
       </div>
       <div style={{ width: "80px" }} className="text-center">
         روند تغییر
       </div>
       <div
         style={{ width: "130px" }}
-        className="text-caption text-center d-flex justify-around">
+        className="text-caption text-center d-flex justify-around"
+      >
         <AmountEdit
           value={kpi.realAmounts.previous.amount}
           amountId={kpi.realAmounts.previous.id}
@@ -96,7 +112,8 @@ export default function KpiItem({
       <div className="p-relative mr-auto" style={{ width: "50px" }}>
         <div
           className="cursor-pointer d-flex align-center p-1"
-          onClick={() => setOpenedActions(kpi.id)}>
+          onClick={() => setOpenedActions(kpi.id)}
+        >
           <MoreHorizIcon />
         </div>
         {kpi.id === openedActions && (

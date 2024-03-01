@@ -89,7 +89,7 @@ export default function Single({
             <MuiColorInput
               className="rtl-input"
               label="رنگ برچسب"
-              value={theTag.color}
+              value={theTag.color ?? "rgb(0,0,0)"}
               onChange={handleChange}
               variant="standard"
             />

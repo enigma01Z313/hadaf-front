@@ -56,16 +56,16 @@ export default function Cartable() {
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="اقدامک ها" {...a11yProps(0)} />
-          <Tab label="OKR" {...a11yProps(1)} />
+          <Tab label="اهداف" {...a11yProps(0)} />
+          <Tab label="اقدامک ها" {...a11yProps(1)} />
           <Tab label="KPI" {...a11yProps(2)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <Task />
+        <Okr />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <Okr />
+        <Task />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         <KPI />

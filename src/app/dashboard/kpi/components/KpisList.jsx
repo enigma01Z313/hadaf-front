@@ -73,7 +73,7 @@ export default function KpisList({
               .map((kpi, i) => (
                 <React.Fragment
                   key={kpi.id}>
-                  {i !== 0 && <Devider line={true} spacing={2} />}
+                  {i !== 0 && <Devider line={true} spacing={1} />}
                   <KpiItem
                     kpi={kpi}
                     openedActions={openedActions}
