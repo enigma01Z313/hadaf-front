@@ -45,27 +45,31 @@ const Column = ({
     <div
       className={`wrapper-box p-0 d-flex direction-column no-wrap
         ${loading ? "loading" : ""}`}
-      style={{ maxHeight: "calc(100vh - 75px - 48px)" }}>
+      style={{ maxHeight: "calc(100vh - 75px - 48px)" }}
+    >
       <h2 className="p-1 text-h6 weight-500">{column.title}</h2>
 
       <Devider line={true} spacing={0} />
       <PerfectScrollbar
-        style={{ maxHeight: "calc(100vh - 75px - 48px - 100px)" }}>
+        style={{ maxHeight: "calc(100vh - 75px - 48px - 100px)" }}
+      >
         <Droppable droppableId={column.id}>
           {(droppableProvided, droppableSnapshot) => (
             <div
               className="grow-1 px-1 py-3"
               ref={droppableProvided.innerRef}
-              {...droppableProvided.droppableProps}>
+              {...droppableProvided.droppableProps}
+            >
               {tasks.map((task, index) => (
                 <Draggable
                   key={task.id}
                   draggableId={`${task.id}`}
-                  index={index}>
+                  index={index}
+                >
                   {(draggableProvided, draggableSnapshot) => (
                     <div
                       onClick={() => setSingleTask(task.id)}
-                      className={`p-1 mb-1 ${styles["task-item"]}
+                      className={`p-1 mb-1 d-flex ${styles["task-item"]}
                         ${
                           filteredMeMode &&
                           !(
@@ -78,7 +82,15 @@ const Column = ({
                         }`}
                       ref={draggableProvided.innerRef}
                       {...draggableProvided.draggableProps}
-                      {...draggableProvided.dragHandleProps}>
+                      {...draggableProvided.dragHandleProps}
+                    >
+                      {task.tags.map((tag) => (
+                        <div
+                          key={tag.id}
+                          className="tag-line"
+                          style={{ "--bg-color": tag.color }}
+                        ></div>
+                      ))}
                       <span>{task.title}</span>
                     </div>
                   )}
@@ -96,7 +108,8 @@ const Column = ({
             onClick={() => {
               setNewTaskTitle("");
               setCreateMode(column.id);
-            }}>
+            }}
+          >
             <AddIcon className="ml-0-5" style={{ fontSize: "16px" }} />
             افزودن
           </ContainedPrimary>
@@ -115,13 +128,15 @@ const Column = ({
             <TexedError
               size="extra-small"
               style={{ width: "40px", height: "40px", padding: "0 8px" }}
-              onClick={() => cancelAdd()}>
+              onClick={() => cancelAdd()}
+            >
               <ClearIcon />
             </TexedError>
             <TextedInfo
               size="extra-small"
               style={{ width: "40px", height: "40px", padding: "0 8px" }}
-              onClick={handleNewTaskAdd}>
+              onClick={handleNewTaskAdd}
+            >
               <CheckIcon />
             </TextedInfo>
           </div>

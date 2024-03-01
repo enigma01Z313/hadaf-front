@@ -11,7 +11,7 @@ import Single from "./components/Single";
 import updateOkr from "@/app/lib/okr/update";
 import listTimeframes from "@/app/lib/timeframes/list";
 
-export default function Okr() {
+export default function Okr({ filteredUser, filteredMeMode }) {
   const { theWorkspace, theWorkspaceTimeframes, setTheWorkspaceTimeframes } =
     useContext(workspaceContext);
 
@@ -30,7 +30,7 @@ export default function Okr() {
         : [];
 
       setTheWorkspaceTimeframes(timeframesList);
-      setActiveTimeframe(timeframesList?.[0].id);
+      setActiveTimeframe(timeframesList?.[0]?.id);
       setTimeframes(timeframesList);
     })();
   }, [theWorkspace]);
@@ -61,6 +61,8 @@ export default function Okr() {
             saveCurrentOkr={saveCurrentOkr}
             reloadList={reloadList}
             activeTimeframe={activeTimeframe}
+            filteredUser={filteredUser}
+            filteredMeMode={filteredMeMode}
           />
         </div>
       </div>

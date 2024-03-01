@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Checkbox, FormControlLabel, TextField } from "@mui/material";
 
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import { TextField } from "@mui/material";
 import ContainedPrimary from "@/app/components/Button/ContainedPrimary";
 
 export default function Header({
@@ -13,6 +10,7 @@ export default function Header({
   activeTimeframe,
   setActiveTimeframe,
   setSingleKpi,
+  setKpiStatus,
 }) {
   const handleChange = (e) => setActiveTimeframe(e.target.value);
 
@@ -24,6 +22,16 @@ export default function Header({
         variant="standard"
         placeholder="جستجو..."
       />
+      <div>
+        <FormControlLabel
+          onChange={(e) => {
+            if (e.target.checked) setKpiStatus(1);
+            else setKpiStatus(0);
+          }}
+          control={<Checkbox />}
+          label="آرشیو شده"
+        />
+      </div>
       {/* <div className="mr-4">بازه زمانی: </div>
       <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
         {timeframes && timeframes.length !== 0 && (
@@ -41,7 +49,8 @@ export default function Header({
       </FormControl> */}
       <ContainedPrimary
         className={"mr-auto"}
-        onClick={() => setSingleKpi("create")}>
+        onClick={() => setSingleKpi("create")}
+      >
         افزودن KPI
       </ContainedPrimary>
     </div>

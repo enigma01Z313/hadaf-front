@@ -13,7 +13,12 @@ export default function KpisList({
   setSingleKpi,
   reloadList,
   setReloadList,
+  filteredUser,
+  filteredMeMode,
+  kpiStatus,
 }) {
+  const theUser = JSON.parse(localStorage.getItem("user"));
+
   const [kpis, setKpis] = useState([]);
   const [loading, setLoading] = useState(false);
   const [openedActions, setOpenedActions] = useState("");
@@ -21,17 +26,20 @@ export default function KpisList({
 
   useEffect(() => {
     (async function () {
-      setLoading(true)
-      const kpisList = theWorkspace ? await getKpisList(theWorkspace) : [];
+      setLoading(true);
+      const kpisList = theWorkspace
+        ? await getKpisList(theWorkspace, filteredUser, kpiStatus)
+        : [];
 
       setKpis(kpisList);
-      setLoading(false)
+      setLoading(false);
     })();
-  }, [theWorkspace, reloadList]);
+  }, [theWorkspace, reloadList, filteredUser, kpiStatus]);
 
   return (
     <div
-      className={`${styles["kpi-list-wrapper"]} ${loading ? "loading" : ""}`}>
+      className={`${styles["kpi-list-wrapper"]} ${loading ? "loading" : ""}`}
+    >
       <div className="pl-3">
         <div className="d-flex align-center text-body-2">
           <div style={{ width: "50px" }} className="text-body-2">
@@ -61,18 +69,30 @@ export default function KpisList({
         </div>
         <Devider spacing={1} line={true} />
       </div>
-      <PerfectScrollbar>
+      <div>
         {(kpis.total === 0 && "هنوز kpi افزوده نشده") || (
           <ul className="ml-3">
             {kpis?.data
-              ?.filter((kpi) =>
-                kpi.name
-                  .toLocaleLowerCase()
-                  .includes(searchTerm?.toLocaleLowerCase?.() ?? "")
-              )
+              ?.filter((kpi) => {
+                if (searchTerm === "" && !filteredMeMode) return true;
+
+                if (filteredMeMode) {
+                  const tmpArr = [kpi.assignee.id];
+                  tmpArr.push(...kpi.colleagues.map((item) => item.id));
+
+                  return (
+                    kpi.name
+                      .toLocaleLowerCase()
+                      .includes(searchTerm?.toLocaleLowerCase?.() ?? "") &&
+                    tmpArr.includes(theUser.id)
+                  );
+                } else
+                  return kpi.name
+                    .toLocaleLowerCase()
+                    .includes(searchTerm?.toLocaleLowerCase?.() ?? "");
+              })
               .map((kpi, i) => (
-                <React.Fragment
-                  key={kpi.id}>
+                <React.Fragment key={kpi.id}>
                   {i !== 0 && <Devider line={true} spacing={1} />}
                   <KpiItem
                     kpi={kpi}
@@ -88,7 +108,7 @@ export default function KpisList({
               ))}
           </ul>
         )}
-      </PerfectScrollbar>
+      </div>
     </div>
   );
 }

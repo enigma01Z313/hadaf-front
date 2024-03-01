@@ -14,14 +14,14 @@ export default function ListTable({
   setSingleTask,
   setColumns,
   setTasksCount,
+  filteredUser,
+  filteredMeMode,
 }) {
   const [tasks, setTasks] = useState({});
   const [loading, setLoading] = useState(true);
   const [createMode, setCreateMode] = useState("");
   const [newTaskTitle, setNewTaskTitle] = useState("");
   const [viewMode, setViewMode] = useState("column");
-  const [filteredUser, setFilteredUser] = useState("all");
-  const [filteredMeMode, setFilteredMeMode] = useState(false);
 
   const { theWorkspace } = useContext(workspaceContext);
 
@@ -39,7 +39,7 @@ export default function ListTable({
       setTasks(tasksList);
     })();
     // }, []);
-  }, [reloadList, theWorkspace, filteredUser, viewMode]);
+  }, [reloadList, theWorkspace, viewMode, filteredUser]);
 
   const addNewTask = (order) =>
     new Promise(async (resolve, reject) => {
@@ -61,46 +61,44 @@ export default function ListTable({
   };
 
   return (
-    <div>
-      <Header
-        viewMode={viewMode}
-        setViewMode={setViewMode}
-        filteredUser={filteredUser}
-        setFilteredUser={setFilteredUser}
-        filteredMeMode={filteredMeMode}
-        setFilteredMeMode={setFilteredMeMode}
-      />
-      {(viewMode === "column" && (
-        <div
-          className={`
+    <>
+      <div>
+        <Header
+          viewMode={viewMode}
+          setViewMode={setViewMode}
+        />
+        {(viewMode === "column" && (
+          <div
+            className={`
             ${styles["static-cols-count"]}
             ${styles["task-gp-wrapper"]}
             ${loading ? "loading" : ""}`}
-        >
-          {Object.keys(tasks).length !== 0 && (
-            <Dnd
-              createMode={createMode}
-              setCreateMode={setCreateMode}
-              newTaskTitle={newTaskTitle}
-              setNewTaskTitle={setNewTaskTitle}
-              cancelAdd={cancelAdd}
-              addNewTask={addNewTask}
-              tasksList={tasks}
-              setTasks={setTasks}
+          >
+            {Object.keys(tasks).length !== 0 && (
+              <Dnd
+                createMode={createMode}
+                setCreateMode={setCreateMode}
+                newTaskTitle={newTaskTitle}
+                setNewTaskTitle={setNewTaskTitle}
+                cancelAdd={cancelAdd}
+                addNewTask={addNewTask}
+                tasksList={tasks}
+                setTasks={setTasks}
+                setSingleTask={setSingleTask}
+                setRealoadList={setRealoadList}
+                filteredMeMode={filteredMeMode}
+              />
+            )}
+          </div>
+        )) ||
+          (viewMode === "row" && (
+            <TasksRowMode
+              tasks={tasks}
               setSingleTask={setSingleTask}
-              setRealoadList={setRealoadList}
-              filteredMeMode={filteredMeMode}
+              loading={loading}
             />
-          )}
-        </div>
-      )) ||
-        (viewMode === "row" && (
-          <TasksRowMode
-            tasks={tasks}
-            setSingleTask={setSingleTask}
-            loading={loading}
-          />
-        ))}
-    </div>
+          ))}
+      </div>
+    </>
   );
 }

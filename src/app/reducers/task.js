@@ -20,6 +20,8 @@ const taskReducer = (state, action) => {
   if (action.type === "SET_DUE_DATE")
     return { ...state, dueDate: action.payload };
 
+  if (action.type === "SET_TAGS") return { ...state, tags: action.payload };
+
   return state;
 };
 

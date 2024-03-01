@@ -13,7 +13,11 @@ export default function OkrsList({
   saveCurrentOkr,
   reloadList,
   activeTimeframe,
+  filteredUser,
+  filteredMeMode,
 }) {
+  const theUser = JSON.parse(localStorage.getItem("user"));
+
   const [okrs, setOkrs] = useState([]);
   const [loading, setLoading] = useState(true);
   const { theWorkspace, setTheWorkspaceOkrs } = useContext(workspaceContext);
@@ -22,14 +26,14 @@ export default function OkrsList({
     (async function () {
       const okrsList =
         theWorkspace && activeTimeframe
-          ? await getOkrsList(theWorkspace, activeTimeframe)
+          ? await getOkrsList(theWorkspace, activeTimeframe, filteredUser)
           : [];
 
       setOkrs(okrsList);
       setTheWorkspaceOkrs(okrsList);
-      setLoading(false)
+      setLoading(false);
     })();
-  }, [theWorkspace, activeTimeframe, reloadList]);
+  }, [theWorkspace, activeTimeframe, reloadList, filteredUser]);
 
   const deleteOkrHandler = async (id) => {
     setLoading(true);
@@ -52,11 +56,25 @@ export default function OkrsList({
     >
       <ul>
         {okrs?.data
-          ?.filter((okr) =>
-            okr.title
-              .toLocaleLowerCase()
-              .includes(searchTerm.toLocaleLowerCase())
-          )
+          ?.filter((okr) => {
+            if (searchTerm === "" && !filteredMeMode) return true;
+
+            if (filteredMeMode) {
+              const tmpArr = [okr.assignee.id];
+              tmpArr.push(...okr.colleagues.map((item) => item.id));
+              tmpArr.push(...okr.keyResults.map((item) => item.owner?.id));
+
+              return (
+                okr.title
+                  .toLocaleLowerCase()
+                  .includes(searchTerm.toLocaleLowerCase()) &&
+                tmpArr.includes(theUser.id)
+              );
+            } else
+              return okr.title
+                .toLocaleLowerCase()
+                .includes(searchTerm.toLocaleLowerCase());
+          })
           .map((okr, i) => (
             <OkrItem
               key={okr.id}

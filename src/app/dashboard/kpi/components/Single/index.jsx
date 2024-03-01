@@ -59,7 +59,7 @@ export default function Single({
     continuous: { code: 0 },
     colleagues: [],
     tags: [],
-    calculationMethod: 0,
+    // calculationMethod: 1,
     validDays: [1, 2, 3, 4, 5, 6, 7],
   });
   const [theTags, setTheTags] = useState([]);
@@ -67,7 +67,7 @@ export default function Single({
   const meta = JSON.parse(localStorage.getItem("meta"));
   const continuousList = meta.continuous;
   const directionsList = meta.kpiDirection;
-  const calculationMethods = meta.calculationMethod;
+  // const calculationMethods = meta.calculationMethod;
 
   useEffect(() => {
     (async function () {
@@ -116,7 +116,7 @@ export default function Single({
       continuous: theKPI.continuous.code,
       direction: theKPI.direction.code,
       targetValue: theKPI.targetValue === "" ? undefined : theKPI.targetValue,
-      calculationMethod: theKPI.calculationMethod.code,
+      calculationMethod: 1,
     });
 
     setSingleKpi("");
@@ -131,7 +131,7 @@ export default function Single({
       assignee: theKPI.assignee.id ?? theUsers?.data?.[0]?.id,
       continuous: theKPI.continuous.code,
       direction: theKPI.direction.code,
-      calculationMethod: theKPI.calculationMethod.code,
+      calculationMethod: 1,
       status: theKPI.status.code,
       validDays:
         theKPI.continuous.code === 0
@@ -309,11 +309,11 @@ export default function Single({
                 changeHandlred={changeHandlred}
               />
               <Devider line={false} spacing={2} />
-              <Calculation
-                value={theKPI?.calculationMethod?.code ?? 0}
+              {/* <Calculation
+                value={theKPI?.calculationMethod?.code ?? 1}
                 calculationMethods={calculationMethods}
                 changeHandlred={changeHandlred}
-              />
+              /> */}
               {/* {theKPI.continuous.code === 0 && (
                 <ValidDays
                   value={theKPI?.validDays}

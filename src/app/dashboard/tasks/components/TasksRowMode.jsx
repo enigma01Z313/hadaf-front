@@ -76,6 +76,13 @@ export default function TasksRowMode({
                           onClick={() => setSingleTask(theTask.id)}
                         >
                           <span className="d-flex align-center">
+                            {theTask.tags.map((tag) => (
+                              <div
+                                key={tag.id}
+                                className="tag-line"
+                                style={{ "--bg-color": tag.color }}
+                              ></div>
+                            ))}
                             <h4 className="text-h5 weight-500">
                               {theTask.title}
                             </h4>

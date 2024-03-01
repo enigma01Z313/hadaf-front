@@ -21,14 +21,16 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import workspaceContext from "@/app/context/workspaceContext";
 import Right from "./Right";
 import Left from "./Left/Index";
-import getTask from "@/app/lib/tasks/get";
-import updateTask from "@/app/lib/tasks/update";
-import deleteTask from "@/app/lib/tasks/delete";
 import Devider from "@/app/components/Devider";
 import TexedPrimary from "@/app/components/Button/TexedPrimary";
 import TexedError from "@/app/components/Button/TextedError";
 import taskReducer from "@/app/reducers/task";
+
 import createTask from "@/app/lib/tasks/create";
+import getTask from "@/app/lib/tasks/get";
+import updateTask from "@/app/lib/tasks/update";
+import deleteTask from "@/app/lib/tasks/delete";
+import listTags from "@/app/lib/tags/list";
 
 export default function Single({
   open,
@@ -41,6 +43,8 @@ export default function Single({
   const { theWorkspace } = useContext(workspaceContext);
   const [loading, setLoading] = useState(false);
   const [theTask, theTaskDispatch] = useReducer(taskReducer, undefined);
+  const [theTags, setTheTags] = useState([]);
+
   const taskTitleRef = useRef();
 
   useEffect(() => {
@@ -58,9 +62,23 @@ export default function Single({
         taskData = await getTask(singleTask, theWorkspace);
 
       setLoading(false);
-      theTaskDispatch({ type: "SET", payload: taskData });
+      theTaskDispatch({
+        type: "SET",
+        payload: { ...taskData, tags: taskData.tags?.map((item) => item.id) },
+      });
     })();
   }, [singleTask]);
+
+  useEffect(() => {
+    (async function () {
+      let usersList;
+
+      if (theWorkspace) {
+        const tagsList = await listTags({ workspaceId: theWorkspace });
+        setTheTags(tagsList.data);
+      }
+    })();
+  }, [theWorkspace]);
 
   const handleClose = () => {
     setSingleTask("");
@@ -100,6 +118,10 @@ export default function Single({
     theTaskDispatch({ type: "SET_DUE_DATE", payload: date });
   };
 
+  const handleTagsChange = (tags) => {
+    theTaskDispatch({ type: "SET_TAGS", payload: tags });
+  }
+
   const handleTaskSave = async () => {
     const newData = {
       title: theTask.title,
@@ -108,6 +130,7 @@ export default function Single({
       assignee: theTask?.assignee?.id,
       progress: theTask?.progress,
       colleagues: theTask.colleagues.map((item) => item.id),
+      tags: theTask.tags,
       dueDate: theTask.dueDate,
     };
 
@@ -213,16 +236,20 @@ export default function Single({
           <Right
             description={theTask?.description}
             handleDescriptionChange={handleDescriptionChange}
+            taskId={theTask?.id}
           />
           <Left
             dueDate={theTask?.dueDate ?? ""}
             assignee={theTask?.assignee ?? ""}
             progress={theTask?.progress ?? ""}
             colleages={theTask?.colleagues ?? []}
+            tags={theTask?.tags ?? []}
+            theTags={theTags}
             handleDueDateChange={handleDueDateChange}
             handleassigneeChange={handleassigneeChange}
             handleProgressChange={handleProgressChange}
             handleColleagesChange={handleColleagesChange}
+            handleTagsChange={handleTagsChange}
           />
         </section>
       </DialogContent>

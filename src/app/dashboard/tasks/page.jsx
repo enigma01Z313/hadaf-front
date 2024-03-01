@@ -5,11 +5,11 @@ import ListTable from "./components/Boards";
 import Single from "./components/Single";
 import NoSSR from "@/app/components/NoSSR";
 
-export default function Tasks() {
+export default function Tasks({ filteredUser, filteredMeMode }) {
   const [reloadList, setRealoadList] = useState(false);
-  const [singleTask, setSingleTask] = useState("")
-  const [columns, setColumns] = useState([])
-  const [tasksCount, setTasksCount] = useState(0)
+  const [singleTask, setSingleTask] = useState("");
+  const [columns, setColumns] = useState([]);
+  const [tasksCount, setTasksCount] = useState(0);
 
   return (
     <NoSSR>
@@ -19,6 +19,8 @@ export default function Tasks() {
         setSingleTask={setSingleTask}
         setColumns={setColumns}
         setTasksCount={setTasksCount}
+        filteredUser={filteredUser}
+        filteredMeMode={filteredMeMode}
       />
       {singleTask !== "" && (
         <Single
