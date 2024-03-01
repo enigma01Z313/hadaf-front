@@ -13,6 +13,13 @@ import ContactSupportIcon from "@mui/icons-material/ContactSupport";
 const menuItems = [
   {
     id: 10,
+    title: "کارتابل",
+    slug: "cartabl",
+    link: "/dashboard/cartable",
+    icon: DashboardIcon,
+  },
+  {
+    id: 20,
     title: "داشبورد",
     slug: "dashboard",
     link: "/dashboard",
@@ -33,14 +40,6 @@ const menuItems = [
         icon: PlaylistAddCheckIcon,
       },
     ],
-  },
-  {
-    id: 20,
-    title: "کارتابل",
-    slug: "cartabl",
-    link: "/dashboard/cartabl",
-    icon: DashboardIcon,
-    disabled: true,
   },
   {
     id: 40,
@@ -64,27 +63,27 @@ const menuItems = [
     disabled: true,
     icon: SupervisedUserCircleIcon,
   },
-  {
-    id: 60,
-    title: "اقدامک ها",
-    slug: "tasks",
-    link: "/dashboard/tasks",
-    icon: PlaylistAddCheckIcon,
-  },
-  {
-    id: 70,
-    title: "اهداف",
-    slug: "okr",
-    link: "/dashboard/okr",
-    icon: CrisisAlertIcon,
-  },
-  {
-    id: 80,
-    title: "KPI",
-    slug: "kpi",
-    link: "/dashboard/kpi",
-    icon: FlagCircleIcon,
-  },
+  // {
+  //   id: 60,
+  //   title: "اقدامک ها",
+  //   slug: "tasks",
+  //   link: "/dashboard/tasks",
+  //   icon: PlaylistAddCheckIcon,
+  // },
+  // {
+  //   id: 70,
+  //   title: "اهداف",
+  //   slug: "okr",
+  //   link: "/dashboard/okr",
+  //   icon: CrisisAlertIcon,
+  // },
+  // {
+  //   id: 80,
+  //   title: "KPI",
+  //   slug: "kpi",
+  //   link: "/dashboard/kpi",
+  //   icon: FlagCircleIcon,
+  // },
   {
     id: 90,
     title: "تحسین",

@@ -19,20 +19,17 @@ export default function Okr() {
   const [activeTimeframe, setActiveTimeframe] = useState();
   const [timeframes, setTimeframes] = useState([]);
   const [singleOkr, setSingleOkr] = useState("");
-  const [reloadList, setReloadList] = useState(false)
+  const [reloadList, setReloadList] = useState(false);
 
   useEffect(() => {
     (async function () {
       let timeframesList;
 
-      if ((theWorkspaceTimeframes?.length ?? 0) === 0) {
-        timeframesList = theWorkspace
-          ? await listTimeframes({ workspaceId: theWorkspace, raw: true })
-          : [];
+      timeframesList = theWorkspace
+        ? await listTimeframes({ workspaceId: theWorkspace, raw: true })
+        : [];
 
-        setTheWorkspaceTimeframes(timeframesList);
-      } else timeframesList = theWorkspaceTimeframes;
-
+      setTheWorkspaceTimeframes(timeframesList);
       setActiveTimeframe(timeframesList?.[0].id);
       setTimeframes(timeframesList);
     })();
@@ -63,6 +60,7 @@ export default function Okr() {
             setSingleOkr={setSingleOkr}
             saveCurrentOkr={saveCurrentOkr}
             reloadList={reloadList}
+            activeTimeframe={activeTimeframe}
           />
         </div>
       </div>
@@ -73,6 +71,7 @@ export default function Okr() {
           closePopup={closePopup}
           saveCurrentOkr={saveCurrentOkr}
           setReloadList={setReloadList}
+          timeframes={timeframes}
         />
       )}
     </>

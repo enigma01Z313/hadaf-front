@@ -13,7 +13,11 @@ import workspaceContext from "@/app/context/workspaceContext";
 
 import updateTask from "@/app/lib/tasks/update";
 
-export default function TasksRowMode({ tasks: { tasks }, setSingleTask }) {
+export default function TasksRowMode({
+  tasks: { tasks },
+  setSingleTask,
+  loading,
+}) {
   const { theWorkspace } = useContext(workspaceContext);
   const [searchTerm, setSeartTerm] = useState("");
 
@@ -26,10 +30,15 @@ export default function TasksRowMode({ tasks: { tasks }, setSingleTask }) {
   return (
     <>
       {tasks && (
-        <section className={`mt-2 wrapper-box ${styles["tasks-row"]}`}>
+        <section
+          className={`mt-2 wrapper-box 
+          ${styles["tasks-row"]}
+          ${loading ? "loading" : ""}`}
+        >
           <header className="d-flex justify-between align-center">
             <div
-              className={`d-flex align-center ${styles["row-search-wrapper"]}`}>
+              className={`d-flex align-center ${styles["row-search-wrapper"]}`}
+            >
               <Input
                 placeholder="جستجو..."
                 value={searchTerm}
@@ -60,24 +69,26 @@ export default function TasksRowMode({ tasks: { tasks }, setSingleTask }) {
                       <article
                         key={theTask.id}
                         className={`${index !== 0 ? "mt-2" : ""} p-2 
-                    ${styles["task-row-article"]}`}>
+                          ${styles["task-row-article"]}`}
+                      >
                         <header
                           className={`d-flex justify-between align-center mb-2 cursor-pointer`}
-                          onClick={() => setSingleTask(theTask.id)}>
+                          onClick={() => setSingleTask(theTask.id)}
+                        >
                           <span className="d-flex align-center">
                             <h4 className="text-h5 weight-500">
                               {theTask.title}
                             </h4>
                             <h5 className="mr-2">
                               تاریخ سررسید:{" "}
-                              {theTask.dueDate &&
+                              {(theTask.dueDate &&
                                 !Object.is(null, theTask.dueDate) &&
-                                `(${
-                                  format(
-                                    new Date(theTask.dueDate),
-                                    "yyyy/MM/dd"
-                                  ) || "-"
-                                })`}
+                                !Object.is(null, theTask.dueDate) &&
+                                `(${format(
+                                  new Date(theTask.dueDate),
+                                  "yyyy/MM/dd"
+                                )})`) ||
+                                "-"}
                             </h5>
                           </span>
                           <h5 className="ext-subtitle-1 weight-500">
@@ -85,6 +96,7 @@ export default function TasksRowMode({ tasks: { tasks }, setSingleTask }) {
                           </h5>
                         </header>
                         <IOSSlider
+                          key={`slider-${theTask.progress}`}
                           aria-label="ios slider"
                           defaultValue={theTask.progress ?? 0}
                           valueLabelDisplay="on"

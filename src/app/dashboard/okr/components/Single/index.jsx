@@ -36,6 +36,7 @@ export default function Single({
   closePopup,
   saveCurrentOkr,
   setReloadList,
+  timeframes,
 }) {
   const [loading, setLoading] = useState(false);
   const { theWorkspace, theUsers, setTheUsers, theWorkspaceTimeframes } =

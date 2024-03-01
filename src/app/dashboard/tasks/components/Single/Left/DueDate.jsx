@@ -16,9 +16,6 @@ export default function DueDate({ dueDate, className, handleDueDateChange }) {
 
   const dateChangeHandle = (val) => handleDueDateChange(val.toISOString());
 
-  console.log("4-------------------------");
-  console.log(dueDate);
-
   return (
     <div className={styles["task-config"]}>
       <div

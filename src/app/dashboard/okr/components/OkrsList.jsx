@@ -12,19 +12,24 @@ export default function OkrsList({
   setSingleOkr,
   saveCurrentOkr,
   reloadList,
+  activeTimeframe,
 }) {
   const [okrs, setOkrs] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { theWorkspace, setTheWorkspaceOkrs } = useContext(workspaceContext);
 
   useEffect(() => {
     (async function () {
-      const okrsList = theWorkspace ? await getOkrsList(theWorkspace) : [];
+      const okrsList =
+        theWorkspace && activeTimeframe
+          ? await getOkrsList(theWorkspace, activeTimeframe)
+          : [];
 
       setOkrs(okrsList);
       setTheWorkspaceOkrs(okrsList);
+      setLoading(false)
     })();
-  }, [theWorkspace, reloadList]);
+  }, [theWorkspace, activeTimeframe, reloadList]);
 
   const deleteOkrHandler = async (id) => {
     setLoading(true);
@@ -43,7 +48,8 @@ export default function OkrsList({
 
   return (
     <div
-      className={`${styles["okr-list-wrapper"]} ${loading ? "loading" : ""}`}>
+      className={`${styles["okr-list-wrapper"]} ${loading ? "loading" : ""}`}
+    >
       <ul>
         {okrs?.data
           ?.filter((okr) =>

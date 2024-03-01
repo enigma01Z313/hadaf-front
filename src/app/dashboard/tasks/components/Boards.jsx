@@ -21,12 +21,13 @@ export default function ListTable({
   const [newTaskTitle, setNewTaskTitle] = useState("");
   const [viewMode, setViewMode] = useState("column");
   const [filteredUser, setFilteredUser] = useState("all");
-  const [filteredMeMode, setFilteredMeMode] = useState(false)
+  const [filteredMeMode, setFilteredMeMode] = useState(false);
 
   const { theWorkspace } = useContext(workspaceContext);
 
   useEffect(() => {
     (async function () {
+      setLoading(true);
       const tasksList =
         theWorkspace.length !== 0
           ? await getTasksList(theWorkspace, filteredUser)
@@ -74,7 +75,8 @@ export default function ListTable({
           className={`
             ${styles["static-cols-count"]}
             ${styles["task-gp-wrapper"]}
-            ${loading ? "loading" : ""}`}>
+            ${loading ? "loading" : ""}`}
+        >
           {Object.keys(tasks).length !== 0 && (
             <Dnd
               createMode={createMode}
@@ -93,7 +95,11 @@ export default function ListTable({
         </div>
       )) ||
         (viewMode === "row" && (
-          <TasksRowMode tasks={tasks} setSingleTask={setSingleTask} />
+          <TasksRowMode
+            tasks={tasks}
+            setSingleTask={setSingleTask}
+            loading={loading}
+          />
         ))}
     </div>
   );

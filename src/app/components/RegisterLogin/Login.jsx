@@ -58,7 +58,7 @@ export default function Login({ setFormStatus }) {
         toast.error(user.error);
       } else {
         saveLoginData(user);
-        router.push(`/dashboard/tasks`);
+        router.push(`/dashboard/cartable`);
       }
     }
   };

@@ -44,6 +44,12 @@ export default function Single({
   const taskTitleRef = useRef();
 
   useEffect(() => {
+    setTimeout(function () {
+      if (singleTask === "create") taskTitleRef?.current?.focus();
+    }, 100);
+  }, []);
+
+  useEffect(() => {
     (async function () {
       let taskData = {};
       setLoading(true);
@@ -143,15 +149,14 @@ export default function Single({
     setLoading(false);
   };
 
-  if (singleTask === "create") taskTitleRef?.current?.focus();
-
   return (
     <Dialog
       maxWidth="md"
       fullWidth={true}
       open={open}
       onClose={handleClose}
-      PaperProps={{ classes: { root: loading ? "loading " : "over-visible" } }}>
+      PaperProps={{ classes: { root: loading ? "loading " : "over-visible" } }}
+    >
       <DialogTitle>
         <div className="d-flex no-wrap">
           <FormControl className="rtl-input p-relative w-100">
@@ -170,7 +175,8 @@ export default function Single({
             <FormControl
               id="task-stataus-select-wrap"
               fullWidth
-              variant="standard">
+              variant="standard"
+            >
               <Select
                 labelId="task-stataus-select-label"
                 id="task-stataus-select"
@@ -184,13 +190,15 @@ export default function Single({
                 }
                 label="وضعیت"
                 onChange={handleStatusChange}
-                className="text-body-2">
+                className="text-body-2"
+              >
                 {taskStatuses &&
                   Object.keys(taskStatuses).map((status) => {
                     return (
                       <MenuItem
                         key={taskStatuses[status].id}
-                        value={taskStatuses[status].id}>
+                        value={taskStatuses[status].id}
+                      >
                         {taskStatuses[status].title}
                       </MenuItem>
                     );
@@ -224,7 +232,8 @@ export default function Single({
           <>
             <TexedError
               onClick={handleDelete}
-              style={{ marginLeft: "auto", padding: "6px" }}>
+              style={{ marginLeft: "auto", padding: "6px" }}
+            >
               <DeleteIcon />
             </TexedError>
             <TexedError onClick={handleClose}>لغو</TexedError>
@@ -233,7 +242,8 @@ export default function Single({
         )) || (
           <TexedPrimary
             disabled={(theTask?.title?.length ?? 0) === 0}
-            onClick={handleTaskCreate}>
+            onClick={handleTaskCreate}
+          >
             افزودن
           </TexedPrimary>
         )}

@@ -24,7 +24,7 @@ export default function Header({
         variant="standard"
         placeholder="جستجو..."
       />
-      <div className="mr-4">بازه زمانی: </div>
+      {/* <div className="mr-4">بازه زمانی: </div>
       <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
         {timeframes && timeframes.length !== 0 && (
           <Select
@@ -38,7 +38,7 @@ export default function Header({
             ))}
           </Select>
         )}
-      </FormControl>
+      </FormControl> */}
       <ContainedPrimary
         className={"mr-auto"}
         onClick={() => setSingleKpi("create")}>
