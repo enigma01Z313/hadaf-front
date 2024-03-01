@@ -17,7 +17,7 @@ export default function List({ okrId }) {
   return (
     <div>
       {(logs.length === 0 && "چیزی برای نمایش وجود ندارد") ||
-        logs.map((log, index) => <Item key={index} />)}
+        logs?.map?.((log, index) => <Item key={index} />)}
     </div>
   );
 }
