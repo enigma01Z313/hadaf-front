@@ -83,7 +83,7 @@ export default function ActivateAccount({ setFormStatus }) {
         if (user.error) setResend(true);
         else {
           saveLoginData(user);
-          router.push("/dashboard");
+          router.push("/dashboard/okrsDashboard");
         }
       }
 

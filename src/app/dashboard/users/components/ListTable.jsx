@@ -11,13 +11,13 @@ import listColumns from "./listColumns";
 
 import permissionChec from "@/app/utils/permissionCheck";
 
-export default function ListTable({ setMode, reloadList }) {
+export default function ListTable({ setMode, reloadList, setSingleUserId }) {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [allUsers, setAllUsers] = useState(false);
 
   const { theWorkspace, theUsers, setTheUsers } = useContext(workspaceContext);
-  const columns = listColumns();
+  const columns = listColumns(setSingleUserId);
 
   useEffect(() => {
     (async function () {
@@ -43,7 +43,8 @@ export default function ListTable({ setMode, reloadList }) {
   return (
     <div
       className={`p-2 wrapper-box
-      ${loading ? "loading" : ""}`}>
+      ${loading ? "loading" : ""}`}
+    >
       <div className="d-flex justify-between align-center mb-2">
         <div className="d-flex align-center">
           <h3 className="">لیست کاربران</h3>
@@ -63,7 +64,8 @@ export default function ListTable({ setMode, reloadList }) {
             <TexedPrimary
               className="ml-2"
               onClick={() => setMode("addUserToWS")}
-              addUserToWorkspace={true}>
+              addUserToWorkspace={true}
+            >
               افزودن کاربر به فضای کاری
             </TexedPrimary>
           )}
@@ -71,21 +73,25 @@ export default function ListTable({ setMode, reloadList }) {
           <ContainedPrimary
             onClick={() =>
               setMode(isSuperAdmin || isAdmin ? "create" : "addUserToWS")
-            }>
+            }
+          >
             افزودن کاربر جدید
           </ContainedPrimary>
         </div>
       </div>
-      <DataGrid
-        rows={users}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 20 },
-          },
-        }}
-        pageSizeOptions={[5, 10]}
-      />
+
+      {users && (
+        <DataGrid
+          rows={users}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 20 },
+            },
+          }}
+          pageSizeOptions={[5, 10]}
+        />
+      )}
     </div>
   );
 }

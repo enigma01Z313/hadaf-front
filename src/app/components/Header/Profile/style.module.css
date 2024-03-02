@@ -4,7 +4,7 @@
 .profile-wrapper > div {
   position: absolute;
   top: calc(100% - 20px);
-  width: calc(100% + 50px);
+  width: 185px;
   left: 0;
   opacity: 0;
   visibility: hidden;

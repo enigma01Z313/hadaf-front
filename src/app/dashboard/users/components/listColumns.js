@@ -1,7 +1,15 @@
 import Link from "next/link";
 import EditIcon from "@mui/icons-material/Edit";
+import ApartmentIcon from "@mui/icons-material/Apartment";
 
-const listColumns = () => {
+import permissionChec from "@/app/utils/permissionCheck";
+
+import TexedInherit from "@/app/components/Button/TexedInherit";
+
+const isSuperAdmin = permissionChec("SUPER_USER");
+const isAdmin = permissionChec("ADMIN");
+
+const listColumns = (setSingleUserId) => {
   const columns = [
     // {
     //   field: "no",
@@ -69,12 +77,29 @@ const listColumns = () => {
         <Link
           className="w-100 text-center"
           href={`/dashboard/users/${data.row.id}`}
-          prefetch={false}>
+          prefetch={false}
+        >
           <EditIcon />
         </Link>
       ),
     },
   ];
+
+  if (isSuperAdmin || isAdmin) {
+    columns.push({
+      field: " ",
+      headerName: "لیست فضاهای کاری",
+      width: 130,
+      renderCell: (data) => (
+        <TexedInherit
+          className="w-100 justify-center"
+          onClick={() => setSingleUserId(data.row.id)}
+        >
+          <ApartmentIcon />
+        </TexedInherit>
+      ),
+    });
+  }
 
   return columns;
 };
