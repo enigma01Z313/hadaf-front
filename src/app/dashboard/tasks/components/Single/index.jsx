@@ -168,7 +168,7 @@ export default function Single({
     const colleages = theTask.colleagues?.map((item) => item.id);
     const assignee = theTask.assignee?.id;
     const progress = theTask.progress;
-    const repeat = theTask.repeatTask.code;
+    const repeat = theTask.repeat.code;
 
     setLoading(true);
     await createTask({
