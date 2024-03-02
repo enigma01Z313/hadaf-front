@@ -5,6 +5,7 @@ import Progress from "./Progress";
 import Colleages from "./Colleages";
 import DueDate from "./DueDate";
 import Tags from "./Tags";
+import Repeat from "./Repeat";
 
 export default function Left({
   dueDate,
@@ -13,11 +14,13 @@ export default function Left({
   colleages,
   tags,
   theTags,
+  repeat,
   handleDueDateChange,
   handleassigneeChange,
   handleProgressChange,
   handleColleagesChange,
   handleTagsChange,
+  handleRepeatChange
 }) {
   const changeHandlred = (key, value) => handleTagsChange(value);
 
@@ -44,6 +47,13 @@ export default function Left({
       <Colleages
         colleages={colleages}
         handleColleagesChange={handleColleagesChange}
+        className="mb-1"
+      />
+
+      <Repeat
+        repeat={repeat}
+        handleRepeatChange={handleRepeatChange}
+        className="mb-1"
       />
 
       <Tags

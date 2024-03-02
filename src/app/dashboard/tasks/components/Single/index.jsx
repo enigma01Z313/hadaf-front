@@ -120,6 +120,10 @@ export default function Single({
 
   const handleTagsChange = (tags) => {
     theTaskDispatch({ type: "SET_TAGS", payload: tags });
+  };
+
+  const handleRepeatChange = (repeat) => {
+    theTaskDispatch({ type: "SET_REPEAT", payload: repeat });
   }
 
   const handleTaskSave = async () => {
@@ -157,18 +161,14 @@ export default function Single({
       Object.values(taskStatuses)?.find((item) => item.title === "شروع نشده")
         ?.id;
     const order = tasksCount + 1;
-    const description = theTask.description
-    const dueDate = theTask.dueDate
-    const tags = theTask.tags
-    const colleages = theTask.colleagues?.map(item => item.id)
-    const assignee = theTask.assignee.id
-
-
-
-    console.log(theTask);
+    const description = theTask.description;
+    const dueDate = theTask.dueDate;
+    const tags = theTask.tags;
+    const colleages = theTask.colleagues?.map((item) => item.id);
+    const assignee = theTask.assignee?.id;
+    const progress = theTask.progress;
 
     setLoading(true);
-
     await createTask({
       newTaskTitle,
       statusId,
@@ -179,6 +179,7 @@ export default function Single({
       tags,
       colleages,
       assignee,
+      progress,
     });
     setRealoadList((state) => !state);
     setSingleTask("");
@@ -259,11 +260,13 @@ export default function Single({
             colleages={theTask?.colleagues ?? []}
             tags={theTask?.tags ?? []}
             theTags={theTags}
+            repeat={theTask?.repeatTask ?? 0}
             handleDueDateChange={handleDueDateChange}
             handleassigneeChange={handleassigneeChange}
             handleProgressChange={handleProgressChange}
             handleColleagesChange={handleColleagesChange}
             handleTagsChange={handleTagsChange}
+            handleRepeatChange={handleRepeatChange}
           />
         </section>
       </DialogContent>

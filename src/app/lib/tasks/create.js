@@ -13,6 +13,7 @@ const createTask = async (params) => {
     dueDate,
     tags,
     colleages,
+    progress,
   } = params;
   const tasksUrl = `workspaces/${workspaceId}/tasks`;
 
@@ -29,6 +30,7 @@ const createTask = async (params) => {
   if (dueDate) data.dueDate = dueDate;
   if (tags) data.tags = tags;
   if (colleages) data.colleagues = colleages;
+  if (progress) data.progress = progress;
 
   const newTask = await requests.post(tasksUrl, data);
 

@@ -16,8 +16,12 @@ export default function ListTable({ setMode, reloadList, setSingleUserId }) {
   const [loading, setLoading] = useState(true);
   const [allUsers, setAllUsers] = useState(false);
 
+  const isSuperAdmin = permissionChec("SUPER_USER");
+  const isAdmin = permissionChec("ADMIN");
+  const adminAccess = isSuperAdmin || isAdmin
+
   const { theWorkspace, theUsers, setTheUsers } = useContext(workspaceContext);
-  const columns = listColumns(setSingleUserId);
+  const columns = listColumns(setSingleUserId, adminAccess);
 
   useEffect(() => {
     (async function () {
@@ -36,9 +40,6 @@ export default function ListTable({ setMode, reloadList, setSingleUserId }) {
     })();
     // }, []);
   }, [reloadList, theWorkspace, allUsers]);
-
-  const isSuperAdmin = permissionChec("SUPER_USER");
-  const isAdmin = permissionChec("ADMIN");
 
   return (
     <div

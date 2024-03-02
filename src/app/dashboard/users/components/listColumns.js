@@ -2,14 +2,9 @@ import Link from "next/link";
 import EditIcon from "@mui/icons-material/Edit";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 
-import permissionChec from "@/app/utils/permissionCheck";
-
 import TexedInherit from "@/app/components/Button/TexedInherit";
 
-const isSuperAdmin = permissionChec("SUPER_USER");
-const isAdmin = permissionChec("ADMIN");
-
-const listColumns = (setSingleUserId) => {
+const listColumns = (setSingleUserId, adminAccess) => {
   const columns = [
     // {
     //   field: "no",
@@ -85,7 +80,7 @@ const listColumns = (setSingleUserId) => {
     },
   ];
 
-  if (isSuperAdmin || isAdmin) {
+  if (adminAccess) {
     columns.push({
       field: " ",
       headerName: "لیست فضاهای کاری",
