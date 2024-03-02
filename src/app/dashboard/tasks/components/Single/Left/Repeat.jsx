@@ -11,8 +11,6 @@ export default function Repeat({ repeat, handleRepeatChange, className }) {
   const repeatTypes = JSON.parse(localStorage.getItem("meta")).repeatTask;
   const [isEditting, setIsEditting] = useState(false);
 
-  console.log(repeatTypes);
-
   return (
     <div className={styles["task-config"]}>
       <div
