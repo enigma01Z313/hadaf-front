@@ -24,7 +24,7 @@ export default function Home() {
         ${styles["logo-side"]}`}>
         <Image
           className="mb-2 mx-2"
-          src="/logo.png"
+          src="/logoa.png"
           alt="خانه"
           width={200}
           height={68}
