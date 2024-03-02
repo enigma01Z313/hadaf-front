@@ -9,7 +9,7 @@ export default function Continuous({ value, changeHandlred, continuousList }) {
       fullWidth
       variant="standard"
       className="rtl-input p-relative grow-1 ml-2">
-      <InputLabel id="okr-continuous-select-label">تواتر</InputLabel>
+      <InputLabel id="okr-continuous-select-label">دوره</InputLabel>
       <Select
         labelId="okr-continuous-select-label"
         id="ork-continuous"

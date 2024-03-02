@@ -16,6 +16,7 @@
   background: #1A233A; 
   color: #eee;
   border-left: 1px solid #0000003b;
+  z-index: 10;
 }
 
 .main-side{

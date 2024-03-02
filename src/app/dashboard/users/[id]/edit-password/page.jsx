@@ -21,7 +21,6 @@ export default function User({ params }) {
   const passwordReRef = useRef();
 
   const [user, setUser] = useState({});
-  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [passwordError, setPasswordError] = useState();
   const [passwordReError, setPasswordReError] = useState();
@@ -31,10 +30,8 @@ export default function User({ params }) {
   useEffect(() => {
     (async function () {
       const userData = await getUser(params.id);
-      const usersList = await getUsersList();
 
       if (userData.imageId !== null) setImageId(userData.imageId);
-      setUsers(usersList);
       setUser(userData);
       setLoading(false);
     })();

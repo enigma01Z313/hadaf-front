@@ -9,6 +9,7 @@ import ContainedPrimary from "@/app/components/Button/ContainedPrimary";
 import DoupleActiveSwitch from "@/app/components/DoupleActiveSwitch";
 
 import getWorkspace from "@/app/lib/workspaces/get";
+import updateWorkspace from "@/app/lib/workspaces/update";
 
 export default function Info({params}) {
   const [workspace, setWorkspace] = useState({});

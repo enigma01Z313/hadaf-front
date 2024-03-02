@@ -157,6 +157,15 @@ export default function Single({
       Object.values(taskStatuses)?.find((item) => item.title === "شروع نشده")
         ?.id;
     const order = tasksCount + 1;
+    const description = theTask.description
+    const dueDate = theTask.dueDate
+    const tags = theTask.tags
+    const colleages = theTask.colleagues?.map(item => item.id)
+    const assignee = theTask.assignee.id
+
+
+
+    console.log(theTask);
 
     setLoading(true);
 
@@ -165,6 +174,11 @@ export default function Single({
       statusId,
       theWorkspace,
       order,
+      description,
+      dueDate,
+      tags,
+      colleages,
+      assignee,
     });
     setRealoadList((state) => !state);
     setSingleTask("");

@@ -9,7 +9,7 @@ export default function OkrTo({
   saveCurrentOkr,
 }) {
   return (
-    <div className={className} style={{ maxWidth: "40px" }}>
+    <div className={className} style={{ maxWidth: "100px" }}>
       <FormControl className="rtl-input p-relative w-100">
         <TextField
           id="okr-title"

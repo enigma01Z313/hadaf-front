@@ -22,7 +22,7 @@ const menuItems = [
     id: 20,
     title: "داشبورد",
     slug: "dashboard",
-    link: "/dashboard",
+    link: "/dashboard/okrsDashboard",
     icon: GridViewIcon,
     subMenu: [
       {
@@ -60,8 +60,8 @@ const menuItems = [
     title: "تیم ها",
     slug: "tams",
     link: "/dashboard/teams",
-    disabled: true,
     icon: SupervisedUserCircleIcon,
+    disabled: true,
   },
   // {
   //   id: 60,
