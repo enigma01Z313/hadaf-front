@@ -62,7 +62,7 @@ export default function Info({params}) {
     if (!hasError) {
       setLoading(true);
 
-      const { uppedWorkspace } = await updateWorkspace(workspace.id, {
+      const aa = await updateWorkspace(workspace.id, {
         name,
         membersNumber: +membersNumber,
         usageType,
