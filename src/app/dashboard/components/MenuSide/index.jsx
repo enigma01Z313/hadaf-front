@@ -24,8 +24,8 @@ export default function MenuSide({ smallMode, setSmallMode }) {
             className="mb-2 mx-2"
             src={`/logoa.png`}
             alt="خانه"
-            width={200}
-            height={68}
+            width={150}
+            height={53}
             style={{ filter: "brightness(0) invert(1)" }}
           />
         )}
