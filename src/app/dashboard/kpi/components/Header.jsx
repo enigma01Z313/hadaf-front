@@ -25,7 +25,7 @@ export default function Header({
       <div>
         <FormControlLabel
           onChange={(e) => {
-            if (e.target.checked) setKpiStatus(1);
+            if (!e.target.checked) setKpiStatus(1);
             else setKpiStatus(0);
           }}
           control={<Checkbox />}

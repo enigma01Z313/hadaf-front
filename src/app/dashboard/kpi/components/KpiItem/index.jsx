@@ -26,13 +26,10 @@ export default function KpiItem({
       ? calcCurrentorder(kpi.continuous.key)
       : kpi.realAmounts.current.order;
 
-      console.log('1--------------------------------');
-  console.log(kpi.realAmounts);
-
   return (
     <div className={`d-flex align-center py-1 text-body-2`}>
       <div style={{ width: "50px" }}>
-        <ArrowUpwardIcon />
+        <ArrowUpwardIcon style={{ fontSize: "1.1rem" }} />
       </div>
       <div className="grow-1 d-flex">
         {kpi.tags && (
@@ -79,7 +76,20 @@ export default function KpiItem({
         ></div>
       </div>
       <div style={{ width: "80px" }} className="text-center">
-        روند تغییر
+        {console.log(kpi)}
+        {(!Object.is(null, kpi.processOfchange.value) && (
+          <span
+            className="text-body-2"
+            style={{
+              color: kpi?.processOfchange?.status?.color,
+              direction: "ltr",
+            }}
+            dir="ltr"
+          >
+            {Math.floor(kpi?.processOfchange?.value * 100) / 100}%
+          </span>
+        )) ||
+          "-"}
       </div>
       <div
         style={{ width: "130px" }}

@@ -29,6 +29,7 @@ export default function Actions({
       calculationMethod: +kpi.calculationMethod.code,
       assignee: kpi.assignee.id,
       colleagues: kpi.colleagues.map((item) => item.id),
+      tags: kpi.tags.map(item => item.id)
     });
 
     setReloadList((state) => !state);
