@@ -1,7 +1,9 @@
-import React from 'react'
+import React from "react";
 
-export default function Item({log}) {
+export default function Item({ log, index }) {
   return (
-    <div>Item</div>
-  )
+    <div className={`text-caption ${index !== 0 ? "mt-1" : ""}`}>
+      {log.content}
+    </div>
+  );
 }

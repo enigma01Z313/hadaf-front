@@ -81,7 +81,11 @@ export default function TabsInfo({
         <Comments okrId={okrId} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        <Point okrId={okrId} description={description} />
+        <Point
+          okrId={okrId}
+          description={description}
+          changeHandlred={changeHandlred}
+        />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
         <Logs okrId={okrId} />

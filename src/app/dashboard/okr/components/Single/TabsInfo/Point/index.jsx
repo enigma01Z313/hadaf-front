@@ -6,13 +6,18 @@ import updateOkr from "@/app/lib/okr/update";
 
 import workspaceContext from "@/app/context/workspaceContext";
 
-export default function Point({ okrId, description }) {
+export default function Point({ okrId, description, changeHandlred }) {
   const { theWorkspace } = useContext(workspaceContext);
   const [val, setVal] = useState(description ?? "");
 
   const saveCurrentTask = async () => {
-    const newTask = await updateOkr(theWorkspace, okrId, { description: val });
-    toast.success("به روزرسانی با موفقیت انجام شد");
+    if (description !== val) {
+      const newTask = await updateOkr(theWorkspace, okrId, {
+        description: val,
+      });
+      toast.success("به روزرسانی با موفقیت انجام شد");
+      changeHandlred("description", val);
+    }
   };
 
   return (
