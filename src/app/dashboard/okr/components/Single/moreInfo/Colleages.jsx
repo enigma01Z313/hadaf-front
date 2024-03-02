@@ -56,7 +56,7 @@ export default function Colleages({
           input={<Input className="w-100" label={"همکاران"} />}
           renderValue={(selected) => {
             return selected
-              .map((i) => workspaceUsers.find((v) => v.id === i).fullName)
+              .map((i) => workspaceUsers?.find((v) => v.id === i)?.fullName)
               .join(", ");
           }}
           MenuProps={MenuProps}>

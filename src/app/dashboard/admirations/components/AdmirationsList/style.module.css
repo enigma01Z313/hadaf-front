@@ -1,5 +1,6 @@
 .admiration-item {
   max-width: calc((100% - 16px) / 2);
+  min-width: calc((100% - 16px) / 2);
   margin-left: 16px;
   position: relative;
 }

@@ -55,7 +55,7 @@ export default function Merits({
           input={<Input className="w-100" label={"ارزش ها"} />}
           renderValue={(selected) => {
             return selected
-              .map((i) => workspaceUsers.find((v) => v.id === i).title)
+              .map((i) => workspaceUsers?.find((v) => v.id === i)?.title)
               .join(", ");
           }}
           MenuProps={MenuProps}>

@@ -10,13 +10,26 @@ import MainMenu from "../MainMenu";
 export default function MenuSide({ smallMode, setSmallMode }) {
   return (
     <>
-      <Image
-        className="mb-2 mx-2"
-        src={`${smallMode ? "/logo-small.png" : "/logo.svg"}`}
-        alt="خانه"
-        width={smallMode ? 40 : 268}
-        height={40}
-      />
+      <div className="d-flex justify-center">
+        {(smallMode && (
+          <Image
+            className="mb-2 mx-2"
+            src={`/logo-smalla.png`}
+            alt="خانه"
+            width={40}
+            height={28}
+            style={{ filter: "brightness(0) invert(1)" }}
+          />)) || (
+          <Image
+            className="mb-2 mx-2"
+            src={`/logo.png`}
+            alt="خانه"
+            width={200}
+            height={68}
+            style={{ filter: "brightness(0) invert(1)" }}
+          />
+        )}
+      </div>
 
       <MainMenu smallMode={smallMode} />
 
@@ -24,7 +37,8 @@ export default function MenuSide({ smallMode, setSmallMode }) {
         href=""
         onClick={() => setSmallMode((state) => !state)}
         className="d-flex align-center px-2"
-        style={{ marginTop: "auto" }}>
+        style={{ marginTop: "auto" }}
+      >
         {(smallMode && (
           <ArrowCircleLeftIcon style={{ fontSize: "40px" }} />
         )) || (

@@ -40,7 +40,7 @@ export default function Receivers({ workspaceUsers, values, changeHandlred }) {
           input={<Input className="w-100" label={"به"} />}
           renderValue={(selected) => {
             return selected
-              .map((i) => workspaceUsers.find((v) => v.id === i).fullName)
+              .map((i) => workspaceUsers?.find((v) => v.id === i)?.fullName)
               .join(", ");
           }}>
           {workspaceUsers.map((user, i) => (

@@ -24,10 +24,10 @@ export default function Home() {
         ${styles["logo-side"]}`}>
         <Image
           className="mb-2 mx-2"
-          src="/logo.svg"
+          src="/logo.png"
           alt="خانه"
-          width={268}
-          height={40}
+          width={200}
+          height={68}
         />
       </div>
       <div className="w-50 d-flex justify-center align-center direction-column">
