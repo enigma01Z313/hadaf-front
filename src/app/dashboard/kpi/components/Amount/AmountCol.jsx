@@ -15,6 +15,7 @@ export default function AmountCol({
   setActiveOrder,
   handleChange,
   handleAmountUpdate,
+  disabled
 }) {
   const [diff, setDiff] = useState("-");
 
@@ -43,6 +44,7 @@ export default function AmountCol({
         <span style={{ fontSize: "12px" }}>{amount.label2}</span>
       </div>
       <input
+        key={`real-${amount.order}`}
         type="text"
         className={`text-center 
           ${calcColor(
@@ -54,14 +56,17 @@ export default function AmountCol({
         value={amounts[amount.order].realAmount}
         onChange={(e) => handleChange(amount.order, "realAmount", e, true)}
         onBlur={() => handleAmountUpdate(amount.order)}
+        disabled={disabled}
       />
       <input
+        key={`target-${amount.order}`}
         type="text"
         className="text-center"
         style={{ maxWidth: "85px", marginBottom: "10px" }}
         value={amounts[amount.order].expAmount}
         onChange={(e) => handleChange(amount.order, "expAmount", e, true)}
         onBlur={() => handleAmountUpdate(amount.order)}
+        disabled={disabled}
       />
       <span
         className={`w-100 text-center text-body-2

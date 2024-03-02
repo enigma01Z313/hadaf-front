@@ -26,6 +26,9 @@ export default function KpiItem({
       ? calcCurrentorder(kpi.continuous.key)
       : kpi.realAmounts.current.order;
 
+      console.log('1--------------------------------');
+  console.log(kpi.realAmounts);
+
   return (
     <div className={`d-flex align-center py-1 text-body-2`}>
       <div style={{ width: "50px" }}>

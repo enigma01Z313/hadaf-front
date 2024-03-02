@@ -54,7 +54,7 @@ export default function KRItem({
   const saveCurrentKR = async () => {
     if (!isNew && !createMode) {
       setLoading(true);
-      await updateKR(okrId, krData.id, theKR);
+      await updateKR(okrId, krData.id, {...theKR, direction: theKR.direction.code});
       const uppedOkr = await getOkr(theWorkspace, okrId);
 
       setTheOkr({

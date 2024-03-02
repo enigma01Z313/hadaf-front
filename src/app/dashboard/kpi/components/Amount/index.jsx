@@ -58,8 +58,6 @@ export default function Amount({
 
       const currentOrder = calcCurrentorder(continuous);
 
-      console.log("1--------------------");
-      console.log(validDaysArr);
       if (validDays) {
         const rounDays = Math.floor(currentOrder / 7) * 7;
         const availableDaysCount = (rounDays / 7) * validDays.length;
@@ -71,12 +69,6 @@ export default function Amount({
         const newPatchIndex = Math.floor(
           (availableDaysCount + reamainDays) / 5
         );
-
-        console.log(currentOrder);
-        console.log(rounDays);
-        console.log(availableDaysCount);
-        console.log(reamainDays);
-        console.log(newPatchIndex);
 
         currentPatchIndex = Math.floor(currentOrder / 5);
       } else {
@@ -288,6 +280,8 @@ export default function Amount({
     setLoading(false);
   };
 
+  const curOrder = calcCurrentorder(continuous)
+
   return (
     <Dialog
       maxWidth="sm"
@@ -333,6 +327,7 @@ export default function Amount({
                   setActiveOrder={setActiveOrder}
                   handleChange={handleChange}
                   handleAmountUpdate={handleAmountUpdate}
+                  disabled={amount.order >= curOrder}
                 />
               );
             })}
