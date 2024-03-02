@@ -46,7 +46,7 @@ export default function KpisList({
             ردیف
           </div>
           <div className="grow-1">نام</div>
-          <div style={{ width: "100px" }} className="text-center">
+          <div style={{ width: "120px" }} className="text-center">
             دوره جاری
           </div>
           <div style={{ width: "110px" }} className="text-center">

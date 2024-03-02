@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 import CurrentPeriod from "./CurrentPeriod";
@@ -28,20 +28,24 @@ export default function KpiItem({
 
   return (
     <div className={`d-flex align-center py-1 text-body-2`}>
-      {kpi.tags && (
-        <div className="tag-lines">
-          {kpi.tags.map((tag) => (
-            <div
-              key={tag.id}
-              className="tag-line"
-              style={{ "--bg-color": tag.color ?? "#ccc" }}
-            ></div>
-          ))}
-        </div>
-      )}
-      <div style={{ width: "50px" }}>{rowNum}.</div>
-      <div className="grow-1">{kpi.name}</div>
-      <div className="text-center" style={{ width: "100px" }}>
+      <div style={{ width: "50px" }}>
+        <ArrowUpwardIcon />
+      </div>
+      <div className="grow-1 d-flex">
+        {kpi.tags && (
+          <div className="tag-lines">
+            {kpi.tags.map((tag) => (
+              <div
+                key={tag.id}
+                className="tag-line"
+                style={{ "--bg-color": tag.color ?? "#ccc" }}
+              ></div>
+            ))}
+          </div>
+        )}
+        {kpi.name}
+      </div>
+      <div className="text-center" style={{ width: "120px" }}>
         <CurrentPeriod continuous={kpi.continuous} />
       </div>
       <div
