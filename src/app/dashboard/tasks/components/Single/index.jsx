@@ -124,7 +124,7 @@ export default function Single({
 
   const handleRepeatChange = (repeat) => {
     theTaskDispatch({ type: "SET_REPEAT", payload: repeat });
-  }
+  };
 
   const handleTaskSave = async () => {
     const newData = {
@@ -136,6 +136,7 @@ export default function Single({
       colleagues: theTask.colleagues.map((item) => item.id),
       tags: theTask.tags,
       dueDate: theTask.dueDate,
+      repeat: theTask.repeat.code
     };
 
     setLoading(true);
@@ -167,6 +168,7 @@ export default function Single({
     const colleages = theTask.colleagues?.map((item) => item.id);
     const assignee = theTask.assignee?.id;
     const progress = theTask.progress;
+    const repeat = theTask.repeatTask.code;
 
     setLoading(true);
     await createTask({
@@ -180,6 +182,7 @@ export default function Single({
       colleages,
       assignee,
       progress,
+      repeat,
     });
     setRealoadList((state) => !state);
     setSingleTask("");
@@ -260,7 +263,7 @@ export default function Single({
             colleages={theTask?.colleagues ?? []}
             tags={theTask?.tags ?? []}
             theTags={theTags}
-            repeat={theTask?.repeatTask ?? 0}
+            repeat={theTask?.repeat ?? 0}
             handleDueDateChange={handleDueDateChange}
             handleassigneeChange={handleassigneeChange}
             handleProgressChange={handleProgressChange}

@@ -22,8 +22,7 @@ const taskReducer = (state, action) => {
 
   if (action.type === "SET_TAGS") return { ...state, tags: action.payload };
 
-  if (action.type === "SET_REPEAT")
-    return { ...state, repeatTask: action.payload };
+  if (action.type === "SET_REPEAT") return { ...state, repeat: action.payload };
 
   return state;
 };
