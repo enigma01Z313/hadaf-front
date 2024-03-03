@@ -99,6 +99,9 @@ export default function User({ params }) {
       setPasswordError("حداقل 8 کارکتر و استفاده از حروف انگلیسی کوچک و بزرگ");
     }
 
+    console.log(passwordRef.current.value);
+    console.log(passwordReRef.current.value);
+
     if (
       passwordRef.current.value !== "" &&
       passwordRef.current.value !== passwordReRef.current.value

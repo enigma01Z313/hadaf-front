@@ -76,8 +76,6 @@ export default function User({ params }) {
     const usageType = usage === 0 ? 1 : 0;
 
     if (!hasError) {
-      passwordRef.current.value = ''
-      passwordReRef.current.value = ''
       setLoading(true);
 
       const uppedUser = await updateUser(user.id, {
@@ -94,6 +92,8 @@ export default function User({ params }) {
 
       toast.success('به روزرسانی با موفقیت انجام شد.')
 
+      passwordRef.current.value = ''
+      passwordReRef.current.value = ''
       setLoading(false);
     }
   };
