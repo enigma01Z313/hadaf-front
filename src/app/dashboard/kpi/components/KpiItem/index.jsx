@@ -107,6 +107,7 @@ export default function KpiItem({
             kpi.thresholdsFour,
           ]}
           direction={kpi.direction.code}
+          setReloadList={setReloadList}
         />
         <AmountEdit
           value={kpi.realAmounts.current.amount}
@@ -120,6 +121,7 @@ export default function KpiItem({
             kpi.thresholdsFour,
           ]}
           direction={kpi.direction.code}
+          setReloadList={setReloadList}
         />
       </div>
 
@@ -143,6 +145,7 @@ export default function KpiItem({
               setLoading={setLoading}
               setReloadList={setReloadList}
               setOpenAmount={setOpenAmount}
+              status={kpi.status}
             />
           </>
         )}

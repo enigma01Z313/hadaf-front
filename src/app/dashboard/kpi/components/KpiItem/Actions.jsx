@@ -15,8 +15,10 @@ export default function Actions({
   setLoading,
   setReloadList,
   setOpenAmount,
+  status,
 }) {
   const { theWorkspace } = useContext(workspaceContext);
+
   const deactiveKpi = async () => {
     setLoading(true);
     setOpenedActions("");
@@ -35,6 +37,25 @@ export default function Actions({
     setReloadList((state) => !state);
     setLoading(false);
   };
+
+  const activeKpi = async () => {
+    setLoading(true);
+    setOpenedActions("");
+
+    await updateKpi(theWorkspace, kpiId, {
+      ...kpi,
+      status: 1,
+      continuous: +kpi.continuous.code,
+      direction: +kpi.direction.code,
+      calculationMethod: +kpi.calculationMethod.code,
+      assignee: kpi.assignee.id,
+      colleagues: kpi.colleagues.map((item) => item.id),
+      tags: kpi.tags.map(item => item.id)
+    });
+
+    setReloadList((state) => !state);
+    setLoading(false);
+  }
 
   const handleDeleteKpi = async () => {
     setLoading(true);
@@ -71,12 +92,18 @@ export default function Actions({
         onClick={handleAmountOpen}>
         مقادیر
       </div>
-      <div
+      {status.code === 0 && <div
+        className={`px-3 py-1 ${styles["actions-item"]}`}
+        style={{ color: "green" }}
+        onClick={activeKpi}>
+        فعال سازی
+      </div> || <div
         className={`px-3 py-1 ${styles["actions-item"]}`}
         style={{ color: "orange" }}
         onClick={deactiveKpi}>
         غیر فعال سازی
-      </div>
+      </div>}
+      
       <div
         className={`px-3 py-1 ${styles["actions-item"]}`}
         style={{ color: "red" }}

@@ -304,8 +304,8 @@ export default function Amount({
 
         <div className="d-flex no-wrap">
           <div className="d-flex direction-column mt-4 ml-2">
-            <div style={{ marginBottom: "10px" }}>واقعی</div>
-            <div style={{ marginBottom: "10px" }}>هدف</div>
+            <div style={{ marginBottom: "15px", marginTop: "20px" }}>واقعی</div>
+            <div style={{ marginBottom: "2px" }}>هدف</div>
             <div>تغییرات(٪)</div>
           </div>
           {Object.values(amounts)

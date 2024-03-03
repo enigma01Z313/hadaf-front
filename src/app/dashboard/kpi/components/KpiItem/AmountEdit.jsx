@@ -11,6 +11,7 @@ export default function AmountEdit({
   amountId,
   threshholds,
   direction,
+  setReloadList
 }) {
   const [amount, setAmount] = useState(value);
   const [id, setId] = useState(amountId);
@@ -28,10 +29,13 @@ export default function AmountEdit({
 
       setId(newAmount.id);
     } else {
-      const uppedAmount = await updateAmount(kpiId, id, {
-        realAmount: +amount,
-      });
+      if(+amount !== value){
+        const uppedAmount = await updateAmount(kpiId, id, {
+          realAmount: +amount,
+        });
+      }
     }
+    setReloadList(state => !state)
   };
 
   const colorClass = calcColor(amount, threshholds, direction);
