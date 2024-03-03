@@ -5,6 +5,7 @@ const workspaceContext = createContext();
 export const WorkspaceContextProvider = ({ children }) => {
   const [theWorkspace, setTheWorkspace] = useState();
   const [theUsers, setTheUsers] = useState({ data: [], total: 0 });
+  const [theTeams, setTheTeams] = useState({ data: [], total: 0 });
   const [theMerits, setTheMerits] = useState({ data: [], total: 0 });
   const [theWorkspaceTimeframes, setTheWorkspaceTimeframes] = useState([]);
   const [theWorkspaceOkrs, setTheWorkspaceOkrs] = useState([]);
@@ -23,6 +24,8 @@ export const WorkspaceContextProvider = ({ children }) => {
         setTheWorkspace,
         theUsers,
         setTheUsers,
+        theTeams,
+        setTheTeams,
         theUser,
         setTheUser,
         theMerits,

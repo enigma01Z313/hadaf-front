@@ -61,7 +61,6 @@ const menuItems = [
     slug: "tams",
     link: "/dashboard/teams",
     icon: SupervisedUserCircleIcon,
-    disabled: true,
   },
   // {
   //   id: 60,

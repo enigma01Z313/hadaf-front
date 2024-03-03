@@ -1,21 +1,29 @@
 "use client";
 
 import React, { useState } from "react";
-import ListTable from "./components/ListTable";
-// import Create from "./components/Create";
 import NoSSR from "@/app/components/NoSSR";
+import ListTable from "./components/ListTable";
+import Single from "./components/Single";
 
 export default function Team() {
+  const [singleTeam, setSingleTeam] = useState("");
+  const [reloadList, setReloadList] = useState(true)
+
+  const closePopup = () => setSingleTeam("")
+
   return (
     <NoSSR>
-      <ListTable setMode={setMode} reloadList={reloadList} />
-      {/* {mode === "create" && (
-        <Create
-          open={mode === "create"}
-          setMode={setMode}
-          setRealoadList={setRealoadList}
+      <ListTable setSingleTeam={setSingleTeam} reloadList={reloadList} />
+
+      {singleTeam !== "" && (
+        <Single
+          setSingleTeam={setSingleTeam}
+          singleTeam={singleTeam}
+          closePopup={closePopup}
+          setReloadList={setReloadList}
         />
-      )}  */}
+      )}
+      
     </NoSSR>
   );
 }

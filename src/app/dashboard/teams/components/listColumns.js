@@ -1,7 +1,9 @@
 import Link from "next/link";
 import EditIcon from "@mui/icons-material/Edit";
+import { format } from "date-fns-jalali-3";
+import TexedInherit from "@/app/components/Button/TexedInherit";
 
-const listColumns = () => {
+const listColumns = (setSingleTeam) => {
   const columns = [
     // {
     //   field: "no",
@@ -18,30 +20,28 @@ const listColumns = () => {
       field: "name",
       headerName: "نام",
       width: 170,
-      renderCell: (data) => (
-        <Link href={`/dashboard/workspaces/${data.row.id}`} prefetch={false}>
-          {data.row.name}
-        </Link>
-      ),
+      renderCell: (data) => data.row.name,
     },
-    { field: "membersNumber", headerName: "تعداد اعضا", width: 130 },
     {
-      field: "usage",
-      headerName: "نوع استفاده",
-      width: 160,
-      valueGetter: (data) => `${data?.row?.usageType?.label || ""}`,
+      field: "target",
+      headerName: "هدف تیم",
+      width: 170,
+      renderCell: (data) => data.row.target,
+    },
+    {
+      field: "createdAt",
+      headerName: "تاریخ ایجاد",
+      width: 170,
+      renderCell: (data) => format(new Date(data.row.createdAt), "yyyy/MM/d"),
     },
     {
       field: "",
       headerName: "ویرایش",
       width: 70,
       renderCell: (data) => (
-        <Link
-          className="w-100 text-center"
-          href={`/dashboard/workspaces/${data.row.id}`}
-          prefetch={false}>
+        <TexedInherit onClick={() => setSingleTeam(data.row.id)}>
           <EditIcon />
-        </Link>
+        </TexedInherit>
       ),
     },
   ];

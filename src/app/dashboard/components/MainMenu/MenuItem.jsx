@@ -13,6 +13,7 @@ export default function MenuItem({ item, disabled, subMenu, ...rest }) {
           {item.icon && (
             <item.icon className="ml-1" style={{ marginRight: "7px" }} />
           )}
+
           {item.image && (
             <Image
               className="ml-1"
@@ -23,6 +24,7 @@ export default function MenuItem({ item, disabled, subMenu, ...rest }) {
               style={{ marginRight: "7px" }}
             />
           )}
+          
           <span>{item.title}</span>
         </span>
       )) || (
