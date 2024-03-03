@@ -80,7 +80,7 @@ export default function ForgetPassword({setFormStatus}) {
     setLoading(false);
     if (!user.error) {
       saveLoginData(user);
-      router.push(`/dashboard`);
+      router.push("/dashboard/okrsDashboard");
     }else{
       setResetDigits(state => !state)
       toast.error(user.error)
