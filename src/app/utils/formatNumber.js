@@ -1,5 +1,5 @@
 const formatReadableNumber = (number) => {
-  if (!number) return "";
+  if (typeof number === typeof undefined) return "";
 
   const arr = String(number).split("");
   const arr2 = arr.reverse();
@@ -10,7 +10,7 @@ const formatReadableNumber = (number) => {
     arr3.push(v);
   });
 
-  return arr3.reverse().join('');
+  return arr3.reverse().join("");
 };
 
 export default formatReadableNumber;

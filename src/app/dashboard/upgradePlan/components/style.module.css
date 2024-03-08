@@ -1,0 +1,6 @@
+.plan-item{
+    border-radius: 0;
+}
+.plan-item.active{
+    background: #01579B;
+}
