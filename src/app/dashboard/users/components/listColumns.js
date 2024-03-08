@@ -3,8 +3,15 @@ import EditIcon from "@mui/icons-material/Edit";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 
 import TexedInherit from "@/app/components/Button/TexedInherit";
+import TexedError from "@/app/components/Button/TextedError";
+import TextedInfo from "@/app/components/Button/TextedInfo";
 
-const listColumns = (setSingleUserId, adminAccess) => {
+const listColumns = (
+  setSingleUserId,
+  adminAccess,
+  handleActivate,
+  handleDeactivate
+) => {
   const columns = [
     // {
     //   field: "no",
@@ -22,7 +29,15 @@ const listColumns = (setSingleUserId, adminAccess) => {
       headerName: "نام کامل",
       width: 170,
       renderCell: (data) => (
-        <Link href={`/dashboard/users/${data.row.id}`} prefetch={false}>
+        <Link
+          href={`/dashboard/users/${data.row.id}`}
+          prefetch={false}
+          style={{
+            opacity: data.row.status.code === 0 ? ".5" : 1,
+            textDecoration:
+              data.row.status.code === 0 ? "line-through" : "none",
+          }}
+        >
           {data.row.fullName}
         </Link>
       ),
@@ -32,7 +47,15 @@ const listColumns = (setSingleUserId, adminAccess) => {
       headerName: "شماره تماس",
       width: 120,
       renderCell: (data) => (
-        <Link href={`/dashboard/users/${data.row.id}`} prefetch={false}>
+        <Link
+          href={`/dashboard/users/${data.row.id}`}
+          prefetch={false}
+          style={{
+            opacity: data.row.status.code === 0 ? ".5" : 1,
+            textDecoration:
+              data.row.status.code === 0 ? "line-through" : "none",
+          }}
+        >
           {data.row.phone}
         </Link>
       ),
@@ -42,7 +65,15 @@ const listColumns = (setSingleUserId, adminAccess) => {
       headerName: "ایمیل",
       width: 220,
       renderCell: (data) => (
-        <Link href={`/dashboard/users/${data.row.id}`} prefetch={false}>
+        <Link
+          href={`/dashboard/users/${data.row.id}`}
+          prefetch={false}
+          style={{
+            opacity: data.row.status.code === 0 ? ".5" : 1,
+            textDecoration:
+              data.row.status.code === 0 ? "line-through" : "none",
+          }}
+        >
           {data.row.email}
         </Link>
       ),
@@ -95,6 +126,22 @@ const listColumns = (setSingleUserId, adminAccess) => {
       ),
     });
   }
+
+  columns.push({
+    field: "  ",
+    headerName: "عملیات",
+    width: 120,
+    renderCell: (data) =>
+      (data.row.status.code === 0 && (
+        <TextedInfo onClick={() => handleActivate(data.row.id)}>
+          فعال کردن
+        </TextedInfo>
+      )) || (
+        <TexedError onClick={() => handleDeactivate(data.row.id)}>
+          غیر فعلا کردن
+        </TexedError>
+      ),
+  });
 
   return columns;
 };

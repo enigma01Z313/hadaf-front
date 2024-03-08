@@ -10,6 +10,8 @@ export default function KeyResults({
   okrId,
   setLoading,
   createMode,
+  singleOkr,
+  setReloadList,
 }) {
   const addNewKr = (newKr) => {
     setTheOkr((state) => {
@@ -43,6 +45,8 @@ export default function KeyResults({
           okrId={okrId}
           setLoading={setLoading}
           createMode={createMode}
+          singleOkr={singleOkr}
+          setReloadList={setReloadList}
         />
       ))}
       <KRItem
@@ -52,6 +56,9 @@ export default function KeyResults({
         keyResultsL={keyResults.length}
         addNewKr={addNewKr}
         createMode={createMode}
+        singleOkr={singleOkr}
+        setLoading={setLoading}
+        setReloadList={setReloadList}
       />
     </section>
   );

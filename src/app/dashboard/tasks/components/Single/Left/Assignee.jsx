@@ -2,13 +2,16 @@ import React, { useState, useEffect, useContext } from "react";
 
 import CloseIcon from "@mui/icons-material/Close";
 import { TextField } from "@mui/material";
-import Devider from "@/app/components/Devider";
 import TexedInherit from "@/app/components/Button/TexedInherit";
-import workspaceContext from "@/app/context/workspaceContext";
-import getUsersList from "@/app/lib/users/list";
 import CheckIcon from "@mui/icons-material/Check";
 
+import workspaceContext from "@/app/context/workspaceContext";
+
+import Devider from "@/app/components/Devider";
 import styles from "./style.module.css";
+
+import getUsersList from "@/app/lib/users/list";
+import getTeams from "@/app/lib/workspaces/team/list";
 
 export default function Assignee({
   assignee,
@@ -19,13 +22,20 @@ export default function Assignee({
 
   const [isEditting, setIsEditting] = useState(false);
   const [workspaceUsers, setWorkspaceUsers] = useState([]);
+  const [workspaceTeams, setWorkspaceTeams] = useState([]);
 
   useEffect(() => {
     (async function () {
       const usersList = await getUsersList(theWorkspace);
+      const teamsList = await getTeams(theWorkspace);
+
       setWorkspaceUsers({
         ...usersList,
         data: usersList.data.map((user) => ({ ...user, isFiltered: true })),
+      });
+      setWorkspaceTeams({
+        ...teamsList,
+        data: teamsList.data.map((user) => ({ ...user, isFiltered: true })),
       });
     })();
   }, []);
@@ -43,12 +53,17 @@ export default function Assignee({
     setWorkspaceUsers((state) => ({ ...state, data: newUsers }));
   };
 
+  console.log("4-------------------------------------");
+  console.log(workspaceUsers);
+  console.log(workspaceTeams);
+
   return (
     <div className={styles["task-config"]}>
       <div
         onClick={() => setIsEditting(true)}
-        className={`${className} wrapper-box2 cursor-pointer`}>
-        منصوب به: {assignee.fullName}
+        className={`${className} wrapper-box2 cursor-pointer`}
+      >
+        منصوب به: {assignee?.fullName ?? `تیم ${assignee?.name}` ?? ""}
       </div>
 
       {isEditting && (
@@ -57,11 +72,13 @@ export default function Assignee({
             className={styles["fixed-overlay"]}
             onClick={() => {
               setIsEditting(false);
-            }}></div>
+            }}
+          ></div>
           <article className={`wrapper-box ${styles["config-box"]}`}>
             <TexedInherit
               onClick={() => setIsEditting(false)}
-              className={`p-1 ${styles["close-config"]}`}>
+              className={`p-1 ${styles["close-config"]}`}
+            >
               <CloseIcon style={{ fontSize: "18px" }} />
             </TexedInherit>
             <header className="w-100 text-center mt-1">اعضا</header>
@@ -72,10 +89,10 @@ export default function Assignee({
                 variant="standard"
                 placeholder="جستجو اعضا..."
                 onChange={handleSearch}
-                inputProps={{className: "text-subtitle-3"}}
+                inputProps={{ className: "text-subtitle-3" }}
               />
 
-              <div className={`py-1 ${styles["assignee-users"]}`}>
+              <div className={`py-1 ${styles["assignees"]}`}>
                 {workspaceUsers.data
                   .filter((user) => user.isFiltered)
                   .map((user) => (
@@ -83,7 +100,8 @@ export default function Assignee({
                       className={`text-subtitle-3 p-1 d-flex justify-between no-wrap 
                       ${styles["assignee-user"]}
                       ${assignee.id === user.id ? styles["checked"] : ""}`}
-                      key={user.id}>
+                      key={user.id}
+                    >
                       <div
                         onClick={() => {
                           handleassigneeChange({
@@ -91,10 +109,35 @@ export default function Assignee({
                             fullName: user.fullName,
                           });
                           setIsEditting(false);
-                        }}>
+                        }}
+                      >
                         {user.fullName} ({user.email})
                       </div>
                       {assignee.id === user.id && <CheckIcon />}
+                    </div>
+                  ))}
+
+                {workspaceTeams.data
+                  .filter((team) => team.isFiltered)
+                  .map((team) => (
+                    <div
+                      className={`text-subtitle-3 p-1 d-flex justify-between no-wrap 
+                        ${styles["assignee-team"]}
+                        ${assignee.id === team.id ? styles["checked"] : ""}`}
+                      key={team.id}
+                    >
+                      <div
+                        onClick={() => {
+                          handleassigneeChange({
+                            id: team.id,
+                            name: team.name,
+                          });
+                          setIsEditting(false);
+                        }}
+                      >
+                        تیم: {team.name}
+                      </div>
+                      {assignee.id === team.id && <CheckIcon />}
                     </div>
                   ))}
               </div>

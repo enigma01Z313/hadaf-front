@@ -2,8 +2,10 @@ import Link from "next/link";
 import EditIcon from "@mui/icons-material/Edit";
 import { format } from "date-fns-jalali-3";
 import TexedInherit from "@/app/components/Button/TexedInherit";
+import TexedError from "@/app/components/Button/TextedError";
+import TextedInfo from "@/app/components/Button/TextedInfo";
 
-const listColumns = (setSingleTeam) => {
+const listColumns = (setSingleTeam, handleActivate, handleDeactivate) => {
   const columns = [
     // {
     //   field: "no",
@@ -20,19 +22,49 @@ const listColumns = (setSingleTeam) => {
       field: "name",
       headerName: "نام",
       width: 170,
-      renderCell: (data) => data.row.name,
+      renderCell: (data) => (
+        <span
+          style={{
+            opacity: data.row.status.code === 0 ? ".5" : 1,
+            textDecoration:
+              data.row.status.code === 0 ? "line-through" : "none",
+          }}
+        >
+          {data.row.name}
+        </span>
+      ),
     },
     {
       field: "target",
       headerName: "هدف تیم",
       width: 170,
-      renderCell: (data) => data.row.target,
+      renderCell: (data) => (
+        <span
+          style={{
+            opacity: data.row.status.code === 0 ? ".5" : 1,
+            textDecoration:
+              data.row.status.code === 0 ? "line-through" : "none",
+          }}
+        >
+          {data.row.target}
+        </span>
+      ),
     },
     {
       field: "createdAt",
       headerName: "تاریخ ایجاد",
       width: 170,
-      renderCell: (data) => format(new Date(data.row.createdAt), "yyyy/MM/d"),
+      renderCell: (data) => (
+        <span
+          style={{
+            opacity: data.row.status.code === 0 ? ".5" : 1,
+            textDecoration:
+              data.row.status.code === 0 ? "line-through" : "none",
+          }}
+        >
+          {format(new Date(data.row.createdAt), "yyyy/MM/d")}
+        </span>
+      ),
     },
     {
       field: "",
@@ -43,6 +75,21 @@ const listColumns = (setSingleTeam) => {
           <EditIcon />
         </TexedInherit>
       ),
+    },
+    {
+      field: " ",
+      headerName: "عملیات",
+      width: 120,
+      renderCell: (data) =>
+        (data.row.status.code === 0 && (
+          <TextedInfo onClick={() => handleActivate(data.row.id)}>
+            فعال کردن
+          </TextedInfo>
+        )) || (
+          <TexedError onClick={() => handleDeactivate(data.row.id)}>
+            غیر فعلا کردن
+          </TexedError>
+        ),
     },
   ];
 

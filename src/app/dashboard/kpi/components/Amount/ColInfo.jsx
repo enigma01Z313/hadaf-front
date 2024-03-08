@@ -20,9 +20,11 @@ export default function ColInfo({
     setValue(description);
 
     (async function () {
-      const amountLog = await getAmountLogs(amountId);
+      if (amountId && amountId !== -1) {
+        const amountLog = await getAmountLogs(amountId);
 
-      setLogs(amountLog);
+        setLogs(amountLog);
+      }
     })();
   }, [activeOrder]);
 
@@ -39,7 +41,7 @@ export default function ColInfo({
         onBlur={() => handleDescriptionUpdate(value, amountId, activeOrder)}
       />
       <div className="grow-1">
-        <PerfectScrollbar style={{maxHeight: '170px'}}>
+        <PerfectScrollbar style={{ maxHeight: "170px" }}>
           <div>
             {(logs.length === 0 && "چیزی برای نمایش وجود ندارد") ||
               logs?.map?.((log, index) => (

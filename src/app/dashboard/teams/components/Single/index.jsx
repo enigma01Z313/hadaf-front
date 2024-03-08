@@ -84,8 +84,6 @@ export default function Single({
   const handleChange = (key, value) =>
     setTheTeam((state) => ({ ...state, [key]: value }));
 
-  console.log(theUsers);
-
   return (
     <Dialog
       maxWidth="sm"

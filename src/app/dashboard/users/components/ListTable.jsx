@@ -6,22 +6,44 @@ import workspaceContext from "@/app/context/workspaceContext";
 
 import ContainedPrimary from "@/app/components/Button/ContainedPrimary";
 import TexedPrimary from "@/app/components/Button/TexedPrimary";
-import getUsersList from "@/app/lib/users/list";
 import listColumns from "./listColumns";
-
 import permissionChec from "@/app/utils/permissionCheck";
 
-export default function ListTable({ setMode, reloadList, setSingleUserId }) {
+import getUsersList from "@/app/lib/users/list";
+import updateUser from "@/app/lib/workspaces/users/update";
+
+export default function ListTable({
+  setMode,
+  reloadList,
+  setSingleUserId,
+  setRealoadList,
+}) {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [allUsers, setAllUsers] = useState(false);
 
   const isSuperAdmin = permissionChec("SUPER_USER");
   const isAdmin = permissionChec("ADMIN");
-  const adminAccess = isSuperAdmin || isAdmin
+  const adminAccess = isSuperAdmin || isAdmin;
 
   const { theWorkspace, theUsers, setTheUsers } = useContext(workspaceContext);
-  const columns = listColumns(setSingleUserId, adminAccess);
+
+  const handleActivate = async (id) => {
+    await updateUser(theWorkspace, id, { status: 1 });
+    setRealoadList((state) => !state);
+  };
+
+  const handleDeactivate = async (id) => {
+    await updateUser(theWorkspace, id, { status: 0 });
+    setRealoadList((state) => !state);
+  };
+
+  const columns = listColumns(
+    setSingleUserId,
+    adminAccess,
+    handleActivate,
+    handleDeactivate
+  );
 
   useEffect(() => {
     (async function () {

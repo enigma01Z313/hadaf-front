@@ -25,20 +25,24 @@
   top: 10px;
 }
 
-.assignee-users .assignee-user {
+.assignees .assignee-user,
+.assignees .assignee-team {
   cursor: pointer;
   transition: all 0.25s;
 }
-.assignee-users .assignee-user:hover {
+.assignees .assignee-user:hover,
+.assignees .assignee-team:hover {
   background: #eee;
   cursor: pointer;
 }
-.assignee-users .assignee-user > div {
+.assignees .assignee-user > div,
+.assignees .assignee-team > div {
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.assignee-users .assignee-user.checked > div{
+.assignees .assignee-user.checked > div,
+.assignees .assignee-team.checked > div{
   width: calc(100% - 40px);
 }

@@ -7,13 +7,17 @@ import Single from "./components/Single";
 
 export default function Team() {
   const [singleTeam, setSingleTeam] = useState("");
-  const [reloadList, setReloadList] = useState(true)
+  const [reloadList, setReloadList] = useState(true);
 
-  const closePopup = () => setSingleTeam("")
+  const closePopup = () => setSingleTeam("");
 
   return (
     <NoSSR>
-      <ListTable setSingleTeam={setSingleTeam} reloadList={reloadList} />
+      <ListTable
+        setSingleTeam={setSingleTeam}
+        reloadList={reloadList}
+        setReloadList={setReloadList}
+      />
 
       {singleTeam !== "" && (
         <Single
@@ -23,7 +27,6 @@ export default function Team() {
           setReloadList={setReloadList}
         />
       )}
-      
     </NoSSR>
   );
 }

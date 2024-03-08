@@ -179,6 +179,8 @@ export default function Single({
             okrId={theOkr.id}
             setLoading={setLoading}
             createMode={createMode}
+            singleOkr={singleOkr}
+            setReloadList={setReloadList}
           />
 
           <Devider line={true} spacing={2} />

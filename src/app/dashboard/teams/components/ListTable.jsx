@@ -5,12 +5,15 @@ import workspaceContext from "@/app/context/workspaceContext";
 import ContainedPrimary from "@/app/components/Button/ContainedPrimary";
 
 import getTeamUsersList from "@/app/lib/workspaces/team/list";
+import updateTeam from "@/app/lib/workspaces/team/update";
 
 import listColumns from "./listColumns";
 
-export default function ListTable({ setSingleTeam, reloadList }) {
-  const columns = listColumns(setSingleTeam);
-
+export default function ListTable({
+  setSingleTeam,
+  reloadList,
+  setReloadList,
+}) {
   const { theWorkspace, theTeams, setTheTeams } = useContext(workspaceContext);
   const [loading, setLoading] = useState(true);
 
@@ -24,6 +27,18 @@ export default function ListTable({ setSingleTeam, reloadList }) {
       }
     })();
   }, [theWorkspace, reloadList]);
+
+  const handleActivate = async (id) => {
+    await updateTeam(theWorkspace, id, { status: 1 });
+    setReloadList((state) => !state);
+  };
+
+  const handleDeactivate = async (id) => {
+    await updateTeam(theWorkspace, id, { status: 0 });
+    setReloadList((state) => !state);
+  };
+
+  const columns = listColumns(setSingleTeam, handleActivate, handleDeactivate);
 
   return (
     <div

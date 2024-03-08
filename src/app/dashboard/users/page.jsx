@@ -17,6 +17,7 @@ export default function Users() {
         setMode={setMode}
         reloadList={reloadList}
         setSingleUserId={setSingleUserId}
+        setRealoadList={setRealoadList}
       />
 
       {(mode === "create" || mode === "addUserToWS") && (

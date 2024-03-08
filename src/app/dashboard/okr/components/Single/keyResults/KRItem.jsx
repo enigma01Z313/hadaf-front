@@ -21,8 +21,11 @@ import styles from "./style.module.css";
 import canAddNew from "./canAddNew";
 
 import workspaceContext from "@/app/context/workspaceContext";
+
 import updateKR from "@/app/lib/keryResult/update";
 import getOkr from "@/app/lib/okr/get";
+import addKRToOkr from "@/app/lib/keryResult/create";
+import removeKRFromOkr from "@/app/lib/keryResult/remove";
 
 export default function KRItem({
   index,
@@ -35,6 +38,8 @@ export default function KRItem({
   okrId,
   setLoading,
   createMode,
+  singleOkr,
+  setReloadList,
 }) {
   const { theUsers, theWorkspace } = useContext(workspaceContext);
   const directions = JSON.parse(localStorage.getItem("meta")).direction;
@@ -54,7 +59,10 @@ export default function KRItem({
   const saveCurrentKR = async () => {
     if (!isNew && !createMode) {
       setLoading(true);
-      await updateKR(okrId, krData.id, {...theKR, direction: theKR.direction.code});
+      await updateKR(okrId, krData.id, {
+        ...theKR,
+        direction: theKR.direction.code,
+      });
       const uppedOkr = await getOkr(theWorkspace, okrId);
 
       setTheOkr({
@@ -85,9 +93,48 @@ export default function KRItem({
 
   const handleOwnerChange = (e) => handleChange("owner", e.target.value);
 
-  const addNewKrItem = () => {
-    addNewKr(theKR);
-    setTheKR(defaultKR);
+  const addNewKrItem = async () => {
+    if (singleOkr === "create") {
+      addNewKr(theKR);
+      setTheKR(defaultKR);
+    } else {
+      setLoading(true);
+      await addKRToOkr(singleOkr, theKR);
+      const uppedOkr = await getOkr(theWorkspace, singleOkr);
+
+      setTheOkr({
+        ...uppedOkr,
+        assignee: uppedOkr.assignee.id,
+        status: uppedOkr.status.code,
+        timeFrame: uppedOkr.timeFrame.id,
+        access: uppedOkr.access.code,
+      });
+
+      setReloadList(state => !state)
+      setTheKR(defaultKR);
+      setLoading(false);
+    }
+  };
+
+  const handleDeleteKr = async (singleOkr, index) => {
+    if (singleOkr === "create") {
+      deleteKr(index);
+    } else {
+      setLoading(true);
+      await removeKRFromOkr(singleOkr, theKR.id);
+      const uppedOkr = await getOkr(theWorkspace, singleOkr);
+
+      setTheOkr({
+        ...uppedOkr,
+        assignee: uppedOkr.assignee.id,
+        status: uppedOkr.status.code,
+        timeFrame: uppedOkr.timeFrame.id,
+        access: uppedOkr.access.code,
+      });
+
+      setReloadList(state => !state)
+      setLoading(false);
+    }
   };
 
   return (
@@ -117,7 +164,8 @@ export default function KRItem({
           id={"key-result-direction-" + index}
           variant="standard"
           className="rtl-input p-relative grow-1 ml-1-5"
-          style={{ width: "50px" }}>
+          style={{ width: "50px" }}
+        >
           <InputLabel id="demo-simple-select-standard-label">جهت</InputLabel>
           <Select
             labelId="okey-result-direction-label"
@@ -125,7 +173,8 @@ export default function KRItem({
             value={theKR.direction}
             label={"جهت"}
             onChange={(e) => handleChange("direction", e.target.value)}
-            className="text-h6 py-1">
+            className="text-h6 py-1"
+          >
             {directions &&
               directions?.map((direction) => (
                 <MenuItem key={direction.code} value={direction.code}>
@@ -137,7 +186,8 @@ export default function KRItem({
 
         <FormControl
           className="rtl-input p-relative grow-1 ml-1-5"
-          style={{ maxWidth: "70px" }}>
+          style={{ maxWidth: "70px" }}
+        >
           <TextField
             id={`key-result-start-${index}`}
             label="شروع"
@@ -152,7 +202,8 @@ export default function KRItem({
 
         <FormControl
           className="rtl-input p-relative grow-1 ml-1-5"
-          style={{ maxWidth: "70px" }}>
+          style={{ maxWidth: "70px" }}
+        >
           <TextField
             id={`key-result-current-${index}`}
             label="جاری"
@@ -167,7 +218,8 @@ export default function KRItem({
 
         <FormControl
           className="rtl-input p-relative grow-1 ml-1-5"
-          style={{ maxWidth: "70px" }}>
+          style={{ maxWidth: "70px" }}
+        >
           <TextField
             id={`key-result-goal-${index}`}
             label="هدف"
@@ -182,7 +234,8 @@ export default function KRItem({
 
         <FormControl
           className="rtl-input p-relative grow-1"
-          style={{ maxWidth: "70px" }}>
+          style={{ maxWidth: "70px" }}
+        >
           <TextField
             id={`key-result-coefficient-${index}`}
             label="ضریب"
@@ -196,7 +249,7 @@ export default function KRItem({
         </FormControl>
 
         {keyResultsL !== 0 && index !== keyResultsL && (
-          <TexedError onClick={() => deleteKr(index)}>
+          <TexedError onClick={() => handleDeleteKr(singleOkr, index)}>
             <DeleteIcon />
           </TexedError>
         )}
@@ -206,7 +259,8 @@ export default function KRItem({
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1-content"
-              id="panel1-header">
+              id="panel1-header"
+            >
               توضیحات
             </AccordionSummary>
             <AccordionDetails>

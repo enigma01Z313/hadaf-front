@@ -237,6 +237,7 @@ export default function Amount({
     setLoading(true);
     if (targetAmount.id === -1) {
       const newAmoun = await createAmount(kpiId, {
+        label: `${targetAmount.label} ام ${targetAmount.label2}`,
         realAmount: +targetAmount.realAmount,
         targetAmount: +targetAmount.expAmount,
         order,
@@ -280,7 +281,7 @@ export default function Amount({
     setLoading(false);
   };
 
-  const curOrder = calcCurrentorder(continuous)
+  const curOrder = calcCurrentorder(continuous);
 
   return (
     <Dialog
@@ -290,7 +291,8 @@ export default function Amount({
       onClose={closePopup}
       PaperProps={{
         classes: { root: loading ? "loading" : "over-visible" },
-      }}>
+      }}
+    >
       <DialogTitle>
         مقادیر: {title}
         <Devider line={true} />
