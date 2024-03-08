@@ -80,15 +80,6 @@ const menuItems = (isSuperAdmin, isAdmin, isNormalUser) => {
       link: "/dashboard/plans",
       icon: UpgradeIcon,
     });
-
-    //development
-    menus.push({
-      id: 100,
-      title: "تمدید/ارتقا",
-      slug: "plan",
-      link: "/dashboard/upgradePlan",
-      icon: UpgradeIcon,
-    });
   } else if (isNormalUser) {
     menus.push({
       id: 100,
