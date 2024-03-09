@@ -23,9 +23,9 @@ const listColumns = (
           href={`/dashboard/users/${data.row.id}`}
           prefetch={false}
           style={{
-            opacity: data.row.workspaceStatus.code === 0 ? ".5" : 1,
+            opacity: data.row?.workspaceStatus?.code === 0 ? ".5" : 1,
             textDecoration:
-              data.row.workspaceStatus.code === 0 ? "line-through" : "none",
+              data.row?.workspaceStatus?.code === 0 ? "line-through" : "none",
           }}
         >
           {data.row.fullName}
@@ -41,9 +41,9 @@ const listColumns = (
           href={`/dashboard/users/${data.row.id}`}
           prefetch={false}
           style={{
-            opacity: data.row.workspaceStatus.code === 0 ? ".5" : 1,
+            opacity: data.row?.workspaceStatus?.code === 0 ? ".5" : 1,
             textDecoration:
-              data.row.workspaceStatus.code === 0 ? "line-through" : "none",
+              data.row?.workspaceStatus?.code === 0 ? "line-through" : "none",
           }}
         >
           {data.row.phone}
@@ -59,9 +59,9 @@ const listColumns = (
           href={`/dashboard/users/${data.row.id}`}
           prefetch={false}
           style={{
-            opacity: data.row.workspaceStatus.code === 0 ? ".5" : 1,
+            opacity: data.row?.workspaceStatus?.code === 0 ? ".5" : 1,
             textDecoration:
-              data.row.workspaceStatus.code === 0 ? "line-through" : "none",
+              data.row?.workspaceStatus?.code === 0 ? "line-through" : "none",
           }}
         >
           {data.row.email}
@@ -126,7 +126,7 @@ const listColumns = (
       headerName: "عملیات",
       width: 120,
       renderCell: (data) =>
-        (data.row.workspaceStatus.code === 0 && (
+        (data.row?.workspaceStatus?.code === 0 && (
           <TextedInfo onClick={() => handleActivate(data.row.id)}>
             فعال کردن
           </TextedInfo>

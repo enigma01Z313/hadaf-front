@@ -30,7 +30,7 @@ export default function ListTable({
   const { theWorkspace, theWorkspaceFull, theUsers, setTheUsers } =
     useContext(workspaceContext);
 
-  const isOwner = theWorkspaceFull.owner.id === theUser.id;
+  const isOwner = theWorkspaceFull?.owner?.id === theUser.id;
 
   const handleActivate = async (id) => {
     await updateUser(theWorkspace, id, { status: 1 });
