@@ -33,10 +33,10 @@ export default function Assignee({
         ...usersList,
         data: usersList.data.map((user) => ({ ...user, isFiltered: true })),
       });
-      setWorkspaceTeams({
-        ...teamsList,
-        data: teamsList.data.map((user) => ({ ...user, isFiltered: true })),
-      });
+      // setWorkspaceTeams({
+      //   ...teamsList,
+      //   data: teamsList.data.map((user) => ({ ...user, isFiltered: true })),
+      // });
     })();
   }, []);
 
@@ -52,10 +52,6 @@ export default function Assignee({
 
     setWorkspaceUsers((state) => ({ ...state, data: newUsers }));
   };
-
-  console.log("4-------------------------------------");
-  console.log(workspaceUsers);
-  console.log(workspaceTeams);
 
   return (
     <div className={styles["task-config"]}>
@@ -117,7 +113,7 @@ export default function Assignee({
                     </div>
                   ))}
 
-                {workspaceTeams.data
+                {/* {workspaceTeams.data
                   .filter((team) => team.isFiltered)
                   .map((team) => (
                     <div
@@ -139,7 +135,7 @@ export default function Assignee({
                       </div>
                       {assignee.id === team.id && <CheckIcon />}
                     </div>
-                  ))}
+                  ))} */}
               </div>
             </section>
           </article>

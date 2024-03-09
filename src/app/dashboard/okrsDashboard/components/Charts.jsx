@@ -8,10 +8,11 @@ import { eachYearOfInterval, format } from "date-fns-jalali-3";
 import { startOfHistory } from "@/app/configs";
 
 import workspaceContext from "@/app/context/workspaceContext";
-
 import ContainedInfo from "@/app/components/Button/ContainedInfo";
 import Gauge from "@/app/components/Gauge";
+
 import getWorkspaceUsersList from "@/app/lib/workspaces/users/list";
+import getTeams from "@/app/lib/workspaces/team/list";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -19,6 +20,7 @@ function Header({ year, setYear, targetMember, setTargetMember }) {
   const { theWorkspace } = useContext(workspaceContext);
 
   const [workspaceUsers, setWorkspaceUsrs] = useState([]);
+  const [workspaceTeams, setWorkspaceTeams] = useState([]);
   const years = eachYearOfInterval({
     start: startOfHistory,
     end: new Date(),
@@ -28,8 +30,10 @@ function Header({ year, setYear, targetMember, setTargetMember }) {
     (async function () {
       if (theWorkspace) {
         const users = await getWorkspaceUsersList(theWorkspace);
+        const teams = await getTeams(theWorkspace);
 
         setWorkspaceUsrs(users.data);
+        setWorkspaceTeams(teams.data);
       }
     })();
   }, [theWorkspace]);
@@ -37,17 +41,24 @@ function Header({ year, setYear, targetMember, setTargetMember }) {
   return (
     <div className="d-flex align-end">
       <div className="d-flex-direction-column grow-1 pl-3">
-        <div>اعضا</div>
+        <div>تیم و اعضا</div>
         <Select
           className="w-100"
           id="okr-dashboard-member"
           value={targetMember}
           variant="standard"
-          onChange={(e) => setTargetMember(e.target.value)}>
+          onChange={(e) => setTargetMember(e.target.value)}
+        >
           <MenuItem value={"all"}>همه</MenuItem>
           {workspaceUsers.map((item) => (
             <MenuItem key={item.id} value={item.id}>
               {item.fullName}
+            </MenuItem>
+          ))}
+
+          {workspaceTeams.map((team) => (
+            <MenuItem key={team.id} value={team.id}>
+              تیم {team.name}
             </MenuItem>
           ))}
         </Select>
@@ -59,7 +70,8 @@ function Header({ year, setYear, targetMember, setTargetMember }) {
           id="okr-dashboard-year"
           value={year}
           variant="standard"
-          onChange={(e) => setYear(e.target.value)}>
+          onChange={(e) => setYear(e.target.value)}
+        >
           {years.reverse().map((v, i) => (
             <MenuItem key={i} value={format(v, "yyyy")}>
               {format(v, "yyyy")}
@@ -144,7 +156,8 @@ export default function Charts({
       <div className="mt-2 d-flex" style={{ height: "400px" }}>
         <div
           className="grow-1 d-flex justify-center px-5"
-          style={{ width: "49%", float: "right" }}>
+          style={{ width: "49%", float: "right" }}
+        >
           {(total === 0 && (
             <div className="d-flex align-center">هدفی وجود ندارد</div>
           )) || (
@@ -155,7 +168,8 @@ export default function Charts({
         </div>
         <div
           className="grow-1 d-flex justify-center align-center"
-          style={{ width: "49%", float: "right" }}>
+          style={{ width: "49%", float: "right" }}
+        >
           <Gauge
             value={Math.floor(okrProgress * 100) / 100}
             size={"200px"}

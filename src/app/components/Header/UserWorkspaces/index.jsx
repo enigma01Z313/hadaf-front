@@ -8,8 +8,13 @@ import getWorkspacesList from "@/app/lib/workspaces/list";
 import workspaceContext from "@/app/context/workspaceContext";
 
 export default function UserWorkspaces() {
-  const { theWorkspace, setTheWorkspace, userWorkspaces, setUserWorkspaces } =
-    useContext(workspaceContext);
+  const {
+    theWorkspace,
+    setTheWorkspace,
+    setTheWorkspaceFull,
+    userWorkspaces,
+    setUserWorkspaces,
+  } = useContext(workspaceContext);
 
   useEffect(() => {
     (async function () {
@@ -19,6 +24,7 @@ export default function UserWorkspaces() {
         workspacesList.data.map((v, i) => ({ ...v, isActive: i === 0 }))
       );
       setTheWorkspace(workspacesList.data[0].id);
+      setTheWorkspaceFull(workspacesList.data[0]);
     })();
   }, []);
 
@@ -34,7 +40,8 @@ export default function UserWorkspaces() {
             id="select-workspace"
             value={theWorkspace ?? ""}
             label="Age"
-            onChange={handleChange}>
+            onChange={handleChange}
+          >
             {userWorkspaces.map((item) => (
               <MenuItem key={item.id} value={item.id}>
                 {item.name}

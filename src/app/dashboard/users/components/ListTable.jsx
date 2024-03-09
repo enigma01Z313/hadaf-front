@@ -18,6 +18,7 @@ export default function ListTable({
   setSingleUserId,
   setRealoadList,
 }) {
+  const theUser = JSON.parse(localStorage.getItem("user"));
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [allUsers, setAllUsers] = useState(false);
@@ -26,7 +27,10 @@ export default function ListTable({
   const isAdmin = permissionChec("ADMIN");
   const adminAccess = isSuperAdmin || isAdmin;
 
-  const { theWorkspace, theUsers, setTheUsers } = useContext(workspaceContext);
+  const { theWorkspace, theWorkspaceFull, theUsers, setTheUsers } =
+    useContext(workspaceContext);
+
+  const isOwner = theWorkspaceFull.owner.id === theUser.id;
 
   const handleActivate = async (id) => {
     await updateUser(theWorkspace, id, { status: 1 });
@@ -42,7 +46,8 @@ export default function ListTable({
     setSingleUserId,
     adminAccess,
     handleActivate,
-    handleDeactivate
+    handleDeactivate,
+    isOwner
   );
 
   useEffect(() => {

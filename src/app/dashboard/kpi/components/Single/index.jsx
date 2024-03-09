@@ -33,8 +33,9 @@ import Colleages from "./Colleages";
 import getKpi from "@/app/lib/kpi/get";
 import createKPI from "@/app/lib/kpi/create";
 import updateKpi from "@/app/lib/kpi/update";
-import getUsersList from "@/app/lib/users/list";
 import listTags from "@/app/lib/tags/list";
+import getUsersList from "@/app/lib/users/list";
+import getTeams from "@/app/lib/workspaces/team/list";
 
 export default function Single({
   closePopup,
@@ -42,7 +43,8 @@ export default function Single({
   setSingleKpi,
   setReloadList,
 }) {
-  const { theUsers, setTheUsers, theWorkspace } = useContext(workspaceContext);
+  const { theUsers, setTheUsers, theTeams, setTheTeams, theWorkspace } =
+    useContext(workspaceContext);
 
   const [thresholdsErrors, setThreshholdsErrors] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -89,12 +91,20 @@ export default function Single({
   useEffect(() => {
     (async function () {
       let usersList;
+      let teamsList;
 
       if (!theWorkspace) usersList = [];
       else if (theWorkspace && theUsers.total !== 0) usersList = theUsers;
       else {
         usersList = await getUsersList(theWorkspace);
         setTheUsers(usersList);
+      }
+
+      if (!theWorkspace) teamsList = [];
+      else if (theWorkspace && theTeams.total !== 0) teamsList = theTeams;
+      else {
+        teamsList = await getTeams(theWorkspace);
+        setTheTeams(teamsList);
       }
 
       if (theWorkspace) {
@@ -237,7 +247,8 @@ export default function Single({
       onClose={closePopup}
       PaperProps={{
         classes: { root: loading ? "loading" : "over-visible" },
-      }}>
+      }}
+    >
       <PerfectScrollbar>
         <DialogTitle>
           <Title value={theKPI?.name ?? ""} changeHandlred={changeHandlred} />
@@ -274,6 +285,7 @@ export default function Single({
               value={theKPI?.assignee?.id ?? theUsers?.data?.[0]?.id}
               changeHandlred={changeHandlred}
               theUsers={theUsers}
+              theTeams={theTeams}
             />
           </div>
 
@@ -292,7 +304,8 @@ export default function Single({
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1-content"
-              id="panel1-header">
+              id="panel1-header"
+            >
               <span className="text-body-1">گزینه های بیشتر...</span>
             </AccordionSummary>
             <Devider spacing={0} line={true} />
@@ -341,7 +354,8 @@ export default function Single({
                   (theKPI?.assignee?.id ?? "") === "" ||
                   !isDirectionTresholdsValid(theKPI)
                 }
-                onClick={handleKPICreate}>
+                onClick={handleKPICreate}
+              >
                 افزودن
               </TexedPrimary>
             </>

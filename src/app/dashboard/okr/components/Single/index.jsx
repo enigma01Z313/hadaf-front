@@ -11,8 +11,6 @@ import Devider from "@/app/components/Devider";
 import TexedPrimary from "@/app/components/Button/TexedPrimary";
 import TexedError from "@/app/components/Button/TextedError";
 import workspaceContext from "@/app/context/workspaceContext";
-import getUsersList from "@/app/lib/users/list";
-import getOkr from "@/app/lib/okr/get";
 
 import Title from "./header/Title";
 import Assignee from "./header/Assignee";
@@ -26,9 +24,12 @@ import ParentOkr from "./moreInfo/ParentOkr";
 import Accesslevel from "./moreInfo/Accesslevel";
 import Colleages from "./moreInfo/Colleages";
 import TabsInfo from "./TabsInfo";
+import Gauge from "@/app/components/Gauge";
 
 import createOkr from "@/app/lib/okr/create";
-import Gauge from "@/app/components/Gauge";
+import getOkr from "@/app/lib/okr/get";
+import getUsersList from "@/app/lib/users/list";
+import getTeams from "@/app/lib/workspaces/team/list";
 
 export default function Single({
   singleOkr,
@@ -39,11 +40,20 @@ export default function Single({
   timeframes,
 }) {
   const [loading, setLoading] = useState(false);
-  const { theWorkspace, theUsers, setTheUsers, theWorkspaceTimeframes } =
-    useContext(workspaceContext);
+  const {
+    theWorkspace,
+    theUsers,
+    setTheUsers,
+    theTeams,
+    setTheTeams,
+    theWorkspaceTimeframes,
+  } = useContext(workspaceContext);
 
   const [workspaceUsers, setWorkspaceUsers] = useState(
     theUsers.total !== 0 ? theUsers.data : []
+  );
+  const [workspaceTeams, setWorkspaceTeams] = useState(
+    theTeams.total !== 0 ? theTeams.data : []
   );
 
   const [okrStatuses, setOkrStatuses] = useState(
@@ -88,6 +98,7 @@ export default function Single({
   useEffect(() => {
     (async function () {
       let usersList;
+      let teamsList;
 
       if (!theWorkspace) usersList = [];
       else if (theWorkspace && theUsers.total !== 0) usersList = theUsers;
@@ -96,8 +107,19 @@ export default function Single({
         setTheUsers(usersList);
       }
 
+      if (!theWorkspace) teamsList = [];
+      else if (theWorkspace && theTeams.total !== 0) teamsList = theTeams;
+      else {
+        teamsList = await getTeams(theWorkspace);
+        setTheTeams(teamsList);
+      }
+
       setWorkspaceUsers(
         usersList.data.map((user) => ({ ...user, isFiltered: true }))
+      );
+
+      setWorkspaceTeams(
+        teamsList.data.map((team) => ({ ...team, isFiltered: true }))
       );
     })();
   }, [theWorkspace]);
@@ -141,6 +163,7 @@ export default function Single({
 
             <Assignee
               workspaceUsers={workspaceUsers}
+              workspaceTeams={workspaceTeams}
               value={theOkr?.assignee}
               changeHandlred={changeHandlred}
             />
@@ -185,7 +208,7 @@ export default function Single({
 
           <Devider line={true} spacing={2} />
 
-          {singleOkr === "create" && (
+          {(singleOkr === "create" && (
             <div className="d-flex">
               <Timeframe
                 value={theOkr.timeFrame}
@@ -208,9 +231,7 @@ export default function Single({
                 changeHandlred={changeHandlred}
               />
             </div>
-          )}
-
-          {singleOkr !== "create" && (
+          )) || (
             <TabsInfo
               okrId={singleOkr}
               keyResults={theOkr.keyResults}
@@ -226,6 +247,7 @@ export default function Single({
         </DialogContent>
 
         <Devider line={true} spacing={0} />
+
         <DialogActions>
           {(singleOkr !== "create" && (
             <>

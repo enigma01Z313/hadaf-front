@@ -10,20 +10,10 @@ const listColumns = (
   setSingleUserId,
   adminAccess,
   handleActivate,
-  handleDeactivate
+  handleDeactivate,
+  isOwner
 ) => {
   const columns = [
-    // {
-    //   field: "no",
-    //   headerName: "ردیف",
-    //   width: 70,
-    //   valueGetter: (params) => {
-    //     console.log('-----------------------------------');
-    //     console.log(params.row);
-
-    //     return `11`;
-    //   },
-    // },
     {
       field: "fullName",
       headerName: "نام کامل",
@@ -33,9 +23,9 @@ const listColumns = (
           href={`/dashboard/users/${data.row.id}`}
           prefetch={false}
           style={{
-            opacity: data.row.status.code === 0 ? ".5" : 1,
+            opacity: data.row.workspaceStatus.code === 0 ? ".5" : 1,
             textDecoration:
-              data.row.status.code === 0 ? "line-through" : "none",
+              data.row.workspaceStatus.code === 0 ? "line-through" : "none",
           }}
         >
           {data.row.fullName}
@@ -51,9 +41,9 @@ const listColumns = (
           href={`/dashboard/users/${data.row.id}`}
           prefetch={false}
           style={{
-            opacity: data.row.status.code === 0 ? ".5" : 1,
+            opacity: data.row.workspaceStatus.code === 0 ? ".5" : 1,
             textDecoration:
-              data.row.status.code === 0 ? "line-through" : "none",
+              data.row.workspaceStatus.code === 0 ? "line-through" : "none",
           }}
         >
           {data.row.phone}
@@ -69,9 +59,9 @@ const listColumns = (
           href={`/dashboard/users/${data.row.id}`}
           prefetch={false}
           style={{
-            opacity: data.row.status.code === 0 ? ".5" : 1,
+            opacity: data.row.workspaceStatus.code === 0 ? ".5" : 1,
             textDecoration:
-              data.row.status.code === 0 ? "line-through" : "none",
+              data.row.workspaceStatus.code === 0 ? "line-through" : "none",
           }}
         >
           {data.row.email}
@@ -95,7 +85,10 @@ const listColumns = (
       width: 160,
       valueGetter: (data) => `${data?.row?.usage?.label || ""}`,
     },
-    {
+  ];
+
+  if (adminAccess || isOwner) {
+    columns.push({
       field: "",
       headerName: "ویرایش",
       width: 70,
@@ -108,8 +101,8 @@ const listColumns = (
           <EditIcon />
         </Link>
       ),
-    },
-  ];
+    });
+  }
 
   if (adminAccess) {
     columns.push({
@@ -127,21 +120,23 @@ const listColumns = (
     });
   }
 
-  columns.push({
-    field: "  ",
-    headerName: "عملیات",
-    width: 120,
-    renderCell: (data) =>
-      (data.row.status.code === 0 && (
-        <TextedInfo onClick={() => handleActivate(data.row.id)}>
-          فعال کردن
-        </TextedInfo>
-      )) || (
-        <TexedError onClick={() => handleDeactivate(data.row.id)}>
-          غیر فعلا کردن
-        </TexedError>
-      ),
-  });
+  if (adminAccess || isOwner) {
+    columns.push({
+      field: "  ",
+      headerName: "عملیات",
+      width: 120,
+      renderCell: (data) =>
+        (data.row.workspaceStatus.code === 0 && (
+          <TextedInfo onClick={() => handleActivate(data.row.id)}>
+            فعال کردن
+          </TextedInfo>
+        )) || (
+          <TexedError onClick={() => handleDeactivate(data.row.id)}>
+            غیر فعلا کردن
+          </TexedError>
+        ),
+    });
+  }
 
   return columns;
 };

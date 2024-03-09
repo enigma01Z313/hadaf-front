@@ -5,10 +5,11 @@ import workspaceContext from "@/app/context/workspaceContext";
 import Devider from "@/app/components/Devider";
 
 export default function WorkspaceItem({ workspace, index, handleClose }) {
-  const { setTheWorkspace } = useContext(workspaceContext);
+  const { setTheWorkspace, setTheWorkspaceFull } = useContext(workspaceContext);
 
   const handleSelectWp = () => {
     setTheWorkspace(workspace.id);
+    setTheWorkspaceFull(workspace);
     toast.success(`فضای کاری به ${workspace.name} تغییر کرد`);
     setTimeout(function () {
       handleClose();
