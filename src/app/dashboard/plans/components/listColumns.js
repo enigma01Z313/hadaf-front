@@ -106,6 +106,21 @@ const listColumns = (setSingleTeam, handleActivate, handleDeactivate) => {
         </TexedInherit>
       ),
     },
+    {
+      field: " ",
+      headerName: "نمایش برای کاربر",
+      width: 150,
+      renderCell: (data) =>
+        (data.row.salable?.code === 0 && (
+          <TextedInfo onClick={() => handleActivate(data.row.id)}>
+            نمایش در لیست
+          </TextedInfo>
+        )) || (
+          <TexedError onClick={() => handleDeactivate(data.row.id)}>
+            عدم نمایش در لیست
+          </TexedError>
+        ),
+    },
   ];
 
   return columns;

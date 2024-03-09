@@ -5,14 +5,14 @@ import ContainedPrimary from "@/app/components/Button/ContainedPrimary";
 import listColumns from "./listColumns";
 
 import getPlans from "@/app/lib/plan/list";
-
+import updatePlan from "@/app/lib/plan/update";
 
 export default function ListTable({
   setSinglePlan,
   reloadList,
   setReloadList,
   plans,
-  setPlans
+  setPlans,
 }) {
   const [loading, setLoading] = useState(true);
 
@@ -25,13 +25,13 @@ export default function ListTable({
   }, [reloadList]);
 
   const handleActivate = async (id) => {
-    // await updateTeam(theWorkspace, id, { status: 1 });
-    // setReloadList((state) => !state);
+    await updatePlan(id, { salable: 1 });
+    setReloadList((state) => !state);
   };
 
   const handleDeactivate = async (id) => {
-    // await updateTeam(theWorkspace, id, { status: 0 });
-    // setReloadList((state) => !state);
+    await updatePlan(id, { salable: 0 });
+    setReloadList((state) => !state);
   };
 
   const columns = listColumns(setSinglePlan, handleActivate, handleDeactivate);

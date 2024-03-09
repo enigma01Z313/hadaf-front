@@ -34,6 +34,7 @@ export default function Single({
     discount: "",
     freeDays: "",
     duration: "",
+    membersNumber: "",
   });
   const [loading, setLoading] = useState(false);
 
@@ -82,20 +83,40 @@ export default function Single({
     >
       <PerfectScrollbar>
         <DialogContent style={{ overflow: "visible" }}>
-          <section>
-            <FormControl className="rtl-input p-relative w-100">
-              <TextField
-                label="نام پلن"
-                className="w-100"
-                placeholder="نام پلن..."
-                value={thePlan.name ?? ""}
-                onChange={(e) => handleChange("name", e.target.value)}
-                variant="standard"
-              />
-            </FormControl>
-          </section>
-
           <section className="w-100 d-flex justify-between mt-2">
+            <div className={`mb-2 ${singlePlan === 'create' ? 'w-50' : 'w-100'}`}>
+              <FormControl className="rtl-input p-relative w-100">
+                <TextField
+                  label="نام پلن"
+                  className="w-100"
+                  placeholder="نام پلن..."
+                  value={thePlan.name ?? ""}
+                  onChange={(e) => handleChange("name", e.target.value)}
+                  variant="standard"
+                />
+              </FormControl>
+            </div>
+
+            {singlePlan === "create" && (
+              <div className="w-50 mb-2">
+                <FormControl className="rtl-input p-relative w-100">
+                  <TextField
+                    label="تعداد اعضا"
+                    className="w-100"
+                    placeholder="30"
+                    value={thePlan.membersNumber ?? ""}
+                    onChange={(e) =>
+                      handleChange(
+                        "membersNumber",
+                        e.target.value.replace(/\D/g, "")
+                      )
+                    }
+                    variant="standard"
+                  />
+                </FormControl>
+              </div>
+            )}
+
             {singlePlan === "create" && (
               <div className="w-50 mb-2">
                 <FormControl className="rtl-input p-relative w-100">
