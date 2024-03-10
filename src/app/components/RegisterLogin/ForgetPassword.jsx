@@ -17,7 +17,7 @@ import DigitsInput from "@/app/components/DigitsInput";
 const resendInterval = 90 * 1000;
 const oneTimeLenght = 4;
 
-export default function ForgetPassword({setFormStatus}) {
+export default function ForgetPassword({ setFormStatus }) {
   const router = useRouter();
 
   const [username, setUsername] = useState("");
@@ -63,11 +63,11 @@ export default function ForgetPassword({setFormStatus}) {
 
         setResendTimer(resendInterval);
         setStep(2);
-      }else{
+      } else {
         setUsername("");
       }
       setLoading(false);
-      setResetDigits(state => !state)
+      setResetDigits((state) => !state);
     }
   };
 
@@ -81,9 +81,9 @@ export default function ForgetPassword({setFormStatus}) {
     if (!user.error) {
       saveLoginData(user);
       router.push("/dashboard/okrsDashboard");
-    }else{
-      setResetDigits(state => !state)
-      toast.error(user.error)
+    } else {
+      setResetDigits((state) => !state);
+      toast.error(user.error);
     }
   };
 
@@ -109,8 +109,9 @@ export default function ForgetPassword({setFormStatus}) {
         <div
           className={`d-flex direction-column mt-3 
                 ${loading ? "loading" : ""}`}
-          style={{ width: 400 }}>
-          <FormControl className="rtl-input p-relative">
+          style={{ maxWidth: 400, width: `calc(100% - 40px)` }}
+        >
+          <FormControl className="rtl-input p-relative focus-left">
             <InputLabel htmlFor="full-name">ایمیل یا شماره تماس</InputLabel>
             <Input
               id="full-name"
@@ -125,7 +126,8 @@ export default function ForgetPassword({setFormStatus}) {
           <ContainedPrimary
             onClick={submitOnetimePasswordForm}
             className="mt-3 justify-center"
-            size="large">
+            size="large"
+          >
             ارسال رمز یکبار مصرف
           </ContainedPrimary>
         </div>
@@ -134,7 +136,8 @@ export default function ForgetPassword({setFormStatus}) {
           <div
             className={`d-flex direction-column mt-3 
                 ${loading ? "loading" : ""}`}
-            style={{ width: 400 }}>
+            style={{ width: 400 }}
+          >
             <DigitsInput
               digits={oneTimeLenght}
               setter={setPassword}
@@ -145,7 +148,8 @@ export default function ForgetPassword({setFormStatus}) {
               disabled={password.length !== oneTimeLenght}
               onClick={submitOnetimeConfirmForm}
               className="mt-3 justify-center"
-              size="large">
+              size="large"
+            >
               ورود
             </ContainedPrimary>
             <span className="mt-2 d-flex justify-center align-center">
@@ -159,7 +163,8 @@ export default function ForgetPassword({setFormStatus}) {
                 onClick={submitOnetimePasswordForm}
                 disabled={resendTimer !== 0}
                 size="small"
-                className="mr-1">
+                className="mr-1"
+              >
                 ارسال مجدد
               </TexedPrimary>
             </span>
@@ -169,7 +174,8 @@ export default function ForgetPassword({setFormStatus}) {
         حساب کاربری ندارید
         <TexedPrimary
           className="mr-1"
-          onClick={() => setFormStatus("register")}>
+          onClick={() => setFormStatus("register")}
+        >
           ثبت نام
         </TexedPrimary>
       </div>

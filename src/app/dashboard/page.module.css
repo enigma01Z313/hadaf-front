@@ -13,35 +13,65 @@
 
 .menu-side {
   width: var(--menu-width);
-  background: #1A233A; 
+  background: #1a233a;
   color: #eee;
   border-left: 1px solid #0000003b;
   z-index: 10;
+  max-height: 100vh;
+  min-height: 530px;
 }
 
-.main-side{
+.main-side {
   width: calc(100% - var(--menu-width));
 }
+.menu-overlay{
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0, .6);
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  transition: all .25s;
+}
+.menu-overlay.show{
+  opacity: 1;
+  visibility: visible;
+}
 
-.main-side main{
+.main-side main {
   width: 100%;
   /* max-height: calc(100vh - 75px);
   min-height: calc(100vh - 75px); */
 }
 
-.wrapper.small-menu-mode{
-  --menu-width: 70px
+.wrapper.small-menu-mode {
+  --menu-width: 70px;
 }
 
 .wrapper.small-menu-mode .menu-side li a span,
-.wrapper.small-menu-mode .menu-side li span span{
+.wrapper.small-menu-mode .menu-side li span span {
   display: none;
 }
 .wrapper.small-menu-mode .menu-side li a,
-.wrapper.small-menu-mode .menu-side li span{
+.wrapper.small-menu-mode .menu-side li span {
   justify-content: center;
 }
-  .wrapper.small-menu-mode .menu-side li a svg,
-  .wrapper.small-menu-mode .menu-side li span svg{
+.wrapper.small-menu-mode .menu-side li a svg,
+.wrapper.small-menu-mode .menu-side li span svg {
   margin: 0 !important;
+}
+
+@media (max-width: 992px) {
+  .menu-side {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+  .main-side{
+    margin-right: 69px;
+  }
 }

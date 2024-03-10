@@ -33,7 +33,7 @@ export default function UserWorkspaces() {
   };
 
   return (
-    <div className="ml-2">
+    <div className="ml-2 ml-xs-auto">
       <Box sx={{ minWidth: 120 }}>
         <FormControl variant="standard" fullWidth>
           <Select

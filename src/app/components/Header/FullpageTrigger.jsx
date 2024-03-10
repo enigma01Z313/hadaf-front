@@ -7,7 +7,7 @@ import fullScreenTrigger from "@/app/utils/fullScreenTrigger";
 export default function FullpageTrigger({ className, ...rest }) {
   const [fullScreen, setFullScreen] = useState(false);
 
-  const classes = className ? `${className} d-flex align-center` : "";
+  const classes = className ? `${className} d-flex align-center d-s-none` : "";
 
   const handleFullScreen = () => {
     setFullScreen((state) => {

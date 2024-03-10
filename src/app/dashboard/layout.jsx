@@ -23,15 +23,22 @@ export default function DashboardLayout({ children }) {
           ${smallMode ? styles["small-menu-mode"] : ""}`}
         >
           <CreateModeProvider>
+            <div
+              className={`${!smallMode ? styles["show"] : ""} 
+                ${styles["menu-overlay"]}`}
+              onClick={() => setSmallMode(true)}
+            ></div>
+
             <aside
               className={`py-2 d-flex direction-column
                 ${styles["menu-side"]}`}
             >
               <MenuSide smallMode={smallMode} setSmallMode={setSmallMode} />
             </aside>
+
             <aside className={`grow-1 ${styles["main-side"]}`}>
               <Header />
-              <PerfectScrollbar style={{maxHeight: "calc(100vh - 75px)"}}>
+              <PerfectScrollbar style={{ maxHeight: "calc(100vh - 75px)" }}>
                 <main className={`p-3`}>{children}</main>
               </PerfectScrollbar>
             </aside>

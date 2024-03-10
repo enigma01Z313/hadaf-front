@@ -1204,3 +1204,36 @@ body {
 .color-green {
   color: green;
 }
+.focus-left input,
+.focus-left textarea{
+  text-align: left;
+  direction: ltr;
+}
+
+/* responsive*********************************/
+.auth-main > div:last-child .mobile-logo {
+  display: none;
+}
+
+@media (max-width: 992px) {
+  .d-s-none{display: none !important;}
+  .p-s-0{padding: 0 !important;}
+
+  .auth-main > div:first-child {
+    display: none;
+  }
+  .auth-main > div:last-child {
+    width: 100%;
+    background: url("/loginBg.jpg");
+    background-position: center;
+    background-size: cover;
+  }
+  .auth-main > div:last-child .mobile-logo {
+    display: block;
+  }
+}
+@media (max-width: 768px) {
+  .ml-xs-auto{margin-left: auto !important;}
+  .d-xs-none{display: none;}
+  .d-xs-flex{display: flex;}
+}

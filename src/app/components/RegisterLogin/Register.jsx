@@ -105,7 +105,7 @@ export default function Register({ setFormStatus }) {
       <div
         className={`d-flex direction-column
           ${loading ? "loading" : ""}`}
-        style={{ width: 400 }}
+        style={{ maxWidth: 400, width: `calc(100% - 40px)` }}
       >
         <FormControl className="mt-3 rtl-input p-relative">
           <InputLabel htmlFor="full-name">نام و نام خانوادگی</InputLabel>
@@ -117,7 +117,7 @@ export default function Register({ setFormStatus }) {
           />
           {fullNameError && <Error>{fullNameError}</Error>}
         </FormControl>
-        <FormControl className="mt-3 rtl-input p-relative">
+        <FormControl className="mt-3 rtl-input p-relative focus-left">
           <InputLabel htmlFor="mobile">شماره موبایل</InputLabel>
           <Input
             id="mobile"
@@ -127,7 +127,7 @@ export default function Register({ setFormStatus }) {
           />
           {phoneError && <Error>{phoneError}</Error>}
         </FormControl>
-        <FormControl className="mt-3 rtl-input p-relative">
+        <FormControl className="mt-3 rtl-input p-relative focus-left">
           <InputLabel htmlFor="phone">ایمیل</InputLabel>
           <Input
             id="phone"
@@ -138,7 +138,7 @@ export default function Register({ setFormStatus }) {
           />
           {emailError && <Error>{emailError}</Error>}
         </FormControl>
-        <FormControl className="mt-3 rtl-input p-relative">
+        <FormControl className="mt-3 rtl-input p-relative focus-left">
           <InputLabel htmlFor="password">رمز عبور</InputLabel>
           <Input
             id="password"
@@ -149,7 +149,7 @@ export default function Register({ setFormStatus }) {
           />
           {passwordError && <Error>{passwordError}</Error>}
         </FormControl>
-        <FormControl className="mt-3 rtl-input p-relative">
+        <FormControl className="mt-3 rtl-input p-relative focus-left">
           <InputLabel htmlFor="password-re">تکرار رمز عبور</InputLabel>
           <Input
             id="password-re"

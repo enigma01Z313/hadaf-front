@@ -19,3 +19,11 @@
 .profile-wrapper li {
   list-style: none;
 }
+
+.profile-mobile-trigger{
+  background: #ccc;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
+}

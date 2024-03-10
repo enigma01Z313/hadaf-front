@@ -42,7 +42,7 @@ export default function Login({ setFormStatus }) {
     }
 
     return hasError;
-  }
+  };
   const submitRegisterForm = async () => {
     const hasError = formValidate();
 
@@ -69,8 +69,9 @@ export default function Login({ setFormStatus }) {
       <div
         className={`d-flex direction-column
           ${loading ? "loading" : ""}`}
-        style={{ width: 400 }}>
-        <FormControl className="mt-3 rtl-input p-relative">
+        style={{ maxWidth: 400, width: `calc(100% - 40px)` }}
+      >
+        <FormControl className="mt-3 rtl-input p-relative focus-left">
           <InputLabel htmlFor="full-name">ایمیل یا شماره تماس</InputLabel>
           <Input
             id="full-name"
@@ -80,7 +81,7 @@ export default function Login({ setFormStatus }) {
           />
           {usernameError && <Error>{usernameError}</Error>}
         </FormControl>
-        <FormControl className="mt-3 rtl-input p-relative">
+        <FormControl className="mt-3 rtl-input p-relative focus-left">
           <InputLabel htmlFor="mobile">رمز عبور</InputLabel>
           <Input
             id="mobile"
@@ -95,7 +96,8 @@ export default function Login({ setFormStatus }) {
         <ContainedPrimary
           onClick={submitRegisterForm}
           className="mt-3 justify-center"
-          size="large">
+          size="large"
+        >
           ورود
         </ContainedPrimary>
       </div>
@@ -103,7 +105,8 @@ export default function Login({ setFormStatus }) {
         حساب کاربری ندارید
         <TexedPrimary
           className="mr-1"
-          onClick={() => setFormStatus("register")}>
+          onClick={() => setFormStatus("register")}
+        >
           ثبت نام
         </TexedPrimary>
       </div>
@@ -111,7 +114,8 @@ export default function Login({ setFormStatus }) {
         رمز عبور خود را فراموش کردین؟
         <TexedPrimary
           className="mr-1"
-          onClick={() => setFormStatus("forgetPassword")}>
+          onClick={() => setFormStatus("forgetPassword")}
+        >
           بازیابی
         </TexedPrimary>
       </div>

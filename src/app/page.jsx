@@ -18,10 +18,11 @@ export default function Home() {
   const [formStatus, setFormStatus] = useState(defStatus);
 
   return (
-    <main className={`${styles.main} justify-between`}>
+    <main className={`${styles.main} auth-main justify-between`}>
       <div
         className={`w-50 d-flex justify-center align-center
-        ${styles["logo-side"]}`}>
+        ${styles["logo-side"]}`}
+      >
         <Image
           className="mb-2 mx-2"
           src="/logoa.png"
@@ -31,6 +32,13 @@ export default function Home() {
         />
       </div>
       <div className="w-50 d-flex justify-center align-center direction-column">
+        <Image
+          className="mt-3 mb-2 mx-2 mobile-logo"
+          src="/logoa.png"
+          alt="خانه"
+          width={150}
+          height={51}
+        />
         {formStatus === "register" && (
           <Register setFormStatus={setFormStatus} />
         )}

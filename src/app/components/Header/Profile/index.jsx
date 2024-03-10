@@ -3,7 +3,7 @@ import React, { useState, useContext, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import SettingsIcon from '@mui/icons-material/Settings';
+import SettingsIcon from "@mui/icons-material/Settings";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import PersonIcon from "@mui/icons-material/Person";
 import TexedInherit from "@/app/components/Button/TexedInherit";
@@ -17,10 +17,10 @@ export default function Profile() {
   const router = useRouter();
   const { theUser, setTheUser, theWorkspace } = useContext(workspaceContext);
   const user = theUser ?? JSON.parse(localStorage.getItem("user"));
-['']
+  [""];
   useEffect(() => {
-    setTheUser(user)
-  }, [])
+    setTheUser(user);
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
@@ -33,13 +33,19 @@ export default function Profile() {
   };
 
   return (
-    <div className={styles["profile-wrapper"]}>
+    <div className={`${styles["profile-wrapper"]}`}>
       <Link
-        className="d-flex align-center px-2 py-1"
-        href={`/dashboard/users/${theUser?.id}`}>
+        className="d-flex align-center px-2 py-1 p-s-0 d-xs-none"
+        href={`/dashboard/users/${theUser?.id}`}
+      >
         {theUser?.fullName}
         <KeyboardArrowDownIcon className="mr-1" />
       </Link>
+      <Link
+        className={`d-none d-xs-flex align-center justify-center 
+        ${styles["profile-mobile-trigger"]}`}
+        href={`/dashboard/users/${theUser?.id}`}
+      >فا</Link>
       <div className="pt-3">
         <div className="wrapper-box p-0">
           <ul className="py-1">
@@ -72,7 +78,8 @@ export default function Profile() {
               <TexedInherit
                 onClick={handleLogout}
                 className="w-100 px-1 py-1 d-flex"
-                href="">
+                href=""
+              >
                 <ExitToAppIcon className="ml-1" />
                 خروج
               </TexedInherit>
