@@ -45,7 +45,12 @@ export default function Profile() {
         className={`d-none d-xs-flex align-center justify-center 
         ${styles["profile-mobile-trigger"]}`}
         href={`/dashboard/users/${theUser?.id}`}
-      >فا</Link>
+      >
+        {theUser?.fullName
+          ?.split(" ")
+          .map((item) => item.charAt(0))
+          .join("")}
+      </Link>
       <div className="pt-3">
         <div className="wrapper-box p-0">
           <ul className="py-1">
