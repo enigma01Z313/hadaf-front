@@ -39,7 +39,9 @@ export default function DashboardLayout({ children }) {
             <aside className={`grow-1 ${styles["main-side"]}`}>
               <Header />
               <PerfectScrollbar style={{ maxHeight: "calc(100vh - 75px)" }}>
-                <main className={`p-3`}>{children}</main>
+                <main className={window.innerWidth >= 1100 ? "p-3" : "p-2"}>
+                  {children}
+                </main>
               </PerfectScrollbar>
             </aside>
           </CreateModeProvider>

@@ -21,7 +21,9 @@ export default function ListTable({
   const [loading, setLoading] = useState(true);
   const [createMode, setCreateMode] = useState("");
   const [newTaskTitle, setNewTaskTitle] = useState("");
-  const [viewMode, setViewMode] = useState("column");
+  const [viewMode, setViewMode] = useState(
+    window.innerWidth >= 1200 ? "column" : "row"
+  );
 
   const { theWorkspace } = useContext(workspaceContext);
 
@@ -63,10 +65,7 @@ export default function ListTable({
   return (
     <>
       <div>
-        <Header
-          viewMode={viewMode}
-          setViewMode={setViewMode}
-        />
+        <Header viewMode={viewMode} setViewMode={setViewMode} />
         {(viewMode === "column" && (
           <div
             className={`

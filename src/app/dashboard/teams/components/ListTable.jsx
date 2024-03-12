@@ -3,6 +3,8 @@ import { DataGrid } from "@mui/x-data-grid";
 
 import workspaceContext from "@/app/context/workspaceContext";
 import ContainedPrimary from "@/app/components/Button/ContainedPrimary";
+import Cards from "@/app/components/Cards";
+import AddIcon from "@mui/icons-material/Add";
 
 import getTeamUsersList from "@/app/lib/workspaces/team/list";
 import updateTeam from "@/app/lib/workspaces/team/update";
@@ -47,12 +49,19 @@ export default function ListTable({
     >
       <div className="d-flex justify-between align-center mb-2">
         <h3 className="">لیست تیم ها</h3>
-        <ContainedPrimary onClick={() => setSingleTeam("create")}>
-          افزودن تیم
+
+        <ContainedPrimary
+          className={"p-xs-0-5"}
+          onClick={() => setSingleTeam("create")}
+        >
+          <AddIcon className="d-none d-xs-block" />
+
+          <span className="d-xs-none">افزودن تیم</span>
         </ContainedPrimary>
       </div>
       {(loading && "در حال بارگذاری") ||
-        (theTeams.length === 0 && "چیزی برای نمایش وجود ندارد") || (
+        (theTeams.length === 0 && "چیزی برای نمایش وجود ندارد") ||
+        (window.innerWidth >= 1100 && (
           <DataGrid
             rows={theTeams.data}
             columns={columns}
@@ -63,7 +72,7 @@ export default function ListTable({
             }}
             pageSizeOptions={[5, 10]}
           />
-        )}
+        )) || <Cards rows={theTeams.data} columns={columns} targetW={1100} />}
     </div>
   );
 }

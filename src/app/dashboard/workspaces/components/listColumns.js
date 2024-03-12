@@ -35,14 +35,22 @@ const listColumns = () => {
       field: "",
       headerName: "ویرایش",
       width: 70,
-      renderCell: (data) => (
-        <Link
-          className="w-100 text-center"
-          href={`/dashboard/workspaces/${data.row.id}`}
-          prefetch={false}>
-          <EditIcon />
-        </Link>
-      ),
+      renderCell: (data) => {
+        const className =
+          data.targetW && window.innerWidth < data.targetW
+            ? "w-100 text-left"
+            : "w-100 text-center";
+
+        return (
+          <Link
+            className={className}
+            href={`/dashboard/workspaces/${data.row.id}`}
+            prefetch={false}
+          >
+            <EditIcon />
+          </Link>
+        );
+      },
     },
   ];
 

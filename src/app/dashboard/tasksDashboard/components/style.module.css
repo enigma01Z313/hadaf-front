@@ -1,0 +1,25 @@
+.chart-items {
+  height: 400px;
+}
+
+.chart-item {
+  width: 49%;
+  float: right;
+}
+
+@media (max-width: 750px) {
+  .chart-items {
+    height: unset;
+  }
+
+  .chart-item {
+    float: none;
+    clear: both;
+    width: 100%;
+  }
+
+  .chart-item:first-child {padding: 0 !important;}
+  .chart-item:first-child > div{
+    max-width: 100%;
+  }
+}

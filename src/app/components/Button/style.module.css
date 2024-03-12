@@ -192,3 +192,36 @@
 .text-primary:active:not(:disabled){
   background: #00BF40;
 }
+
+@media (max-width: 580px) {
+  .btn-extra-small{
+    font-size: 11px;
+    line-height: 22.75px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+  .btn-small {
+    font-size: 11px;
+    line-height: 20px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+  .btn-normal {
+    font-size: 12px;
+    line-height: 22px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+  .btn-large {
+    font-size: 13px;
+    line-height: 24px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  .btn-over-large {
+    font-size: 16px;
+    line-height: 26px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}

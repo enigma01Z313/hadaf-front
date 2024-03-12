@@ -25,7 +25,7 @@ export default function Left({
   const changeHandlred = (key, value) => handleTagsChange(value);
 
   return (
-    <aside className={`grow-1`} style={{ maxWidth: "25%" }}>
+    <aside className={`grow-1 w-xs-100`} style={{ maxWidth: "25%" }}>
       <DueDate
         dueDate={dueDate}
         handleDueDateChange={handleDueDateChange}

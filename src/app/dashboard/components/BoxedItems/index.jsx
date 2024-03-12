@@ -6,7 +6,7 @@ export default function BoxedItems({ data, config }) {
   return (
     <>
       {data && (
-        <section className="d-flex mt-2">
+        <section className="d-flex">
           {config.map((configItem, index) => (
             <BoxedDetailItem
               key={index}

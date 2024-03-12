@@ -10,7 +10,7 @@ export default function Right({
   taskId,
 }) {
   return (
-    <aside className="grow-1 pl-2">
+    <aside className="grow-1 pl-2 w-xs-100 pl-xs-0">
       <Description
         description={description}
         handleDescriptionChange={handleDescriptionChange}

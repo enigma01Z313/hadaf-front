@@ -39,6 +39,19 @@
   right: -20px;
 }
 
+@media (max-width: 450px) {
+  .row-search-wrapper{
+    position: relative;
+  }
+
+  .row-search-wrapper svg{
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: auto;
+  }
+}
+
 .task-row-article{
   border-radius: 4px;
 }

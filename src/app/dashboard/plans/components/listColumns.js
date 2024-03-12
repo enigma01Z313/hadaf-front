@@ -110,16 +110,31 @@ const listColumns = (setSingleTeam, handleActivate, handleDeactivate) => {
       field: " ",
       headerName: "نمایش برای کاربر",
       width: 150,
-      renderCell: (data) =>
-        (data.row.salable?.code === 0 && (
-          <TextedInfo onClick={() => handleActivate(data.row.id)}>
-            نمایش در لیست
-          </TextedInfo>
-        )) || (
-          <TexedError onClick={() => handleDeactivate(data.row.id)}>
-            عدم نمایش در لیست
-          </TexedError>
-        ),
+      mobileDisableHeader: true,
+      renderCell: (data) => {
+        const className =
+          data.targetW && window.innerWidth < data.targetW
+            ? "w-100 justify-center"
+            : "";
+
+        return (
+          (data.row.salable?.code === 0 && (
+            <TextedInfo
+              className={`${className}`}
+              onClick={() => handleActivate(data.row.id)}
+            >
+              نمایش در لیست
+            </TextedInfo>
+          )) || (
+            <TexedError
+              className={`${className}`}
+              onClick={() => handleDeactivate(data.row.id)}
+            >
+              عدم نمایش در لیست
+            </TexedError>
+          )
+        );
+      },
     },
   ];
 

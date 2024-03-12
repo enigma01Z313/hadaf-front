@@ -3,11 +3,13 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Checkbox, FormControlLabel } from "@mui/material";
 
 import workspaceContext from "@/app/context/workspaceContext";
+import AddIcon from "@mui/icons-material/Add";
 
 import ContainedPrimary from "@/app/components/Button/ContainedPrimary";
 import TexedPrimary from "@/app/components/Button/TexedPrimary";
 import listColumns from "./listColumns";
 import permissionChec from "@/app/utils/permissionCheck";
+import Cards from "@/app/components/Cards";
 
 import getUsersList from "@/app/lib/users/list";
 import updateUser from "@/app/lib/workspaces/users/update";
@@ -78,48 +80,70 @@ export default function ListTable({
           <h3 className="">لیست کاربران</h3>
 
           {(isAdmin || isSuperAdmin) && (
-            <FormControlLabel
-              className="mr-2"
-              onClick={() => setAllUsers((state) => !state)}
-              control={<Checkbox checked={allUsers} />}
-              label="نمایش همه کاربران"
-            />
+            <>
+              <FormControlLabel
+                className="mr-2 d-xs-none"
+                onClick={() => setAllUsers((state) => !state)}
+                control={<Checkbox checked={allUsers} />}
+                label="نمایش همه کاربران"
+              />
+
+              <FormControlLabel
+                className="mr-2 d-none d-xs-block d-xxxxs-none"
+                onClick={() => setAllUsers((state) => !state)}
+                control={<Checkbox checked={allUsers} />}
+                label="همه"
+              />
+
+              <FormControlLabel
+                className="mr-2 d-none d-xxxxs-block"
+                onClick={() => setAllUsers((state) => !state)}
+                control={<Checkbox checked={allUsers} />}
+                label=""
+              />
+            </>
           )}
         </div>
 
-        <div>
+        <div className="d-flex align-center">
           {(isSuperAdmin || isAdmin) && (
             <TexedPrimary
-              className="ml-2"
+              className="ml-2 p-xs-0-5"
               onClick={() => setMode("addUserToWS")}
               addUserToWorkspace={true}
             >
-              افزودن کاربر به فضای کاری
+              <AddIcon className="d-none d-xs-block" />
+
+              <span className="d-xs-none">افزودن کاربر به فضای کاری</span>
             </TexedPrimary>
           )}
 
           <ContainedPrimary
+            className={"p-xs-0-5"}
             onClick={() =>
               setMode(isSuperAdmin || isAdmin ? "create" : "addUserToWS")
             }
           >
-            افزودن کاربر جدید
+            <AddIcon className="d-none d-xs-block" />
+
+            <span className="d-xs-none">افزودن کاربر جدید</span>
           </ContainedPrimary>
         </div>
       </div>
 
-      {users && (
-        <DataGrid
-          rows={users}
-          columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: { page: 0, pageSize: 20 },
-            },
-          }}
-          pageSizeOptions={[5, 10]}
-        />
-      )}
+      {users &&
+        ((window.innerWidth >= 1250 && (
+          <DataGrid
+            rows={users}
+            columns={columns}
+            initialState={{
+              pagination: {
+                paginationModel: { page: 0, pageSize: 20 },
+              },
+            }}
+            pageSizeOptions={[5, 10]}
+          />
+        )) || <Cards rows={users} columns={columns} targetW={1250} />)}
     </div>
   );
 }

@@ -92,15 +92,24 @@ const listColumns = (
       field: "",
       headerName: "ویرایش",
       width: 70,
-      renderCell: (data) => (
-        <Link
-          className="w-100 text-center"
-          href={`/dashboard/users/${data.row.id}`}
-          prefetch={false}
-        >
-          <EditIcon />
-        </Link>
-      ),
+      renderCell: (data) => {
+        const className =
+          data.targetW && window.innerWidth < data.targetW
+            ? "w-100 text-left"
+            : "w-100 text-center";
+
+        return (
+          <Link
+            className={className}
+            href={`/dashboard/users/${data.row.id}`}
+            prefetch={false}
+          >
+            <TexedInherit>
+              <EditIcon />
+            </TexedInherit>
+          </Link>
+        );
+      },
     });
   }
 
@@ -109,14 +118,21 @@ const listColumns = (
       field: " ",
       headerName: "لیست فضاهای کاری",
       width: 130,
-      renderCell: (data) => (
-        <TexedInherit
-          className="w-100 justify-center"
-          onClick={() => setSingleUserId(data.row.id)}
-        >
-          <ApartmentIcon />
-        </TexedInherit>
-      ),
+      renderCell: (data) => {
+        const className =
+          data.targetW && window.innerWidth < data.targetW
+            ? "w-100 justify-end"
+            : "w-100 justify-center";
+
+        return (
+          <TexedInherit
+            className={className}
+            onClick={() => setSingleUserId(data.row.id)}
+          >
+            <ApartmentIcon />
+          </TexedInherit>
+        );
+      },
     });
   }
 
@@ -124,17 +140,32 @@ const listColumns = (
     columns.push({
       field: "  ",
       headerName: "عملیات",
+      mobileDisableHeader: true,
       width: 120,
-      renderCell: (data) =>
-        (data.row?.workspaceStatus?.code === 0 && (
-          <TextedInfo onClick={() => handleActivate(data.row.id)}>
-            فعال کردن
-          </TextedInfo>
-        )) || (
-          <TexedError onClick={() => handleDeactivate(data.row.id)}>
-            غیر فعلا کردن
-          </TexedError>
-        ),
+      renderCell: (data) => {
+        const className =
+          data.targetW && window.innerWidth < data.targetW
+            ? "w-100 justify-center"
+            : "";
+
+        return (
+          (data.row?.workspaceStatus?.code === 0 && (
+            <TextedInfo
+              className={`${className}`}
+              onClick={() => handleActivate(data.row.id)}
+            >
+              فعال کردن
+            </TextedInfo>
+          )) || (
+            <TexedError
+              className={`${className}`}
+              onClick={() => handleDeactivate(data.row.id)}
+            >
+              غیر فعلا کردن
+            </TexedError>
+          )
+        );
+      },
     });
   }
 

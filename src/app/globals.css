@@ -163,7 +163,7 @@ a {
 }
 /****************************************/
 .d-none {
-  display: none;
+  display: none !important;
 }
 .no-shadow {
   box-shadow: none !important;
@@ -219,6 +219,9 @@ a {
 }
 .text-center {
   text-align: center !important;
+}
+.text-left{
+  text-align: left !important;
 }
 .grow-1 {
   flex-grow: 1;
@@ -1215,8 +1218,15 @@ body {
   display: none;
 }
 
+@media (max-width: 1200px){
+  .d-l-none{display: none !important}
+}
+@media (max-width: 1024px){
+
+}
 @media (max-width: 992px) {
   .d-s-none{display: none !important;}
+  .d-s-block{display: block !important;}
   .p-s-0{padding: 0 !important;}
 
   .auth-main > div:first-child {
@@ -1234,6 +1244,107 @@ body {
 }
 @media (max-width: 768px) {
   .ml-xs-auto{margin-left: auto !important;}
-  .d-xs-none{display: none;}
-  .d-xs-flex{display: flex;}
+  .mt-xs-2{margin-top: 16px !important}
+  .pl-xs-0{padding-left: 0 !important;}
+  .d-xs-none{display: none !important;}
+  .d-xs-flex{display: flex !important;}
+  .d-xs-block{display: block !important;}
+  .p-xs-1{padding: 8px !important;}
+  .p-xs-0-5{padding: 4px !important;}
+  .mr-xs-0{margin-right: 0 !important;}
+  .w-xs-100{width: 100% !important; max-width: 100% !important;}
+  .w-50{
+    width: 100% !important;
+    margin-top: 24px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  .w-50:first-child{
+    margin-top: 0 !important;
+  }
+  .flex-xs-wrap{
+    flex-wrap: wrap !important;
+  }
+}
+@media (max-width: 600px) {
+  .flex-xxs-wrap{
+    flex-wrap: wrap !important;
+  }
+  .mt-xxs-2{margin-top: 16px !important;}
+  .mr-xxs-0{margin-right: 0 !important;}
+}
+
+@media (max-width: 580px) {
+  .d-xxxs-none{display: none !important;}
+  .mr-xxxs-0{margin-right: 0 !important;}
+  .text-h1 {
+    font-size: 80px !important;
+    line-height: 90px !important;
+  }
+  .text-h2 {
+    font-size: 50px !important;
+    line-height: 62px !important;
+  }
+  .text-h3 {
+    font-size: 40px !important;
+    line-height: 40px !important;
+  }
+  .text-h4 {
+    font-size: 28px !important;
+    line-height: 36px !important;
+  }
+  .text-h5 {
+    font-size: 20px !important;
+    line-height: 24px !important;
+  }
+  .text-h5-5 {
+    font-size: 17px !important;
+    line-height: 17px !important;
+  }
+  .text-h6 {
+    font-size: 16px !important;
+    line-height: 24px !important;
+  }
+  .text-subtitle-1 {
+    font-size: 14px !important;
+    line-height: 20px !important;
+  }
+  .text-body-1 {
+    font-size: 14px !important;
+    line-height: 17px !important;
+  }
+  .text-subtitle-2 {
+    font-size: 13px !important;
+    line-height: 20px !important;
+  }
+  .text-subtitle-3 {
+    font-size: 12px !important;
+    line-height: 19px !important;
+  }
+  .text-body-2 {
+    font-size: 12px !important;
+    line-height: 21px !important;
+  }
+  .text-custom {
+    font-size: 12px !important;
+    line-height: 17px !important;
+  }
+  .text-caption {
+    font-size: 10px !important;
+    line-height: 18px !important;
+  }
+  .text-overline {
+    font-size: 10px !important;
+    line-height: 28px !important;
+  }
+  .text-tooltip {
+    font-size: 9px !important;
+    line-height: 12px !important;
+  }
+}
+
+@media (max-width: 480px){
+  .d-xxxxs-none{display: none !important;}
+  .d-xxxxs-block{display: block !important;}
+  .w-xxxxs-100{width: 100% !important;}
 }

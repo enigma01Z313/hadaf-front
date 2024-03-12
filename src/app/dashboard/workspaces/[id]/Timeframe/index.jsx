@@ -28,8 +28,8 @@ export default function Timeframe() {
   return (
     <>
       <section className={loading ? "loading" : ""}>
-        <header className="d-flex justify-between align-center mb-6">
-          <h3 className="text-h6 mb-2">بازه های زمانی</h3>
+        <header className="d-flex justify-between align-center mb-1">
+          <h3 className="text-h6">بازه های زمانی</h3>
           <ContainedPrimary onClick={() => setSingle("create")}>
             ایجاد بازه زمانی جدید
           </ContainedPrimary>

@@ -178,8 +178,8 @@ export default function Info({ params }) {
         />
       </FormControl>
 
-      <section className="w-100 d-flex no-wrap mt-2">
-        <div className="grow-1 ml-2">
+      <section className="w-100 d-flex mt-2">
+        <div className="grow-1 w-50 ml-2">
           <FormControl
             id="okr-owner-select-wrap"
             fullWidth
@@ -205,7 +205,7 @@ export default function Info({ params }) {
             </Select>
           </FormControl>
         </div>
-        <div className="grow-1">
+        <div className="grow-1 w-50">
           <FormControl
             id="okr-owner-select-wrap"
             fullWidth

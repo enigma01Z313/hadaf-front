@@ -97,7 +97,7 @@ export default function Single({
       onClose={handleClose}
       PaperProps={{ classes: { root: loading ? "loading " : "over-visible" } }}>
       <DialogTitle>
-        <div className="d-flex no-wrap">
+        <div className="d-flex no-wrap flex-xxs-wrap">
           <FormControl className="rtl-input p-relative w-100">
             <Input
               id="full-name"
@@ -109,7 +109,7 @@ export default function Single({
               //   inputRef={timeframeTitleRef}
             />
           </FormControl>
-          <div className="mr-2" style={{ width: "520px" }}>
+          <div className="mr-2 mt-xxs-2 mr-xxs-0" style={{ width: "520px" }}>
             <div className="text-subtitle-1">بازه زمانی</div>
 
             <RangeDatepicker

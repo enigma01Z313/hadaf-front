@@ -7,3 +7,39 @@
   border-radius: 4px;
   cursor: pointer;
 }
+
+@media (max-width: 1150px) {
+  .okr-list-wrapper ul li > div{
+    margin-bottom: 16px;
+  }
+}
+@media (max-width: 500px) {
+  .okr-list-wrapper ul li > div{
+    width: 100%;
+  }
+  .okr-list-wrapper ul li > div:nth-child(1),
+  .okr-list-wrapper ul li > div:nth-child(4),
+  .okr-list-wrapper ul li > div:nth-child(5),
+  .okr-list-wrapper ul li > div:nth-child(6){
+    margin-left: 0 !important;
+  }
+  .okr-list-wrapper ul li > div:nth-child(2),
+  .okr-list-wrapper ul li > div:nth-child(3){
+    margin-left: 16px !important;
+  }
+  .okr-list-wrapper ul li > div:nth-child(2),
+  .okr-list-wrapper ul li > div:nth-child(3){
+    max-width: calc((100% - 32px - 80px) / 2) !important;
+    width: 50%;
+  }
+  .okr-list-wrapper ul li > div:nth-child(4){
+    width: 80px;
+  }
+  .okr-list-wrapper ul li > div:nth-child(5),
+  .okr-list-wrapper ul li > div:nth-child(6){
+    max-width: 100% !important;
+  }
+  .okr-list-wrapper ul li > div:nth-child(7){
+    max-width: calc(100% - 60px - 16px);
+  }
+}

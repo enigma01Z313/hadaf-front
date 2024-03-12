@@ -1,0 +1,50 @@
+.cards {
+  --cards-count: 3;
+  --cards-margin: 16px;
+}
+
+.cards .card {
+  --card-width: calc(
+    (100% - ((var(--cards-count) - 1) * var(--cards-margin))) /
+      var(--cards-count)
+  );
+  --no-margin-left-selector: "3n";
+
+  flex-grow: 1;
+  min-width: var(--card-width);
+  max-width: var(--card-width);
+  margin-bottom: var(--cards-margin);
+  margin-left: var(--cards-margin);
+}
+
+.cards .card:nth-child(3n) {
+  margin-left: 0;
+}
+
+.cards .card > div > div:last-child{
+  line-break: anywhere;
+}
+
+@media (max-width: 880px) {
+  .cards {
+    --cards-count: 2;
+  }
+
+  .cards .card:nth-child(3n) {
+    margin-left: var(--cards-margin);
+  }
+
+  .cards .card:nth-child(2n) {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 550px) {
+  .cards {
+    --cards-count: 1;
+  }
+  
+  .cards .card{
+    margin-left: 0;
+  }
+}

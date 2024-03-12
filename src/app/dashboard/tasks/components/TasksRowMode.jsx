@@ -8,6 +8,7 @@ import { Input } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import IOSSlider from "@/app/components/Shared/IOSSlider";
 import PerfectScrollbar from "react-perfect-scrollbar";
+import AddIcon from "@mui/icons-material/Add";
 
 import workspaceContext from "@/app/context/workspaceContext";
 
@@ -38,6 +39,7 @@ export default function TasksRowMode({
           <header className="d-flex justify-between align-center">
             <div
               className={`d-flex align-center ${styles["row-search-wrapper"]}`}
+              style={{maxWidth: 'calc(100% - 50px)'}}
             >
               <Input
                 placeholder="جستجو..."
@@ -46,8 +48,12 @@ export default function TasksRowMode({
               />
               <SearchIcon />
             </div>
-            <ContainedPrimary onClick={() => setSingleTask("create")}>
-              افزودن
+            <ContainedPrimary
+              className={"p-xs-0-5"}
+              onClick={() => setSingleTask("create")}
+            >
+              <AddIcon className="d-none d-xs-block" />
+              <span className="d-xs-none">افزودن</span>
             </ContainedPrimary>
           </header>
           <Devider spacing={2} line={true} />

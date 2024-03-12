@@ -2,6 +2,7 @@ import React from "react";
 
 import { format } from "date-fns-jalali-3";
 import { Chip, Stack } from "@mui/material";
+import styles from "./style.module.css"
 
 const OkrDetailItemConfigs = [
   {
@@ -23,10 +24,10 @@ export default function WorkspaceDatail({ data }) {
   return (
     <>
       {data && (
-        <Stack className="" direction="row">
+        <div className="d-flex" direction="row">
           {OkrDetailItemConfigs.map((config, index) => (
             <Chip
-              className={index !== 0 ? "mr-2" : ""}
+              className={`${styles['chips-item']} ${index !== 0 ? "mr-2" : ""}`}
               key={index}
               label={`${config.title}: ${
                 config.render
@@ -36,7 +37,7 @@ export default function WorkspaceDatail({ data }) {
               variant="outlined"
             />
           ))}
-        </Stack>
+        </div>
       )}
     </>
   );

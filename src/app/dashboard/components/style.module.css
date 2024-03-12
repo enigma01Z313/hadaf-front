@@ -1,0 +1,14 @@
+@media (max-width: 570px) {
+  .chips-item:last-child {
+    margin-right: 0 !important;
+    margin-top: 16px;
+  }
+}
+
+@media (max-width: 395px) {
+  .chips-item {
+    margin-right: 0 !important;
+    margin-top: 16px;
+    width: 100%;
+  }
+}

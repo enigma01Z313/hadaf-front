@@ -1,5 +1,7 @@
 import React from "react";
 
+import styles from './style.module.css'
+
 export default function BoxedDetailItem({
   title,
   value,
@@ -10,8 +12,9 @@ export default function BoxedDetailItem({
 }) {
   return (
     <div
-      className={`wrapper-box grow-1 d-flex direction-column align-center 
-          ${index !== 0 ? "mr-3" : ""}`}>
+      className={`wrapper-box grow-1 d-flex direction-column align-center mt-3 
+        ${styles['box-item']}
+        ${index !== 0 ? "mr-3" : ""}`}>
       <div>
         {iconRender?.(color.text) ?? <box-icon color={color.text} name={icon}></box-icon>}
       </div>

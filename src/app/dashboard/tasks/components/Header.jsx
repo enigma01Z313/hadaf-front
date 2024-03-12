@@ -36,42 +36,7 @@ export default function Header({
 
   return (
     <div className="d-flex justify-between align-center mb-1">
-      {/* <div className="d-flex">
-        <Box sx={{ minWidth: 120 }}>
-          <FormControl variant="standard" fullWidth>
-            <Select
-              id="select-user"
-              value={filteredUser}
-              label="User"
-              onChange={handleChange}
-            >
-              <MenuItem key="all" value="all">
-                همه
-              </MenuItem>
-              {theUsers?.data?.map((item) => (
-                <MenuItem key={item.id} value={item.id}>
-                  {item.fullName}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Box>
-        <span className="mr-2">
-          <FormControlLabel
-            className="mr-2"
-            onClick={() => {
-              if (filteredMeMode) setFilteredMeMode(false);
-              else {
-                setFilteredMeMode(true);
-                setFilteredUser("all");
-              }
-            }}
-            control={<Checkbox checked={filteredMeMode} />}
-            label="نمایش همه آیتم های مشارکت شده توسط  شما"
-          />
-        </span>
-      </div> */}
-      <div className="d-flex align-center" style={{ marginRight: "auto" }}>
+      <div className="d-flex align-center d-l-none" style={{ marginRight: "auto" }}>
         <span className="ml-1">حالت نمایش</span>
         <ContainedInheritText
           className={`ml-1 p-1`}

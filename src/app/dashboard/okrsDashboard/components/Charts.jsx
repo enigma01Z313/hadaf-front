@@ -10,6 +10,7 @@ import { startOfHistory } from "@/app/configs";
 import workspaceContext from "@/app/context/workspaceContext";
 import ContainedInfo from "@/app/components/Button/ContainedInfo";
 import Gauge from "@/app/components/Gauge";
+import styles from "./style.module.css";
 
 import getWorkspaceUsersList from "@/app/lib/workspaces/users/list";
 import getTeams from "@/app/lib/workspaces/team/list";
@@ -153,10 +154,12 @@ export default function Charts({
         setTargetMember={setTargetMember}
       />
 
-      <div className="mt-2 d-flex" style={{ height: "400px" }}>
+      <div
+        className={`mt-2 d-flex ${styles["chart-items"]}`}
+      >
         <div
-          className="grow-1 d-flex justify-center px-5"
-          style={{ width: "49%", float: "right" }}
+          className={`grow-1 d-flex justify-center px-5
+            ${styles["chart-item"]}`}
         >
           {(total === 0 && (
             <div className="d-flex align-center">هدفی وجود ندارد</div>
@@ -167,8 +170,8 @@ export default function Charts({
           )}
         </div>
         <div
-          className="grow-1 d-flex justify-center align-center"
-          style={{ width: "49%", float: "right" }}
+          className={`grow-1 d-flex justify-center align-center 
+            ${styles["chart-item"]}`}
         >
           <Gauge
             value={Math.floor(okrProgress * 100) / 100}

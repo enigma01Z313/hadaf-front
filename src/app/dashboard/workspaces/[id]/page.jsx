@@ -20,7 +20,8 @@ function CustomTabPanel(props) {
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
-      {...other}>
+      {...other}
+    >
       {value === index && (
         <Box className="pt-2">
           <Typography>{children}</Typography>
@@ -56,7 +57,30 @@ export default function User({ params }) {
         <Tabs
           value={value}
           onChange={handleChange}
-          aria-label="basic tabs example">
+          aria-label="basic tabs example"
+          TabIndicatorProps={{ sx: { display: "none" } }}
+          sx={{
+            "& .MuiTabs-flexContainer": {
+              flexWrap: "wrap",
+
+              "& button": {
+                flexGrow: 1,
+                paddingLeft: "5px",
+                paddingRight: "5px",
+
+                "&.Mui-selected::after": {
+                  content: "''",
+                  display:'block',
+                  height: '1px',
+                  width: '100%',
+                  background: '#1976d2',
+                  position: 'relative',
+                  bottom: '-10px'
+                },
+              },
+            },
+          }}
+        >
           <Tab label="تنظیمات فضای کاری" {...a11yProps(0)} />
           <Tab label="بازه های زمانی" {...a11yProps(1)} />
           <Tab label="برچسب ها" {...a11yProps(2)} />

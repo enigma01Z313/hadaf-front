@@ -58,13 +58,35 @@ export default function Cartable() {
       />
 
       <Devider line={true} spacing={2} />
-      
+
       <section>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs
             value={value}
             onChange={handleChange}
             aria-label="basic tabs example"
+            TabIndicatorProps={{ sx: { display: "none" } }}
+            sx={{
+              "& .MuiTabs-flexContainer": {
+                flexWrap: "wrap",
+
+                "& button": {
+                  flexGrow: 1,
+                  paddingLeft: "5px",
+                  paddingRight: "5px",
+
+                  "&.Mui-selected::after": {
+                    content: "''",
+                    display: "block",
+                    height: "1px",
+                    width: "100%",
+                    background: "#1976d2",
+                    position: "relative",
+                    bottom: "-10px",
+                  },
+                },
+              },
+            }}
           >
             <Tab label="اهداف" {...a11yProps(0)} />
             <Tab label="اقدامک ها" {...a11yProps(1)} />

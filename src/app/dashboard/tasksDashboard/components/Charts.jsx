@@ -8,6 +8,7 @@ import { eachYearOfInterval, format } from "date-fns-jalali-3";
 import { startOfHistory } from "@/app/configs";
 
 import workspaceContext from "@/app/context/workspaceContext";
+import styles from "./style.module.css";
 
 import ContainedInfo from "@/app/components/Button/ContainedInfo";
 import Gauge from "@/app/components/Gauge";
@@ -43,7 +44,8 @@ function Header({ year, setYear, targetMember, setTargetMember }) {
           id="okr-dashboard-member"
           value={targetMember}
           variant="standard"
-          onChange={(e) => setTargetMember(e.target.value)}>
+          onChange={(e) => setTargetMember(e.target.value)}
+        >
           <MenuItem value={"all"}>کل فضای کاری</MenuItem>
           {workspaceUsers.map((item) => (
             <MenuItem key={item.id} value={item.id}>
@@ -59,7 +61,8 @@ function Header({ year, setYear, targetMember, setTargetMember }) {
           id="okr-dashboard-year"
           value={year}
           variant="standard"
-          onChange={(e) => setYear(e.target.value)}>
+          onChange={(e) => setYear(e.target.value)}
+        >
           {years.reverse().map((v, i) => (
             <MenuItem key={i} value={format(v, "yyyy")}>
               {format(v, "yyyy")}
@@ -141,10 +144,10 @@ export default function Charts({
         setTargetMember={setTargetMember}
       />
 
-      <div className="mt-2 d-flex" style={{ height: "400px" }}>
+      <div className={`mt-2 d-flex ${styles["chart-items"]}`}>
         <div
           className="grow-1 d-flex justify-center px-5"
-          style={{ width: "49%", float: "right" }}>
+        >
           {(total === 0 && (
             <div className="d-flex align-center">اقدامک ای وجود ندارد</div>
           )) || (
@@ -155,7 +158,7 @@ export default function Charts({
         </div>
         <div
           className="grow-1 d-flex justify-center align-center"
-          style={{ width: "49%", float: "right" }}>
+        >
           <Gauge
             value={Math.floor(taskProgress * 100) / 100}
             size={"200px"}

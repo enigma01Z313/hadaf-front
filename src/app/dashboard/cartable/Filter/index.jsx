@@ -47,8 +47,9 @@ export default function Filter({
           </FormControl>
         </Box>
 
-        <span className="mr-2">
+        <span className="mr-2 mr-xs-0 w-xs-100">
           <FormControlLabel
+            className="mr-xs-0 mt-xs-2"
             onChange={(e) => {
               if (e.target.checked) {
                 setFilteredMeMode(true);

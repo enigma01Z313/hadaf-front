@@ -80,16 +80,31 @@ const listColumns = (setSingleTeam, handleActivate, handleDeactivate) => {
       field: " ",
       headerName: "عملیات",
       width: 120,
-      renderCell: (data) =>
-        (data.row.status.code === 0 && (
-          <TextedInfo onClick={() => handleActivate(data.row.id)}>
-            فعال کردن
-          </TextedInfo>
-        )) || (
-          <TexedError onClick={() => handleDeactivate(data.row.id)}>
-            غیر فعلا کردن
-          </TexedError>
-        ),
+      mobileDisableHeader: true,
+      renderCell: (data) => {
+        const className =
+          data.targetW && window.innerWidth < data.targetW
+            ? "w-100 justify-center"
+            : "";
+
+        return (
+          (data.row.status.code === 0 && (
+            <TextedInfo
+              className={`${className}`}
+              onClick={() => handleActivate(data.row.id)}
+            >
+              فعال کردن
+            </TextedInfo>
+          )) || (
+            <TexedError
+              className={`${className}`}
+              onClick={() => handleDeactivate(data.row.id)}
+            >
+              غیر فعلا کردن
+            </TexedError>
+          )
+        );
+      },
     },
   ];
 
