@@ -31,7 +31,14 @@ export default function KpiItem({
       <div style={{ width: "50px" }}>
         <ArrowUpwardIcon style={{ fontSize: "1.1rem" }} />
       </div>
-      <div className="grow-1 d-flex">
+
+      <div
+        className="grow-1 d-flex cursor-pointer"
+        onClick={() => {
+          setOpenAmount(true);
+          setOpenedActions("");
+        }}
+      >
         {kpi.tags && (
           <div className="tag-lines">
             {kpi.tags.map((tag) => (
@@ -45,6 +52,7 @@ export default function KpiItem({
         )}
         {kpi.name}
       </div>
+
       <div className="text-center" style={{ width: "120px" }}>
         <CurrentPeriod continuous={kpi.continuous} />
       </div>
@@ -91,7 +99,7 @@ export default function KpiItem({
         )) ||
           "-"}
       </div>
-      <div
+      {/* <div
         style={{ width: "130px" }}
         className="text-caption text-center d-flex justify-around"
       >
@@ -109,6 +117,7 @@ export default function KpiItem({
           direction={kpi.direction.code}
           setReloadList={setReloadList}
         />
+
         <AmountEdit
           value={kpi.realAmounts.current.amount}
           amountId={kpi.realAmounts.current.id}
@@ -123,7 +132,7 @@ export default function KpiItem({
           direction={kpi.direction.code}
           setReloadList={setReloadList}
         />
-      </div>
+      </div> */}
 
       <div style={{ width: "120px" }} className="text-center">
         <Assignee assignee={kpi.assignee} />

@@ -27,15 +27,17 @@ export default function OkrsDashboard() {
 
   useEffect(() => {
     (async function () {
-      const okrDashboardData = await getDashboardData({
-        workspaceId: theWorkspace,
-        target: "okrs",
-        activeTimeframe,
-        year,
-        targetMember: targetMember !== "all" ? targetMember : undefined,
-      });
+      if (theWorkspace) {
+        const okrDashboardData = await getDashboardData({
+          workspaceId: theWorkspace,
+          target: "okrs",
+          activeTimeframe,
+          year,
+          targetMember: targetMember !== "all" ? targetMember : undefined,
+        });
 
-      setDashboardData(okrDashboardData);
+        setDashboardData(okrDashboardData);
+      }
     })();
   }, [theWorkspace, activeTimeframe, targetMember, year]);
 

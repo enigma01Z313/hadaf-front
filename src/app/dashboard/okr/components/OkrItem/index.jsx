@@ -9,6 +9,7 @@ import OkrStatus from "./OkrStatus";
 import OkrTitle from "./OkrTitle";
 import OkrFrom from "./OkrFrom";
 import OkrTo from "./OkrTo";
+import OkrKrs from "./OkrKrs";
 
 import Gauge from "@/app/components/Gauge";
 
@@ -21,6 +22,7 @@ export default function OkrItem({
   saveCurrentOkr,
 }) {
   const [theOrk, setTheOrk] = useState(okr);
+  const [showKrs, setShowKrs] = useState(false)
 
   useEffect(() => {
     setTheOrk(okr)
@@ -75,6 +77,8 @@ export default function OkrItem({
         value={theOrk.title}
         changeHandler={changeHandler}
         saveCurrentOkr={saveCurrentOkrClousure}
+        showKrs={showKrs}
+        setShowKrs={setShowKrs}
       />
 
       <OkrFrom
@@ -119,6 +123,8 @@ export default function OkrItem({
       />
 
       <Gauge value={theOrk.progress} />
+
+      {showKrs && <OkrKrs krs={theOrk.keyResults}/>}
     </li>
   );
 }

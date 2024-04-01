@@ -1,16 +1,24 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 
+import { format } from "date-fns-jalali-3";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { TextField } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import ClearIcon from "@mui/icons-material/Clear";
 import CheckIcon from "@mui/icons-material/Check";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import PersonIcon from "@mui/icons-material/Person";
+import UpdateIcon from "@mui/icons-material/Update";
+
+import workspaceContext from "@/app/context/workspaceContext";
 
 import Devider from "@/app/components/Devider";
 import TextedInfo from "@/app/components/Button/TextedInfo";
 import TexedError from "@/app/components/Button/TextedError";
 import ContainedPrimary from "@/app/components/Button/ContainedPrimary";
+
+import updateTask from "@/app/lib/tasks/update";
 
 import styles from "./style.module.css";
 
@@ -25,10 +33,26 @@ const Column = ({
   addNewTask,
   setSingleTask,
   filteredMeMode,
+  taskStatuses,
+  setRealoadList,
 }) => {
+  const { theWorkspace } = useContext(workspaceContext);
   const [loading, setLoading] = useState(false);
+
   const newTaskRef = useRef();
   const theUser = JSON.parse(localStorage.getItem("user"));
+  const finishedStatusId = taskStatuses.find(
+    (item) => item.name === "انجام شده"
+  )?.id;
+  const currentStatusId = taskStatuses.find(
+    (item) => item.name === "در حال انجام"
+  )?.id;
+  const notStartStatusId = taskStatuses.find(
+    (item) => item.name === "شروع نشده"
+  )?.id;
+  const stoppedStatusId = taskStatuses.find(
+    (item) => item.name === "متوقف شده"
+  )?.id;
 
   const handleNewTaskAdd = async () => {
     setLoading(true);
@@ -40,6 +64,31 @@ const Column = ({
   useEffect(() => {
     if (createMode !== "") newTaskRef?.current?.focus();
   }, [createMode]);
+
+  const handleCheckBox = async (taskStatuses, task) => {
+    let newStatus, newProgress;
+
+    if (
+      task.status.id === currentStatusId ||
+      task.status.id === notStartStatusId
+    ) {
+      newProgress = 100;
+      newStatus = finishedStatusId;
+    } else if (task.status.id === finishedStatusId) {
+      newProgress = 0;
+      newStatus = notStartStatusId;
+    }
+
+    console.log(task);
+    // setLoading(true);
+    // await updateTask(
+    //   task.id,
+    //   { progress: newProgress, status: newStatus },
+    //   theWorkspace
+    // );
+    // setRealoadList((state) => !state);
+    // setLoading(false);
+  };
 
   return (
     <div
@@ -68,7 +117,6 @@ const Column = ({
                 >
                   {(draggableProvided, draggableSnapshot) => (
                     <div
-                      onClick={() => setSingleTask(task.id)}
                       className={`p-1 mb-1 d-flex ${styles["task-item"]}
                         ${
                           filteredMeMode &&
@@ -84,14 +132,86 @@ const Column = ({
                       {...draggableProvided.draggableProps}
                       {...draggableProvided.dragHandleProps}
                     >
-                      {task.tags.map((tag) => (
+                      <div className="d-flex align-center w-100">
                         <div
-                          key={tag.id}
-                          className="tag-line"
-                          style={{ "--bg-color": tag.color }}
+                          className={`fake-checkbox ml-1
+                            ${finishedStatusId === task.status.id ? "checked" : ""}
+                            ${
+                              stoppedStatusId === task.status.id
+                                ? "disabled"
+                                : ""
+                            }
+                            `}
+                          onClick={() => {
+                            handleCheckBox(taskStatuses, task);
+                          }}
                         ></div>
-                      ))}
-                      <span>{task.title}</span>
+
+                        {task.tags.map((tag) => (
+                          <div
+                            key={tag.id}
+                            className="tag-line"
+                            style={{ "--bg-color": tag.color }}
+                          ></div>
+                        ))}
+
+                        <span
+                          className="grow-1"
+                          onClick={() => setSingleTask(task.id)}
+                        >
+                          {task.title}
+                        </span>
+
+                        {task.dueDate && (
+                          <span
+                            className="d-flex align-center"
+                            style={{ fontSize: "12px" }}
+                          >
+                            <CalendarMonthIcon
+                              className="ml-0-5"
+                              style={{ fontSize: "15px" }}
+                            />
+                            {format(new Date(task.dueDate), "yyyy/MM/dd")}
+                          </span>
+                        )}
+
+                        {(task.assignee || task.repeat) && (
+                          <>
+                            <Devider spacing={1} line={true} />
+                            <div className="d-flex justify-between w-100">
+                              <span
+                                className="d-flex align-center"
+                                style={{ fontSize: "14px" }}
+                              >
+                                {task.repeat && (
+                                  <>
+                                    <UpdateIcon
+                                      className="ml-0-5"
+                                      style={{ fontSize: "15px" }}
+                                    />
+                                    {task.repeat.label}
+                                  </>
+                                )}
+                              </span>
+
+                              <span
+                                className="d-flex align-center"
+                                style={{ fontSize: "14px" }}
+                              >
+                                {task.assignee && (
+                                  <>
+                                    <PersonIcon
+                                      className="ml-0-5"
+                                      style={{ fontSize: "15px" }}
+                                    />
+                                    {task.assignee?.fullName}
+                                  </>
+                                )}
+                              </span>
+                            </div>
+                          </>
+                        )}
+                      </div>
                     </div>
                   )}
                 </Draggable>

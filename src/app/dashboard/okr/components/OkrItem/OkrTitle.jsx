@@ -1,16 +1,27 @@
 import React from "react";
 
 import { FormControl, TextField } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 
 export default function OkrTitle({
   value,
   className,
   changeHandler,
   saveCurrentOkr,
+  showKrs,
+  setShowKrs,
 }) {
   return (
-    <div className={className}>
-      <FormControl className="rtl-input p-relative w-100">
+    <div
+      className={`d-flex align-center ${className} `}
+      onClick={() => setShowKrs((state) => !state)}
+    >
+      {(!showKrs && <AddIcon className="ml-2" />) || (
+        <RemoveIcon className="ml-2" />
+      )}
+      {value}
+      {/* <FormControl className="rtl-input p-relative w-100">
         <TextField
           id="okr-title"
           label="عنوان"
@@ -21,7 +32,7 @@ export default function OkrTitle({
           value={value}
           onBlur={() => saveCurrentOkr()}
         />
-      </FormControl>
+      </FormControl> */}
     </div>
   );
 }

@@ -1,12 +1,14 @@
 import React, { useEffect, useState, useContext } from "react";
 
-import getTasksList from "@/app/lib/tasks/list";
 import workspaceContext from "@/app/context/workspaceContext";
 import styles from "./style.module.css";
-import createTask from "@/app/lib/tasks/create";
 import Dnd from "./Dnd";
 import Header from "./Header";
 import TasksRowMode from "./TasksRowMode";
+
+import getTasksList from "@/app/lib/tasks/list";
+import createTask from "@/app/lib/tasks/create";
+import getBoardssList from "@/app/lib/boards/list";
 
 export default function ListTable({
   reloadList,
@@ -24,6 +26,7 @@ export default function ListTable({
   const [viewMode, setViewMode] = useState(
     window.innerWidth >= 1200 ? "column" : "row"
   );
+  const [taskStatuses, setTaskStatuses] = useState([])
 
   const { theWorkspace } = useContext(workspaceContext);
 
@@ -35,10 +38,13 @@ export default function ListTable({
           ? await getTasksList(theWorkspace, filteredUser)
           : [];
 
+      const statusesList = await getBoardssList()
+
       setTasksCount(tasksList?.length ?? 0);
       setColumns(tasksList.columns);
       setLoading(false);
       setTasks(tasksList);
+      setTaskStatuses(statusesList)
     })();
     // }, []);
   }, [reloadList, theWorkspace, viewMode, filteredUser]);
@@ -86,6 +92,7 @@ export default function ListTable({
                 setSingleTask={setSingleTask}
                 setRealoadList={setRealoadList}
                 filteredMeMode={filteredMeMode}
+                taskStatuses={taskStatuses}
               />
             )}
           </div>

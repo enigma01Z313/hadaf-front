@@ -73,6 +73,7 @@ export default function KRItem({
         access: uppedOkr.access.code,
       });
       setLoading(false);
+      setReloadList(state => !state)
     }
   };
 
@@ -185,7 +186,7 @@ export default function KRItem({
         </FormControl>
 
         <FormControl
-          className="rtl-input p-relative grow-1 ml-1-5"
+          className="rtl-input p-relative grow-1 ml-1-5 d-none"
           style={{ maxWidth: "70px" }}
         >
           <TextField
@@ -202,13 +203,13 @@ export default function KRItem({
 
         <FormControl
           className="rtl-input p-relative grow-1 ml-1-5"
-          style={{ maxWidth: "70px" }}
+          style={{ maxWidth: "90px" }}
         >
           <TextField
             id={`key-result-current-${index}`}
-            label="جاری"
+            label="درصد پیشرفت"
             variant="standard"
-            placeholder="جاری"
+            placeholder="درصد پیشرفت"
             inputProps={{ className: "text-body-2 py-0-7" }}
             onChange={(e) => handleChange("current", +e.target.value)}
             value={theKR?.current ?? 0}
@@ -217,7 +218,7 @@ export default function KRItem({
         </FormControl>
 
         <FormControl
-          className="rtl-input p-relative grow-1 ml-1-5"
+          className="rtl-input p-relative grow-1 ml-1-5 d-none"
           style={{ maxWidth: "70px" }}
         >
           <TextField
@@ -238,9 +239,9 @@ export default function KRItem({
         >
           <TextField
             id={`key-result-coefficient-${index}`}
-            label="ضریب"
+            label="وزن"
             variant="standard"
-            placeholder="ضریب"
+            placeholder="وزن"
             inputProps={{ className: "text-body-2 py-0-7" }}
             onChange={(e) => handleChange("coefficient", +e.target.value)}
             value={theKR?.coefficient ?? 1}

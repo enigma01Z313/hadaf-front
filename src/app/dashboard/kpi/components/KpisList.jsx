@@ -58,10 +58,10 @@ export default function KpisList({
           <div style={{ width: "80px" }} className="text-center">
             روند تغییر
           </div>
-          <div style={{ width: "130px" }} className="text-caption text-center">
+          {/* <div style={{ width: "130px" }} className="text-caption text-center">
             مقدار واقعی <br />
             (دوره قبل/دوره جاری)
-          </div>
+          </div> */}
           <div style={{ width: "120px" }} className="text-center">
             منصوب به
           </div>

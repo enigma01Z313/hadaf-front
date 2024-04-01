@@ -35,6 +35,7 @@ export default function Dnd({
   setSingleTask,
   setRealoadList,
   filteredMeMode,
+  taskStatuses,
 }) {
   const { theWorkspace } = useContext(workspaceContext);
 
@@ -145,6 +146,8 @@ export default function Dnd({
               addNewTask={addNewTask}
               setSingleTask={setSingleTask}
               filteredMeMode={filteredMeMode}
+              taskStatuses={taskStatuses}
+              setRealoadList={setRealoadList}
             />
           );
         })}
