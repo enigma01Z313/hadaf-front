@@ -9,6 +9,7 @@ import CrisisAlertIcon from "@mui/icons-material/CrisisAlert";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import UpgradeIcon from "@mui/icons-material/Upgrade";
 import ContactSupportIcon from "@mui/icons-material/ContactSupport";
+import GroupsIcon from "@mui/icons-material/Groups";
 
 const menuItems = (isSuperAdmin, isAdmin, isNormalUser) => {
   const menus = [
@@ -55,6 +56,13 @@ const menuItems = (isSuperAdmin, isAdmin, isNormalUser) => {
       slug: "users",
       link: "/dashboard/users",
       icon: PersonIcon,
+    },
+    {
+      id: 40,
+      title: "کاراموزها",
+      slug: "trainees",
+      link: "/dashboard/trainees",
+      icon: GroupsIcon,
     },
     {
       id: 50,

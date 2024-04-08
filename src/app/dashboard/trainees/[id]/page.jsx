@@ -16,7 +16,6 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import DoupleActiveSwitch from "@/app/components/DoupleActiveSwitch";
 import Error from "@/app/components/Shared/Error";
 import ContainedPrimary from "@/app/components/Button/ContainedPrimary";
-import Superviser from "./Superviser";
 
 import getUser from "@/app/lib/users/get";
 import getUsersList from "@/app/lib/users/list";
@@ -61,8 +60,6 @@ export default function User({ params }) {
       setFullName(userData.fullName);
       setPhone(userData.phone);
       setEmail(userData.email);
-      setSupervser(userData.supervisor);
-
       setLoading(false);
     })();
   }, [params.id]);
@@ -121,21 +118,17 @@ export default function User({ params }) {
     if (!hasError) {
       setLoading(true);
 
-      const uppedUser = await updateUser(user.id, {
+      const uppedUser  = await updateUser(user.id, {
         fullName,
         phone,
         email,
         passowrd: passwordRef.current.value,
-        referalCode: referalCodeRef.current.value,
-        supervisor: superviser?.id,
+        referalCode: referalCodeRef.current.value
       });
 
       if (user.id === theUser.id) {
         setTheUser(uppedUser);
-        localStorage.setItem(
-          "user",
-          JSON.stringify({ ...user, fullName: uppedUser.fullName })
-        );
+        localStorage.setItem('user', JSON.stringify({...user, fullName: uppedUser.fullName}))
       }
       setLoading(false);
     }
@@ -155,15 +148,13 @@ export default function User({ params }) {
     <div
       className={`
     d-flex justify-between py-3 px-2 wrapper-box align-center
-    ${loading ? "loading" : ""}`}
-    >
+    ${loading ? "loading" : ""}`}>
       <div className="w-50">
         <Button
           className={`p-0 d-flex justify-between
             ${uploadLoading ? styles["loading"] : ""}`}
           color="inherit"
-          component="label"
-        >
+          component="label">
           <input type="file" onChange={(e) => handleImageUpload(e)} hidden />
           {(user.imageId && "aaaa") || (
             <AccountCircleIcon style={{ fontSize: 50, opacity: 0.5 }} />
@@ -182,7 +173,6 @@ export default function User({ params }) {
         />
         {fullNameError && <Error>{fullNameError}</Error>}
       </FormControl>
-
       <FormControl className="rtl-input p-relative w-50">
         <InputLabel htmlFor="mobile">شماره موبایل</InputLabel>
         <Input
@@ -194,7 +184,6 @@ export default function User({ params }) {
         />
         {phoneError && <Error>{phoneError}</Error>}
       </FormControl>
-
       <FormControl className="mt-3 rtl-input p-relative w-50">
         <InputLabel htmlFor="phone">ایمیل</InputLabel>
         <Input
@@ -208,7 +197,6 @@ export default function User({ params }) {
         />
         {emailError && <Error>{emailError}</Error>}
       </FormControl>
-
       <FormControl className="mt-3 rtl-input p-relative w-50">
         <InputLabel htmlFor="password">رمز عبور</InputLabel>
         <Input
@@ -220,7 +208,6 @@ export default function User({ params }) {
         />
         {passwordError && <Error>{passwordError}</Error>}
       </FormControl>
-
       <FormControl className="mt-3 rtl-input p-relative w-50">
         <InputLabel htmlFor="password-re">تکرار رمز عبور</InputLabel>
         <Input
@@ -232,7 +219,6 @@ export default function User({ params }) {
         />
         {passwordReError && <Error>{passwordReError}</Error>}
       </FormControl>
-
       <FormControl className="mt-3 rtl-input p-relative w-50">
         <span htmlFor="password-re">نوع استفاده</span>
 
@@ -254,7 +240,6 @@ export default function User({ params }) {
           </Grid>
         </Grid>
       </FormControl>
-
       <FormControl className="mt-3 rtl-input p-relative w-50">
         <InputLabel htmlFor="password-re">کد معرف</InputLabel>
         <Input
@@ -263,14 +248,34 @@ export default function User({ params }) {
           inputRef={referalCodeRef}
         />
       </FormControl>
-
-      <Superviser superviser={superviser} setSupervser={setSupervser} />
+      <FormControl
+        className="mt-3 rtl-input p-relative w-50"
+        variant="standard">
+        <InputLabel htmlFor="password-re">ناظر</InputLabel>
+        <Select
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          value={superviser}
+          onChange={(e) => setSupervser(e.target.value)}
+          label="ناظر">
+          <MenuItem value="">
+            <em>-</em>
+          </MenuItem>
+          {users.length !== 0 &&
+            users
+              .filter((item) => item.id !== params.id)
+              .map((user) => (
+                <MenuItem key={user.id} value={user.id}>
+                  {user.fullName}
+                </MenuItem>
+              ))}
+        </Select>
+      </FormControl>
 
       <ContainedPrimary
         onClick={submitRegisterForm}
         className="mt-3 justify-center"
-        size="large"
-      >
+        size="large">
         ذخیره
       </ContainedPrimary>
     </div>

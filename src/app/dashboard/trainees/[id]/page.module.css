@@ -36,30 +36,3 @@
     transform: rotate(360deg);
   }
 }
-
-.value-users .value-user {
-  cursor: pointer;
-  transition: all 0.25s;
-}
-.value-users .value-user:hover {
-  background: #eee;
-  cursor: pointer;
-}
-.value-users .value-user > div {
-  width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.value-users .value-user.checked > div {
-  width: calc(100% - 40px);
-}
-.cur-value{
-  position: absolute;
-  right: 0;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  z-index: 10;
-  background: rgba(255, 255, 255, 0.7);
-}
