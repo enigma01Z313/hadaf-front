@@ -4,13 +4,14 @@ import dynamic from "next/dynamic";
 import { DragDropContext } from "react-beautiful-dnd";
 
 import styles from "./style.module.css";
+import workspaceContext from "@/app/context/workspaceContext";
+
 import updateTask from "@/app/lib/tasks/update";
 import reorderTasks from "@/app/lib/tasks/reorder";
-import workspaceContext from "@/app/context/workspaceContext";
 
 const Column = dynamic(() => import("./Column"), { ssr: false });
 
-const reorderColumnList = (sourceCol, startIndex, endIndex,) => {
+const reorderColumnList = (sourceCol, startIndex, endIndex) => {
   const newTaskIds = Array.from(sourceCol.taskIds);
   const [removed] = newTaskIds.splice(startIndex, 1);
   newTaskIds.splice(endIndex, 0, removed);
@@ -40,7 +41,10 @@ export default function Dnd({
   const { theWorkspace } = useContext(workspaceContext);
 
   const onDragEnd = async (result) => {
-    const { destination, source } = result;
+    const { destination, source, draggableId } = result;
+
+    console.log("5------------------------------");
+    console.log(result);
 
     // If user tries to drop in an unknown destination
     if (!destination) return;
@@ -78,8 +82,13 @@ export default function Dnd({
       }));
 
       setTasks(newState);
+      await updateTask(
+        draggableId,
+        { status: destination.droppableId },
+        theWorkspace
+      );
       await reorderTasks({ workspaceId: theWorkspace, data: newTasksOrder });
-      setRealoadList(state => !state)
+      setRealoadList((state) => !state);
       return;
     }
 
@@ -116,8 +125,14 @@ export default function Dnd({
     });
 
     setTasks(newState);
+
+    await updateTask(
+      draggableId,
+      { status: destination.droppableId },
+      theWorkspace
+    );
     await reorderTasks({ workspaceId: theWorkspace, data: newTasksOrder });
-    setRealoadList(state => !state)
+    setRealoadList((state) => !state);
   };
 
   useEffect(() => {
@@ -128,7 +143,8 @@ export default function Dnd({
     <DragDropContext onDragEnd={onDragEnd}>
       <div
         className={`d-flex w-100 justify-between align-start
-        ${styles["boards-wrap"]}`}>
+        ${styles["boards-wrap"]}`}
+      >
         {tasksList.columnOrder.map((columnId) => {
           const column = tasksList.columns[columnId];
           const tasks = column.taskIds.map((taskId) => tasksList.tasks[taskId]);
