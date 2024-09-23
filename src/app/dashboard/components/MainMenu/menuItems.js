@@ -11,7 +11,9 @@ import UpgradeIcon from "@mui/icons-material/Upgrade";
 import ContactSupportIcon from "@mui/icons-material/ContactSupport";
 import GroupsIcon from "@mui/icons-material/Groups";
 
-const menuItems = (isSuperAdmin, isAdmin, isNormalUser) => {
+const menuItems = (isSuperAdmin, isAdmin, hasTrainee) => {
+  const adminLvl = isAdmin || isSuperAdmin;
+
   const menus = [
     {
       id: 10,
@@ -63,6 +65,7 @@ const menuItems = (isSuperAdmin, isAdmin, isNormalUser) => {
       slug: "trainees",
       link: "/dashboard/trainees",
       icon: GroupsIcon,
+      condition: () => hasTrainee ?? false,
     },
     {
       id: 50,
@@ -78,34 +81,34 @@ const menuItems = (isSuperAdmin, isAdmin, isNormalUser) => {
       link: "/dashboard/admirations",
       icon: EmojiEventsIcon,
     },
-  ];
-
-  if (isAdmin || isSuperAdmin) {
-    menus.push({
+    {
       id: 100,
       title: "پلن ها",
-      slug: "upgrade",
+      slug: "plans",
       link: "/dashboard/plans",
       icon: UpgradeIcon,
-    });
-  } else if (isNormalUser) {
-    menus.push({
+      // condition: () => adminLvl,
+      condition: () => false,
+    },
+    {
       id: 100,
       title: "تمدید/ارتقا",
       slug: "upgrade",
       link: "/dashboard/upgradePlan",
       icon: UpgradeIcon,
-    });
-  }
-
-  menus.push({
-    id: 110,
-    title: "ارتباط با ما",
-    slug: "contactus",
-    link: "mailto:f.ahmadyf94@gmail.com",
-    icon: ContactSupportIcon,
-    // image: 'support'
-  });
+      // condition: () => !adminLvl,
+      condition: () => false,
+    },
+    {
+      id: 110,
+      title: "ارتباط با ما",
+      slug: "contactus",
+      link: "mailto:f.ahmadyf94@gmail.com",
+      icon: ContactSupportIcon,
+      condition: () => false,
+      // image: 'support'
+    },
+  ];
 
   return menus;
 };

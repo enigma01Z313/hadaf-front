@@ -1,12 +1,23 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 import permissionChec from "@/app/utils/permissionCheck.js";
 import menuItems from "./menuItems.js";
 import MenuItem from "./MenuItem";
 import styles from "./style.module.css";
 
-export default function MainMenu({ smallMode, ...rest }) {
+import getTrainees from "@/app/lib/trainees/list";
+
+export default async function MainMenu({ smallMode, ...rest }) {
   const [activeMenu, setActiveMenu] = useState("dashboard");
+  const [traineeCount, setTraineeCount] = useState(0);
+
+  useEffect(() => {
+    (async function () {
+      const traineesList = await getTrainees();
+
+      setTraineeCount(traineesList.data.length);
+    })();
+  }, []);
 
   const menuItemClicked = (slug) => {
     setActiveMenu(slug);
@@ -19,8 +30,9 @@ export default function MainMenu({ smallMode, ...rest }) {
   return (
     <nav className={styles["main-menu"]} {...rest}>
       <ul className="d-flex direction-column">
-        {menuItems(isSuperAdmin, isAdmin, !(isAdmin || isSuperAdmin)).map(
-          (item) => {
+        {menuItems(isSuperAdmin, isAdmin, traineeCount !== 0)
+          .filter((item) => item.condition?.() ?? true)
+          .map((item) => {
             const isDisabled = item?.disabled ?? false;
 
             return (
@@ -34,8 +46,7 @@ export default function MainMenu({ smallMode, ...rest }) {
                 subMenu={item.subMenu}
               />
             );
-          }
-        )}
+          })}
       </ul>
     </nav>
   );
