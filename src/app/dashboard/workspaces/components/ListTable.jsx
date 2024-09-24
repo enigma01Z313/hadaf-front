@@ -8,11 +8,12 @@ import Cards from "@/app/components/Cards";
 
 import listColumns from "./listColumns";
 
-export default function ListTable({ setMode, reloadList }) {
-  const columns = listColumns();
+export default function ListTable({ setMode, reloadList, setRealoadList }) {
 
   const [workspaces, setWorkspaces] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const columns = listColumns(setRealoadList, setLoading);
 
   useEffect(() => {
     (async function () {

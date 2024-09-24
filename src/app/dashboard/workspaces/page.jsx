@@ -11,7 +11,7 @@ export default function Workspaces() {
 
   return (
     <NoSSR>
-      <ListTable setMode={setMode} reloadList={reloadList} />
+      <ListTable setMode={setMode} reloadList={reloadList} setRealoadList={setRealoadList} />
       {mode === "create" && (
         <Create
           open={mode === "create"}
