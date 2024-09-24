@@ -138,6 +138,9 @@ export default function KRItem({
     }
   };
   
+  console.log('2-1--------------------');
+  console.log(theUsers);
+
   return (
     <>
       <article className={`p-2 mb-1 d-flex ${styles["key-result-item"]}`}>
