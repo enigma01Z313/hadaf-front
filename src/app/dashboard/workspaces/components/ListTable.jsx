@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 
 import ContainedPrimary from "@/app/components/Button/ContainedPrimary";
@@ -6,14 +6,17 @@ import getWorkspacesList from "@/app/lib/workspaces/list";
 import AddIcon from "@mui/icons-material/Add";
 import Cards from "@/app/components/Cards";
 
+import workspaceContext from "@/app/context/workspaceContext";
+
 import listColumns from "./listColumns";
 
 export default function ListTable({ setMode, reloadList, setRealoadList }) {
 
   const [workspaces, setWorkspaces] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { setUserWorkspaces } = useContext(workspaceContext);
 
-  const columns = listColumns(setRealoadList, setLoading);
+  const columns = listColumns(setRealoadList, setLoading, setUserWorkspaces);
 
   useEffect(() => {
     (async function () {
@@ -21,6 +24,7 @@ export default function ListTable({ setMode, reloadList, setRealoadList }) {
 
       setLoading(false);
       setWorkspaces(workspacesList.data);
+      setUserWorkspaces(workspacesList.data)
     })();
   }, [reloadList]);
 

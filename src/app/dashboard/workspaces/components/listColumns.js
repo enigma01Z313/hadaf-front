@@ -9,6 +9,7 @@ const listColumns = (setRealoadList, setLoading) => {
   const deleteWorkSpace = async (id, body) => {
     setLoading(true)
     await updateWorkspace(id, body);
+    
     setRealoadList((state) => !state);
   };
 
