@@ -22,7 +22,13 @@ export default function KeyResultSelect({ changeHandlred, keyResults, value }) {
           labelId="okr-owner-select-label"
           id="okr-owner-select"
           value={value}
-          onChange={(e) => changeHandlred("assignee", e.target.value)}
+          onChange={(e) => {
+            console.log('2------------------');
+
+            console.log(value);
+            console.log(e.target.value);
+            changeHandlred("keyResult", e.target.value)
+          }}
           className="text-h6 py-1">
           {keyResults &&
             keyResults?.map((keyResult) => (

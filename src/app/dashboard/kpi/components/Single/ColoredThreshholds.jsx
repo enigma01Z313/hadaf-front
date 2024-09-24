@@ -14,10 +14,10 @@ export default function ColoredThreshholds({
   direction,
 }) {
   const threshholds = {
-    thresholdsOne: { value: treshOne },
-    thresholdsTwo: { value: treshTwo, color: "red" },
-    thresholdsThree: { value: treshThree, color: "orange" },
-    thresholdsFour: { value: treshFour, color: "green" },
+    thresholdsOne: { value: treshOne, label: "غیر قابل قبول" },
+    thresholdsTwo: { value: treshTwo, color: "red", label: "ضعیف" },
+    thresholdsThree: { value: treshThree, color: "orange", label: "قابل قبول" },
+    thresholdsFour: { value: treshFour, color: "green", label: "عالی" },
   };
 
   return (
@@ -27,9 +27,13 @@ export default function ColoredThreshholds({
         {Object.keys(threshholds).map((key, i) => (
           <>
             {i !== 0 && (
-              <ArrowBackIcon className="mx-1" style={{ color: threshholds[key].color }} />
+              <ArrowBackIcon
+                className="mx-1"
+                style={{ color: threshholds[key].color, position: "relative", top: "13px" }}
+              />
             )}
             <div className="grow-1">
+              <span style={{ fontSize: "12px" }}>{threshholds[key].label}</span>
               <TextField
                 value={threshholds[key].value}
                 onChange={(e) =>

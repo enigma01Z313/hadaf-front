@@ -12,8 +12,7 @@ import updateOkr from "@/app/lib/okr/update";
 import listTimeframes from "@/app/lib/timeframes/list";
 
 export default function Okr({ filteredUser, filteredMeMode }) {
-  const { theWorkspace, theWorkspaceTimeframes, setTheWorkspaceTimeframes } =
-    useContext(workspaceContext);
+  const { theWorkspace, theWorkspaceTimeframes, setTheWorkspaceTimeframes } = useContext(workspaceContext);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTimeframe, setActiveTimeframe] = useState();
@@ -25,9 +24,7 @@ export default function Okr({ filteredUser, filteredMeMode }) {
     (async function () {
       let timeframesList;
 
-      timeframesList = theWorkspace
-        ? await listTimeframes({ workspaceId: theWorkspace, raw: true })
-        : [];
+      timeframesList = theWorkspace ? await listTimeframes({ workspaceId: theWorkspace, raw: true }) : [];
 
       setTheWorkspaceTimeframes(timeframesList);
       setActiveTimeframe(timeframesList?.[0]?.id);
@@ -42,6 +39,10 @@ export default function Okr({ filteredUser, filteredMeMode }) {
       const updatedData = await updateOkr(theWorkspace, id, data);
       resolve();
     });
+
+  console.log("6-5------------------------");
+  console.log(singleOkr);
+  console.log(singleOkr !== "");
 
   return (
     <>

@@ -29,13 +29,16 @@ export default function Create({
     theWorkspace,
   });
 
+  console.log('1------------------');
+  console.log(newTask);
+
   const changeHandlred = (key, value) =>
     setNewTask((state) => ({ ...state, [key]: value }));
 
   const saveCurrentTask = async () => {
     if (newTask.newTaskTitle !== "") {
       const newTast = await createTask(newTask);
-      changeHandlred("title", "");
+      changeHandlred("newTaskTitle", "");
       setRealoadList((state) => !state);
     }
   };
@@ -51,8 +54,8 @@ export default function Create({
               variant="standard"
               placeholder="عنوان اقدامک..."
               onChange={(e) => changeHandlred("newTaskTitle", e.target.value)}
-              value={newTask.title}
-              onBlur={saveCurrentTask}
+              value={newTask.newTaskTitle}
+              // onBlur={saveCurrentTask}
             />
           </FormControl>
 
@@ -72,9 +75,9 @@ export default function Create({
 
       <TextedInfo
         className="mt-1"
-        // onClick={() => {
-        //   setCreateMode(true);
-        // }}
+        onClick={() => {
+          saveCurrentTask();
+        }}
       >
         <AddIcon className="ml-1" />
         افزودن اقدامک

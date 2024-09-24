@@ -18,7 +18,7 @@ export default function Continuous({ value, changeHandlred, continuousList }) {
         onChange={(e) =>
           changeHandlred("continuous", { code: +e.target.value })
         }
-        className="text-h6 py-1">
+        className="text-h6">
         {continuousList.map((continuousItem) => (
           <MenuItem key={continuousItem.code} value={continuousItem.code}>
             {continuousItem.label}

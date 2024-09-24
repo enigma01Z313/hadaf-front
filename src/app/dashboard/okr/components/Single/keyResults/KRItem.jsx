@@ -73,7 +73,7 @@ export default function KRItem({
         access: uppedOkr.access.code,
       });
       setLoading(false);
-      setReloadList(state => !state)
+      setReloadList((state) => !state);
     }
   };
 
@@ -111,7 +111,7 @@ export default function KRItem({
         access: uppedOkr.access.code,
       });
 
-      setReloadList(state => !state)
+      setReloadList((state) => !state);
       setTheKR(defaultKR);
       setLoading(false);
     }
@@ -133,11 +133,11 @@ export default function KRItem({
         access: uppedOkr.access.code,
       });
 
-      setReloadList(state => !state)
+      setReloadList((state) => !state);
       setLoading(false);
     }
   };
-
+  
   return (
     <>
       <article className={`p-2 mb-1 d-flex ${styles["key-result-item"]}`}>
@@ -154,14 +154,9 @@ export default function KRItem({
           />
         </FormControl>
 
-        <UsersSelector
-          id={`kr-owner-${index}`}
-          label={"مالک"}
-          value={theKR?.owner}
-          changeHandlre={handleOwnerChange}
-        />
+        <UsersSelector id={`kr-owner-${index}`} label={"مالک"} value={theKR?.owner} changeHandlre={handleOwnerChange} />
 
-        <FormControl
+        {/* <FormControl
           id={"key-result-direction-" + index}
           variant="standard"
           className="rtl-input p-relative grow-1 ml-1-5"
@@ -171,7 +166,7 @@ export default function KRItem({
           <Select
             labelId="okey-result-direction-label"
             id={`okey-result-direction`}
-            value={theKR.direction}
+            value={theKR?.direction}
             label={"جهت"}
             onChange={(e) => handleChange("direction", e.target.value)}
             className="text-h6 py-1"
@@ -183,12 +178,9 @@ export default function KRItem({
                 </MenuItem>
               ))}
           </Select>
-        </FormControl>
+        </FormControl> */}
 
-        <FormControl
-          className="rtl-input p-relative grow-1 ml-1-5 d-none"
-          style={{ maxWidth: "70px" }}
-        >
+        <FormControl className="rtl-input p-relative grow-1 ml-1-5 d-none" style={{ maxWidth: "70px" }}>
           <TextField
             id={`key-result-start-${index}`}
             label="شروع"
@@ -201,10 +193,7 @@ export default function KRItem({
           />
         </FormControl>
 
-        <FormControl
-          className="rtl-input p-relative grow-1 ml-1-5"
-          style={{ maxWidth: "90px" }}
-        >
+        <FormControl className="rtl-input p-relative grow-1 ml-1-5" style={{ maxWidth: "90px" }}>
           <TextField
             id={`key-result-current-${index}`}
             label="درصد پیشرفت"
@@ -217,10 +206,7 @@ export default function KRItem({
           />
         </FormControl>
 
-        <FormControl
-          className="rtl-input p-relative grow-1 ml-1-5 d-none"
-          style={{ maxWidth: "70px" }}
-        >
+        <FormControl className="rtl-input p-relative grow-1 ml-1-5 d-none" style={{ maxWidth: "70px" }}>
           <TextField
             id={`key-result-goal-${index}`}
             label="هدف"
@@ -233,10 +219,7 @@ export default function KRItem({
           />
         </FormControl>
 
-        <FormControl
-          className="rtl-input p-relative grow-1"
-          style={{ maxWidth: "70px" }}
-        >
+        <FormControl className="rtl-input p-relative grow-1" style={{ maxWidth: "70px" }}>
           <TextField
             id={`key-result-coefficient-${index}`}
             label="وزن"
@@ -257,11 +240,7 @@ export default function KRItem({
 
         <div className="w-100 mt-2">
           <Accordion className="bg-trans">
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1-content"
-              id="panel1-header"
-            >
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1-content" id="panel1-header">
               توضیحات
             </AccordionSummary>
             <AccordionDetails>

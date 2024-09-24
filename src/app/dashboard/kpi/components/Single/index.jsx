@@ -266,6 +266,11 @@ export default function Single({
               changeHandlred={changeHandlred}
               continuousList={continuousList}
             />
+            
+            <TargetValue
+              value={theKPI?.targetValue ?? ""}
+              changeHandlred={changeHandlred}
+            />
 
             <Direction
               value={theKPI?.direction?.code ?? directionsList[0].code}
@@ -276,11 +281,6 @@ export default function Single({
           </div>
 
           <div className="d-flex no-wrap mt-2">
-            <TargetValue
-              value={theKPI?.targetValue ?? ""}
-              changeHandlred={changeHandlred}
-            />
-
             <Assignee
               value={theKPI?.assignee?.id ?? theUsers?.data?.[0]?.id}
               changeHandlred={changeHandlred}

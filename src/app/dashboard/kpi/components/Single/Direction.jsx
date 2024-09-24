@@ -13,7 +13,7 @@ export default function Direction({
       id="kpi-wrap-direction"
       fullWidth
       variant="standard"
-      className="rtl-input p-relative grow-1">
+      className="rtl-input p-relative grow-1 d-none">
       <InputLabel id="okr-direction-select-label">جهت</InputLabel>
       <Select
         labelId="okr-status-select-label"
